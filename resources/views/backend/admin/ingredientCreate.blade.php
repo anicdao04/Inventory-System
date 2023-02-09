@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Order | Food App</title>
+  <title>Ingredient-Create | Food App</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -14,21 +14,10 @@
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
-    }
-    .content-wrapper{
-        background-color: #f2f4f6;
-    }
-    p{
-        font-size:16px !important;
-    }
-    .text-blue{
-        style="color: rgb(18, 66, 125)"
     }
   </style>
 </head>
@@ -87,7 +76,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('orderparent.index')}}" class="nav-link active">
+            <a href="{{route('orderparent.index')}}" class="nav-link">
               <i class="nav-icon fas fa-utensils"></i>
               <p>Order</p>
             </a>
@@ -99,12 +88,12 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Menu</p>
+                <i class="far fa-circle nav-icon"></i>
+                <p>Menu</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('ingredient.index')}}" class="nav-link">
+            <a href="{{route('ingredient.index')}}" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Ingredients</p>
             </a>
@@ -113,6 +102,7 @@
           <div class="mt-3">
           <label>Settings</label>
           </div>  
+
 
 
           <!-- Menu -->
@@ -149,27 +139,54 @@
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper p-5">
+<div class="content-wrapper p-4">
 <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="mb-3 text-center">
-                <h1 style="color: rgb(18, 66, 125)" class="mb-4">Select Category</h1>
+            <div class="mb-3">
+                <h3>Create</h3>
+                <!-- <p>Ingredient | Create</p> -->
             </div>
-
+            
+            <form action="{{route('ingredient.store')}}" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="row">
-                @foreach($parents as $data)
-                    <div class="col-md-4 p-4">
-                        <div class="col-md-12 bg-white p-4" style="box-shadow:rgb(0 0 0 / 3.8%) 0px 0px 1px 2px;">
-                            <div class="">
-                                <a href="{{url('admin/order/o_id/'. $data->id)}}">
-                                  <img src="{{asset('uploads/images/menu_items/parent/'. $data->image)}}" class="img-fluid">
-                                </a>
-                                <p class="mt-3 text-center m-0 p-0" style="font-size:22px; color: rgb(18, 66, 125)"><a href="{{url('admin/order/o_id/'. $data->id)}}" style="color: rgb(18, 66, 125)">{{$data->name}}</a></p>
+                <div class="col-12 col-md-12 mt-3 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Ingredient Information</h3>
+                            <div class="card-tools">                    
+                        
+                            </div>
+                        </div>
+                    
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="class">Name</label>
+                                    <input type="text" class="form-control" name="name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="class">UOM</label>
+                                    <select class="form-control" name="uom" required>
+                                        <option value="" selected disabled>Please select</option>
+                                        <option value="gm">GM</option>
+                                        <option value="ml">ML</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+
+                </div>
+                    <button class="btn btn-primary" type="Submit">Submit</button>
+                    <a href="{{route('ingredient.index')}}" class="btn btn-default">Cancel</a>
+                    
+                </div>
+            </form>
             </div>
 
         </div> <!-- /container-fluid -->
@@ -191,18 +208,6 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-<!-- Toastr -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-@if(Session::has('parent_created'))
-    <script>
-        toastr.info("{!! Session::get('parent_created') !!}");
-    </script>
-@elseif(Session::has('parent_updated'))
-    <script>
-        toastr.success("{!! Session::get('parent_updated') !!}");
-    </script>
-@endif
 
 @yield('custom-script')
 </body>

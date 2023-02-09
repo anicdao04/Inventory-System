@@ -93,8 +93,14 @@
 
           <li class="nav-item">
             <a href="" class="nav-link active">
-              <i class="nav-icon fa fa-folder"></i>
+              <i class="far fa-circle nav-icon"></i>
               <p>Menu</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 
@@ -143,7 +149,7 @@
         <div class="container-fluid">
             <div class="mb-3">
                 <h3>Menu</h3>
-                <p class="text-muted">List of Menus</p>
+                <!-- <p class="text-muted">List of Menus</p> -->
             </div>
             
             <!-- <small>(Legend Status: <strong><span class="text-primary">CR</span> - Contain Recipe, <span class="text-danger">NCR</span> - Not Contain Recipe</strong>)</small> -->

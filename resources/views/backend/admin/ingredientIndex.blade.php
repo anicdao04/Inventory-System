@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Order | Food App</title>
+  <title>Recipe-List | Food App</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -21,14 +21,8 @@
     .content-wrapper .content{
       padding: .5rem 1rem !important;
     }
-    .content-wrapper{
-        background-color: #f2f4f6;
-    }
-    p{
-        font-size:16px !important;
-    }
-    .text-blue{
-        style="color: rgb(18, 66, 125)"
+    .text-warning{
+      color: #ff9007 !important;
     }
   </style>
 </head>
@@ -87,7 +81,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('orderparent.index')}}" class="nav-link active">
+            <a href="{{route('orderparent.index')}}" class="nav-link">
               <i class="nav-icon fas fa-utensils"></i>
               <p>Order</p>
             </a>
@@ -104,7 +98,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('ingredient.index')}}" class="nav-link">
+            <a href="{{route('ingredient.index')}}" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
               <p>Ingredients</p>
             </a>
@@ -149,28 +143,62 @@
 
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper p-5">
+<div class="content-wrapper p-4">
 <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="mb-3 text-center">
-                <h1 style="color: rgb(18, 66, 125)" class="mb-4">Select Category</h1>
+            <div class="mb-3">
+                <h3>Ingredient</h3>
+                <!-- <p class="text-muted">List of Ingredients</p> -->
             </div>
-
+            
+            <!-- <small>(Legend Status: <strong><span class="text-primary">CR</span> - Contain Recipe, <span class="text-danger">NCR</span> - Not Contain Recipe</strong>)</small> -->
             <div class="row">
-                @foreach($parents as $data)
-                    <div class="col-md-4 p-4">
-                        <div class="col-md-12 bg-white p-4" style="box-shadow:rgb(0 0 0 / 3.8%) 0px 0px 1px 2px;">
-                            <div class="">
-                                <a href="{{url('admin/order/o_id/'. $data->id)}}">
-                                  <img src="{{asset('uploads/images/menu_items/parent/'. $data->image)}}" class="img-fluid">
-                                </a>
-                                <p class="mt-3 text-center m-0 p-0" style="font-size:22px; color: rgb(18, 66, 125)"><a href="{{url('admin/order/o_id/'. $data->id)}}" style="color: rgb(18, 66, 125)">{{$data->name}}</a></p>
+                <div class="col-12 col-md-12 mt-3 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">List of Items</h3>
+                            <div class="card-tools">                    
+                                
                             </div>
                         </div>
+                    
+                        <div class="card-body p-0">
+                            <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>UOM</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($ingredients as $data)
+                                <tr>
+                                    <td>{{$data->name}}</td>
+                                    <td class="text-uppercase">{{$data->uom}}</td>
+                                    <td>{{$data->quantity}}</td>
+                                    @if($data->status == 0)
+                                      <td class="text-danger">Inactive</td>
+                                    @elseif($data->status == 1)
+                                      <td class="text-success">Active</td>
+                                    @endif
+                                    <td>
+                                        <a class="btn btn-default btn-sm">Reload</a>
+                                        <a class="btn btn-danger btn-sm">Suspend</a>
+                                    </td>
+                                </tr>
+                              @endforeach
+                            </tbody>
+                            </table>
+                        </div>
+
                     </div>
-                @endforeach
-            </div>
+                    <a href="{{route('ingredient.create')}}" class="btn btn-primary">Create</a>
+                </div>
+            </div> <!-- /row -->   
 
         </div> <!-- /container-fluid -->
     </section> <!-- /section -->
@@ -194,13 +222,13 @@
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-@if(Session::has('parent_created'))
+@if(Session::has('ingredient_created'))
     <script>
-        toastr.info("{!! Session::get('parent_created') !!}");
+        toastr.info("{!! Session::get('ingredient_created') !!}");
     </script>
-@elseif(Session::has('parent_updated'))
+@elseif(Session::has('ingredient_updated'))
     <script>
-        toastr.success("{!! Session::get('parent_updated') !!}");
+        toastr.success("{!! Session::get('ingredient_updated') !!}");
     </script>
 @endif
 

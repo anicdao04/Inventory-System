@@ -158,7 +158,7 @@
                             <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="class">Category</label>
+                                    <label for="class">Assigned Category</label>
                                     <select name="category_id" class="form-control" required>
                                         <option value="" disabled selected>Please select</option>
                                         @foreach($categories as $data)

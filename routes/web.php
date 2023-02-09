@@ -10,6 +10,7 @@ use App\Http\Controllers\MenuParentController;
 use App\Http\Controllers\MenuChildController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\IngredientController;
 
 use App\Http\Controllers\LogoutController;
 
@@ -60,6 +61,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('recipe', [RecipeController::class, 'index'])->name('recipe.index');
         Route::get('recipe/{id}', [RecipeController::class, 'recipe_id'])->name('recipe_id');
         Route::get('recipe/{id}/register', [RecipeController::class, 'register']);
+
+        Route::get('ingredient', [IngredientController::class, 'index'])->name('ingredient.index');
+        Route::get('ingredient/create', [IngredientController::class, 'create'])->name('ingredient.create');
+        Route::post('ingredient/store', [IngredientController::class, 'store'])->name('ingredient.store');
 
         Route::get('menu/parent/list', [MenuParentController::class, 'index'])->name('menuparent.index');
         Route::get('menu/parent/create', [MenuParentController::class, 'create'])->name('menuparent.create');

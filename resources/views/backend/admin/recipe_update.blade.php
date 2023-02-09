@@ -96,8 +96,14 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link active">
-              <i class="nav-icon fa fa-folder"></i>
+              <i class="far fa-circle nav-icon"></i>
               <p>Menu</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 
@@ -109,20 +115,20 @@
           <!-- Menu -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-list"></i>
+              <i class="far fa-circle nav-icon"></i>
               <p>Menu Items<i class="right fas "></i></p>
               <i class="right fas fa-angle-left"></i>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{route('menuparent.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-dot-circle nav-icon"></i>
                   <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{route('menuchild.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-dot-circle nav-icon"></i>
                   <p>Menu</p>
                 </a>
               </li>
@@ -181,7 +187,7 @@
                                     <td>{{$recipe->qty}}</td> 
                                     <td>{{$recipe->measurement}}</td> 
                                     <td>{{$recipe->description}}</td> 
-                                    <td>
+                                    <!-- <td>
                                       <div class="btn-group" role="group">
                                         <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="nav-icon fas fa-list mr-1"></i> Select
@@ -192,7 +198,7 @@
                                           <a class="dropdown-item"  href=""><i class="nav-icon fas fa-search mr-1"></i>Preview</a>
                                         </div>
                                       </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                               @endforeach
                             </tbody>
@@ -208,26 +214,36 @@
                       <div class="bg-white p-4 shadow p-3 mb-5 bg-white rounded">
                       
                         <div class="row">
-                            <div class="col-6 col-sm-6">
+                            <div class="col-4 col-sm-4">
                               <input type="number" name="qty" class="form-control" placeholder="Quantity" required>
                             </div>
-                            <div class="col-6 col-sm-6">
+                            <div class="col-4 col-sm-4">
                               <select class="form-control" name="uom" required>
-                                <option value="" selected disabled>Select</option>
+                                <option value="" selected disabled>UOM</option>
                                 <option value="gm">GM</option>
                                 <option value="ml">ML</option>
                               </select>
                             </div>
-                          </div>
-
-                          <div class="row mt-3 mb-3">
-                            <div class="col-12 col-sm-12">
-                              <textarea class="form-control" name="description" rows="3" placeholder="Description" required></textarea>
+                            <div class="col-4 col-sm-4">
+                              <select class="form-control" name="description" required>
+                                <option value="" selected disabled>Ingredient</option>
+                                <option value="salt">Salt</option>
+                                <option value="oil">Oil</option>
+                              </select>
                             </div>
                           </div>
 
-                          <button class="btn btn-sm btn-primary mr-1" type="submit">Add ingredient</button>
-                          <a class="btn btn-sm btn-default" href="{{route('recipe.index')}}">Back</a>
+                          <!-- <div class="row mt-3 mb-3">
+                            <div class="col-12 col-sm-12">
+                              <textarea class="form-control" name="description" rows="3" placeholder="Description" required></textarea>
+                            </div>
+                          </div> -->
+
+                          <div class="mt-3">
+                            <button class="btn btn-sm btn-primary mr-1" type="submit">Add ingredient</button>
+                            <a class="btn btn-sm btn-default" href="{{route('recipe.index')}}">Back</a>
+                          </div>
+                          
                         </div>
                       
                   </div><!--end col-8 -->

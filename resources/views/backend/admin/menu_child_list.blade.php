@@ -141,7 +141,7 @@
         <div class="container-fluid">
             <div class="mb-3">
                 <h3>List</h3>
-                <p><span class="text-primary">Menu Items</span> | Child</p>
+                <p><span class="text-primary">Menu Items</span> | Menu</p>
             </div>
             
             <div class="row">
@@ -159,7 +159,7 @@
                             <thead>
                                 <tr>
                                     <th>Menu Name</th>
-                                    <th>Category</th>
+                                    <th>Assigned Category</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
