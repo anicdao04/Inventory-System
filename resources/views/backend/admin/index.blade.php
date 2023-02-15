@@ -87,11 +87,12 @@
           </div> 
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('recipe.index')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Menu</p>
+              <p>Manage Menus</p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href="{{route('ingredient.index')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>

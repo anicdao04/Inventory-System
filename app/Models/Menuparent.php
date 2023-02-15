@@ -10,4 +10,10 @@ class Menuparent extends Model
     use HasFactory;
     protected $table = "menuparents";
     protected $fillables = ['name','image'];
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
 }

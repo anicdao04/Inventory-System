@@ -10,4 +10,5 @@ class Recipe extends Model
     use HasFactory;
     protected $table = "recipes";
     protected $fillables = ['menu_id','category_id','qty','measurement','description'];
+
 }

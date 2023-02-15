@@ -35,7 +35,6 @@ Route::middleware(['middleware' => 'PreventBackHistory'])->group(function() {
     Auth::routes();
 });
 
-
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/', function(){
@@ -60,7 +59,11 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
 
         Route::get('recipe', [RecipeController::class, 'index'])->name('recipe.index');
         Route::get('recipe/{id}', [RecipeController::class, 'recipe_id'])->name('recipe_id');
-        Route::get('recipe/{id}/register', [RecipeController::class, 'register']);
+        Route::get('recipe/{id}/register', [RecipeController::class, 'register'])->name('recipe.add');
+        Route::get('recipe/{id}/delete', [RecipeController::class, 'delete'])->name('recipe.delete');
+
+        Route::get('availability/yes/{id}', [MenuChildController::class, 'set_menu_available'])->name('set_recipe_available');
+        Route::get('availability/no/{id}', [MenuChildController::class, 'set_menu_unavailable'])->name('set_recipe_unavailable');
 
         Route::get('ingredient', [IngredientController::class, 'index'])->name('ingredient.index');
         Route::get('ingredient/create', [IngredientController::class, 'create'])->name('ingredient.create');
@@ -75,8 +78,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::post('menu/child/store', [MenuChildController::class, 'store'])->name('menuchild.store');
         Route::get('menu/child/edit/{id}', [MenuChildController::class, 'edit'])->name('menuchild.edit');
         Route::put('menu/child/update/{id}', [MenuChildController::class, 'update'])->name('menuchild.update');
-
 });
+
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth', 'PreventBackHistory']], function(){
     Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
 });

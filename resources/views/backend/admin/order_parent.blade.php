@@ -100,7 +100,7 @@
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Menu</p>
+              <p>Manage Menus</p>
             </a>
           </li>
           <li class="nav-item">
@@ -153,6 +153,16 @@
 <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+          @if($category_count == 0)
+            <div class="text-center">
+              <img src="{{asset('img/no-category.png')}}" width="200px">
+              <h1 style="color: rgb(18, 66, 125)" class="mb-4">Ooops!</h1>
+              <h3>No Category available</h3>
+              <p class="mt-3">Do you want to create one? click the button below</p>
+              <a href="{{route('menuparent.index')}}" class="btn btn-primary">Create</a>
+            </div>
+          
+          @else
             <div class="mb-3 text-center">
                 <h1 style="color: rgb(18, 66, 125)" class="mb-4">Select Category</h1>
             </div>
@@ -160,18 +170,22 @@
             <div class="row">
                 @foreach($parents as $data)
                     <div class="col-md-4 p-4">
-                        <div class="col-md-12 bg-white p-4" style="box-shadow:rgb(0 0 0 / 3.8%) 0px 0px 1px 2px;">
+                        <div class="col-md-12 bg-white p-0" style="box-shadow:rgb(0 0 0 / 3.8%) 0px 0px 1px 2px;">
                             <div class="">
                                 <a href="{{url('admin/order/o_id/'. $data->id)}}">
                                   <img src="{{asset('uploads/images/menu_items/parent/'. $data->image)}}" class="img-fluid">
                                 </a>
-                                <p class="mt-3 text-center m-0 p-0" style="font-size:22px; color: rgb(18, 66, 125)"><a href="{{url('admin/order/o_id/'. $data->id)}}" style="color: rgb(18, 66, 125)">{{$data->name}}</a></p>
+                                <div class="text-center p-2 m-0">
+                                    <h5 class="m-0 p-0" style="font-size:20px; color: rgb(18, 66, 125)"><a href="{{url('admin/order/o_id/'. $data->id)}}" style="color: rgb(18, 66, 125)">{{$data->name}}</a></h5>
+                                    <small> 2 menus available</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
 
+          @endif
         </div> <!-- /container-fluid -->
     </section> <!-- /section -->
 

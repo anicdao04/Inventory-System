@@ -10,4 +10,10 @@ class Menuchild extends Model
     use HasFactory;
     protected $table = "menuchildren";
     protected $fillables = ['category_id','name','image'];
+
+    public function getNameAttribute($value)
+    {
+        return ucwords($value);
+    }
+
 }

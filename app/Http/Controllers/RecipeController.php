@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Menuchild;
 use App\Models\Menuparent;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 
 class RecipeController extends Controller
 {
     public function index()
     {
-
+        $this->data['menu_count'] = Menuchild::count();
         $this->data['parents'] = Menuparent::all();
-        $this->data['menu'] = Menuchild::where('status_availability', '=', '1')->orderBy('name', 'asc')->get();
+        $this->data['menu'] = Menuchild::orderBy('name', 'asc')->paginate(5);
         return view('backend.admin.recipe_list', $this->data);
     }
 
@@ -24,8 +25,10 @@ class RecipeController extends Controller
         $this->data['parents'] = Menuparent::all();
         $this->data['recipe_id'] = Menuchild::all();
         $this->data['recipes'] = Recipe::where('menu_id','=', $id)->get();
+        $this->data['ingredients'] = Ingredient::orderBy('name', 'asc')->get();
         return view('backend.admin.recipe_update', $this->data);
     }
+
 
     public function register()
     {
@@ -40,7 +43,7 @@ class RecipeController extends Controller
         $data->category_id = $category_id;
         $data->qty = $qty;
         $data->measurement = $uom;
-        $data->description = $description;
+        $data->ingredient_id = $description;
         $data->save();
 
         $statusrecipe = Menuchild::find($menu_id);
@@ -49,5 +52,10 @@ class RecipeController extends Controller
 
         return redirect()->to('admin/recipe/'.$menu_id);
         // return redirect()->route('recipe.index');
+    }
+
+    public function delete()
+    {
+        return 'recipe deleted';
     }
 }

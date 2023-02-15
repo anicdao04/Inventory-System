@@ -9,7 +9,8 @@ class IngredientController extends Controller
 {
     public function index()
     {
-        $this->data['ingredients'] = Ingredient::where('status', '=', '1')->orderBy('name', 'asc')->get();
+        $this->data['ingredients_count'] = Ingredient::where('status', '=', '1')->count();
+        $this->data['ingredients'] = Ingredient::where('status', '=', '1')->orderBy('name', 'asc')->paginate(5);
         return view('backend.admin.ingredientIndex', $this->data);
     }
     public function create()

@@ -97,7 +97,7 @@
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
-              <p>Menu</p>
+              <p>Manage Menus</p>
             </a>
           </li>
           <li class="nav-item">
@@ -178,7 +178,7 @@
                                     <th>Qty</th>
                                     <th>Measurement</th>
                                     <th>Description</th>
-                                    <th>Actions</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -186,19 +186,12 @@
                                 <tr>
                                     <td>{{$recipe->qty}}</td> 
                                     <td>{{$recipe->measurement}}</td> 
-                                    <td>{{$recipe->description}}</td> 
-                                    <!-- <td>
-                                      <div class="btn-group" role="group">
-                                        <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="nav-icon fas fa-list mr-1"></i> Select
-                                        </button>
-                                        <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
-                                            <a class="dropdown-item"  href=""><i class="nav-icon fas fa-plus mr-1"></i> Add</a>
-                                            <a class="dropdown-item"  href=""><i class="nav-icon fas fa-edit mr-1"></i>Modify</a>
-                                          <a class="dropdown-item"  href=""><i class="nav-icon fas fa-search mr-1"></i>Preview</a>
-                                        </div>
-                                      </div>
-                                    </td> -->
+                                    @foreach($ingredients as $ingredient)
+                                      @if($ingredient->id == $recipe->ingredient_id)
+                                        <td>{{$ingredient->name}}</td> 
+                                      @endif
+                                    @endforeach
+                                    <td><a href="{{url('admin/recipe/'. $recipe->id . '/delete')}}" class="text-secondary"><small><i class="fa fa-times" aria-hidden="true"></i></small></a></td>
                                 </tr>
                               @endforeach
                             </tbody>
@@ -222,22 +215,18 @@
                                 <option value="" selected disabled>UOM</option>
                                 <option value="gm">GM</option>
                                 <option value="ml">ML</option>
+                                <option value="pc">PC</option>
                               </select>
                             </div>
                             <div class="col-4 col-sm-4">
                               <select class="form-control" name="description" required>
                                 <option value="" selected disabled>Ingredient</option>
-                                <option value="salt">Salt</option>
-                                <option value="oil">Oil</option>
+                                @foreach($ingredients as $ingredient)
+                                  <option value="{{$ingredient->id}}">{{$ingredient->name}}</option>
+                                @endforeach
                               </select>
                             </div>
                           </div>
-
-                          <!-- <div class="row mt-3 mb-3">
-                            <div class="col-12 col-sm-12">
-                              <textarea class="form-control" name="description" rows="3" placeholder="Description" required></textarea>
-                            </div>
-                          </div> -->
 
                           <div class="mt-3">
                             <button class="btn btn-sm btn-primary mr-1" type="submit">Add ingredient</button>
@@ -262,55 +251,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- Start Modal -->
-<!-- <div class="modal fade" id="recipeModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-    <h5 class="modal-title">Ingredient</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <form action="{{url('admin/recipe/'.$recipe->id.'/register')}}" method="get">
-    <div class="modal-body">
-        <div class="row">
-      
-          @foreach($parents as $parentdata)
-            @if($parentdata->id == $recipe->category_id)
-                <input type="text" name="category_id" value="{{$parentdata->id}}">
-                
-            @endif
-          @endforeach
-
-          <div class="col-6 col-sm-6">
-            <input type="number" name="qty" class="form-control" placeholder="Quantity" required>
-          </div>
-          <div class="col-6 col-sm-6">
-            <select class="form-control" name="uom" required>
-              <option value="" selected disabled>Select</option>
-              <option value="gm">GM</option>
-              <option value="ml">ML</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row mt-3">
-          <div class="col-12 col-sm-12">
-            <textarea class="form-control" name="description" rows="3" placeholder="Description" required></textarea>
-          </div>
-        </div>
-      
-    </div>
-        
-        <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-        </div>
-    </form>
-</div> -->
-<!-- End Modal -->
 
 
 
@@ -322,6 +262,7 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
 @if(Session::has('parent_created'))
     <script>

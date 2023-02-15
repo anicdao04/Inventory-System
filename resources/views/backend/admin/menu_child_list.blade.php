@@ -90,8 +90,14 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="nav-icon fa fa-folder"></i>
-              <p>Menu</p>
+              <i class="far fa-circle nav-icon"></i>
+              <p>Manage Menus</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 
@@ -140,8 +146,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="mb-3">
-                <h3>List</h3>
-                <p><span class="text-primary">Menu Items</span> | Menu</p>
+                <h3>Menus</h3>
             </div>
             
             <div class="row">
@@ -158,20 +163,20 @@
                             <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Menu Name</th>
                                     <th>Assigned Category</th>
+                                    <th>Menu Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                               @foreach($menus as $data)
                                 <tr>
-                                    <td>{{$data->name}}</td> 
                                     @foreach($parents as $parentdata)
                                       @if($parentdata->id == $data->category_id)
                                         <td>{{$parentdata->name}}</td>
                                       @endif
                                     @endforeach
+                                    <td>{{$data->name}}</td> 
                                 <td>
                                     <a href="{{ url('admin/menu/child/edit/'. $data->id) }}" class="btn btn-default btn-sm mr-1">Modify</a>
                                     <button class="btn btn-danger btn-sm">Suspend</button>

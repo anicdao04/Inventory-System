@@ -93,8 +93,14 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="nav-icon fa fa-folder"></i>
-              <p>Menu</p>
+              <i class="far fa-circle nav-icon"></i>
+              <p>Manage Menus</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 

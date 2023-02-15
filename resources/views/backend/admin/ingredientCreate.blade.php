@@ -89,7 +89,7 @@
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Menu</p>
+                <p>Manage Menus</p>
             </a>
           </li>
           <li class="nav-item">
@@ -175,6 +175,7 @@
                                         <option value="" selected disabled>Please select</option>
                                         <option value="gm">GM</option>
                                         <option value="ml">ML</option>
+                                        <option value="pc">PC</option>
                                     </select>
                                 </div>
                             </div>

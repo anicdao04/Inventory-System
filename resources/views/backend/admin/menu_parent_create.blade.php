@@ -88,8 +88,14 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="nav-icon fa fa-folder"></i>
-              <p>Menu</p>
+              <i class="far fa-circle nav-icon"></i>
+              <p>Manage Menus</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 
@@ -139,7 +145,7 @@
         <div class="container-fluid">
             <div class="mb-3">
                 <h3>Create</h3>
-                <p><span class="text-primary">Menu Items</span> | Category</p>
+                <p>Create new category</p>
             </div>
             
             <form action="{{route('menuparent.store')}}" method="post" enctype="multipart/form-data">
@@ -148,7 +154,7 @@
                 <div class="col-12 col-md-12 mt-3 mb-3">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Category Information</h3>
+                            <h3 class="card-title">Category details</h3>
                             <div class="card-tools">                    
                         
                             </div>
@@ -158,7 +164,7 @@
                             <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="class">Category Name</label>
+                                    <label for="class">Name</label>
                                     <input type="text" name="name" value="{{ old('name')}}" class="form-control" required>  
                                     @if($errors->has('name'))
                                         <span class="text-danger">

@@ -19,7 +19,7 @@ class CreateRecipesTable extends Migration
             $table->longText('category_id');
             $table->longText('qty');
             $table->longText('measurement');
-            $table->longText('description');
+            $table->longText('ingredient_id');
             $table->timestamps();
         });
     }

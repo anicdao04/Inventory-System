@@ -19,7 +19,7 @@ class CreateMenuchildrenTable extends Migration
             $table->longText('name');
             $table->longText('image');
             $table->boolean('status_recipe')->default(0); //0=without recipe, 1=with recipe
-            $table->boolean('status_availability')->default(1); //0=not available, 1=available
+            $table->boolean('status_availability')->default(0); //0=not available, 1=available
             $table->timestamps();
         });
     }

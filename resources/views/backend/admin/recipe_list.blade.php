@@ -94,7 +94,7 @@
           <li class="nav-item">
             <a href="" class="nav-link active">
               <i class="far fa-circle nav-icon"></i>
-              <p>Menu</p>
+              <p>Manage Menus</p>
             </a>
           </li>
           <li class="nav-item">
@@ -148,18 +148,31 @@
     <section class="content">
         <div class="container-fluid">
             <div class="mb-3">
-                <h3>Menu</h3>
+                <h3>Menus</h3>
                 <!-- <p class="text-muted">List of Menus</p> -->
             </div>
             
             <!-- <small>(Legend Status: <strong><span class="text-primary">CR</span> - Contain Recipe, <span class="text-danger">NCR</span> - Not Contain Recipe</strong>)</small> -->
             <div class="row">
+              
+                <div class="col-12 col-sm-5 col-md-4">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-default elevation-1"><i class="far fa-file-alt"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Total no. of items</span>
+                      <span class="info-box-number mt-0">
+                        <span>{{$menu_count}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-12 col-md-12 mt-3 mb-3">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                                
+                              {!! $menu->links() !!}
                             </div>
                         </div>
                     
@@ -170,6 +183,7 @@
                                     <th>Name</th>
                                     <th>Category</th>
                                     <th>Status</th>
+                                    <th>Availability</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -182,12 +196,19 @@
                                           <td>{{$parentdata->name}}</td>
                                         @endif
                                       @endforeach
+                                      
                                       @if(($data->status_recipe) == 0)
                                         <td class="text-warning">has no recipe</td>
                                       @else
                                         <td class="text-success">has recipe</td>
                                       @endif
-                                <td>
+
+                                      @if(($data->status_availability) == 0)
+                                        <td><span class="badge badge-warning">No</span></td>
+                                      @else
+                                        <td><span class="badge badge-success">Yes</span></td>
+                                      @endif
+                                  <td>
                                     <div class="btn-group" role="group">
                                       <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       <i class="nav-icon fas fa-list mr-1"></i> Select
@@ -196,12 +217,22 @@
                                         @if(($data->status_recipe)==0)
                                           <a class="dropdown-item"  href="{{ url('admin/recipe/'. $data->id) }}"><i class="nav-icon fas fa-plus mr-1"></i> Create</a>
                                         @else
-                                          <a class="dropdown-item"  href="{{ url('admin/recipe/'. $data->id) }}"><i class="nav-icon fas fa-edit mr-1"></i>Add</a>
+                                          <a class="dropdown-item"  href="{{ url('admin/recipe/'. $data->id) }}"><i class="nav-icon fas fa-edit mr-1"></i>Manage</a>
                                         @endif
+
+                                        @if(($data->status_availability)==0)
+                                          @if(($data->status_recipe)==0)
+                                          <a class="dropdown-item disabled"  href="{{ url('admin/availability/yes/'. $data->id) }}"><i class="nav-icon fas fa-check mr-1"></i> Set available</a>
+                                          @else
+                                          <a class="dropdown-item"  href="{{ url('admin/availability/yes/'. $data->id) }}"><i class="nav-icon fas fa-check mr-1"></i> Set available</a>
+                                          @endif
+                                        @else
+                                          <a class="dropdown-item"  href="{{ url('admin/availability/no/'. $data->id) }}"><i class="nav-icon fas fa-times mr-2"></i>Set unavailable</a>
+                                        @endif
+
                                         <a class="dropdown-item"  href=""><i class="nav-icon fas fa-search mr-1"></i>Preview</a>
                                       </div>
                                     </div>
-
                                 </td>
                                 </tr>
                                 @endforeach
@@ -237,13 +268,13 @@
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-@if(Session::has('parent_created'))
+@if(Session::has('recipe_available'))
     <script>
-        toastr.info("{!! Session::get('parent_created') !!}");
+        toastr.success("{!! Session::get('recipe_available') !!}");
     </script>
-@elseif(Session::has('parent_updated'))
+@elseif(Session::has('recipe_unavailable'))
     <script>
-        toastr.success("{!! Session::get('parent_updated') !!}");
+        toastr.success("{!! Session::get('recipe_unavailable') !!}");
     </script>
 @endif
 

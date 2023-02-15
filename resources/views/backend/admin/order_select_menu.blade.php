@@ -17,6 +17,7 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
@@ -97,8 +98,14 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="nav-icon fa fa-folder"></i>
-              <p>Menu</p>
+              <i class="far fa-circle nav-icon"></i>
+              <p>Manage Menus</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 
@@ -145,37 +152,70 @@
 <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
+          @if($menu_count == 0)
+            <div class="text-center">
+              <img src="{{asset('img/no-menu.png')}}" width="200px">
+              <h1 style="color: rgb(18, 66, 125)" class="mb-4">Ooops!</h1>
+              <h3>No Menu available</h3>
+              <p class="mt-3">Do you want to create one? click the button below</p>
+              <a href="{{route('menuchild.index')}}" class="btn btn-primary">Create</a>
+            </div>
+          
+          @else
+
             <div class="mb-3 text-center">
-                <h1 style="color: rgb(18, 66, 125)" class="mb-4">Select Menu</h1>
-                <p style="color: rgb(18, 66, 125, 1); "><a href="{{route('orderparent.index')}}" style="color: rgb(18, 66, 125, 1);">Category</a> <span class="fa fa-arrow-right mx-1" style="font-size:11px;"></span> 
+                
+                <h1 style="color: rgb(18, 66, 125, 1); "> 
                     @foreach($parents as $data)
                         @if($data->id == $category_id)
                             {{$data->name}}
                         @endif
                     @endforeach
-                </p>
+                </h1>
+                <h5 class="mb-4 mt-4">Select Menu</h5>
             </div>
 
             <div class="row">
+
                 @foreach($menus as $data)
-                    <div class="col-md-4 p-4">
-                        <div class="col-md-12 bg-white p-4" style="box-shadow:rgb(0 0 0 / 3.8%) 0px 0px 1px 2px;">
+                        <div class="col-md-4 p-4">
+                          <div class="col-md-12 bg-white p-0" style="box-shadow:rgb(0 0 0 / 3.8%) 0px 0px 1px 2px;">
                             <div class="">
                                   <img src="{{asset('uploads/images/menu_items/child/'. $data->image)}}" class="img-fluid">
-                                <div class="row pt-3">
-                                    <div class="col-sm-6">
-                                        <p class="m-0 p-0" style="font-size:22px; color: rgb(18, 66, 125)"><a href="#" style="color: rgb(18, 66, 125)">{{$data->name}}</a></p>
-                                    </div>
-                                    <div class="col-sm-6 align-top text-right">
-                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#orderModal">Order</button>
-                                    </div>
+                                  <div class="text-center p-1 m-0">
+                                    <h5 class="m-0 p-0" style="font-size:20px; color: rgb(18, 66, 125)"><span style="color: rgb(18, 66, 125)">{{$data->name}}</span></p>
+                                        <hr class="m-0">
+                                        <div class="row p-2">
+                                        
+                                          <div class="col-6 col-md-6">
+                                            @if($data->status_recipe == 0)
+                                              <small class="mb-1" style="color:rgb(155 153 154)">Has no recipe</small>
+                                            @else
+                                              <small class="mb-1 text-success">Has recipe</small>
+                                            @endif
+                                          </div>
+
+                                          <div class="col-6 col-md-6">
+                                            @if($data->status_availability == 0)
+                                              <small class="mb-2" style="color:rgb(155 153 154)">Not available</small>
+                                            @else
+                                              <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#orderModal">Order Now!</button>
+                                            @endif
+                                          </div>
+                                          
+                                        </div>
+                                      
+                                        
+                                     
+                                  </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                  
                 @endforeach
             </div>
 
+          @endif
         </div> <!-- /container-fluid -->
     </section> <!-- /section -->
 
@@ -217,6 +257,8 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
 
 @if(Session::has('parent_created'))
     <script>

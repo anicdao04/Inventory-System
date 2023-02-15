@@ -64,5 +64,21 @@ class MenuChildController extends Controller
         return redirect()->route('menuchild.index')->with('child_updated', 'Menu has been updated successfully!');
     }
 
+    public function set_menu_available($id)
+    {
+        $data = Menuchild::find($id);
+        $data->status_availability = 1;
+        $data->update();
+        return redirect()->route('recipe.index')->with('recipe_available', 'Recipe marked Available');
+    }
+
+    public function set_menu_unavailable($id)
+    {
+        $data = Menuchild::find($id);
+        $data->status_availability = 0;
+        $data->update();
+        return redirect()->route('recipe.index')->with('recipe_unavailable', 'Recipe marked Unavailable');
+    }
+
 
 }

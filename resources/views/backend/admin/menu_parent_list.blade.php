@@ -90,8 +90,14 @@
 
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="nav-icon fa fa-folder"></i>
-              <p>Menu</p>
+              <i class="far fa-circle nav-icon"></i>
+              <p>Manage Menus</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('ingredient.index')}}" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Ingredients</p>
             </a>
           </li>
 
@@ -140,11 +146,13 @@
     <section class="content">
         <div class="container-fluid">
             <div class="mb-3">
-                <h3>List</h3>
-                <p><span class="text-primary">Menu Items</span> | Category</p>
+                <h3>Categories</h3>
+                <!-- <p><span class="text-primary">Menu Items</span> | Category</p> -->
             </div>
             
             <div class="row">
+                
+
                 <div class="col-12 col-md-12 mt-3 mb-3">
                     <div class="card">
                         <div class="card-header">

@@ -17,6 +17,7 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+  
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
@@ -94,7 +95,7 @@
           <li class="nav-item">
             <a href="{{route('recipe.index')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Menu</p>
+              <p>Manage Menus</p>
             </a>
           </li>
           <li class="nav-item">
@@ -148,18 +149,29 @@
     <section class="content">
         <div class="container-fluid">
             <div class="mb-3">
-                <h3>Ingredient</h3>
+                <h3>Ingredients</h3>
                 <!-- <p class="text-muted">List of Ingredients</p> -->
             </div>
-            
-            <!-- <small>(Legend Status: <strong><span class="text-primary">CR</span> - Contain Recipe, <span class="text-danger">NCR</span> - Not Contain Recipe</strong>)</small> -->
+              
             <div class="row">
+                <div class="col-12 col-sm-5 col-md-4">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-default elevation-1"><i class="far fa-file-alt"></i></span>
+                    <div class="info-box-content">
+                      <span class="info-box-text">Total no. of items</span>
+                      <span class="info-box-number mt-0">
+                        <span>{{$ingredients_count}}</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="col-12 col-md-12 mt-3 mb-3">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                                
+                                {!! $ingredients->links() !!}
                             </div>
                         </div>
                     
@@ -221,6 +233,7 @@
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
 <!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 @if(Session::has('ingredient_created'))
     <script>
@@ -233,6 +246,7 @@
 @endif
 
 @yield('custom-script')
+
 </body>
 </html>
 
