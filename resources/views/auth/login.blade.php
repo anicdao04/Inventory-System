@@ -18,7 +18,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <img src="{{ asset('img/foodapp.png')}}" width="60%">
+    <img src="{{ asset('img/spcc-logo.png')}}" width="50%">
+    <h5 class="mt-3 mb-4">Integrative Inventory and Maintenance Management System</h5>
     <!-- <a href="#"><span style="font-size:56px; font-weight:500;">Billing</span><span style="font-size:34px;"></span></a> -->
   </div>
   <!-- /.login-logo -->
@@ -77,9 +78,6 @@
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-
-
-
           </div>
           <!-- /.col -->
         </div>

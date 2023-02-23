@@ -4,12 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard | PetPal</title>
+  <title>Dashboard | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+
+<!-- UI Icons -->
+<link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
+    
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
@@ -31,11 +33,11 @@
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fi fi-rr-menu-burger"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{route('logout.perform')}}" class="nav-link">Logout</a>
-      </li>
+      </li> -->
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -46,10 +48,8 @@
   <aside class="main-sidebar sidebar-light-primary elevation-1">
     <!-- Brand Logo -->
     <a href="{{route('admin.dashboard')}}" class="brand-link">
-      <!-- <img src="{{ asset('dist/img/AdminLTELogo.png') }}" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">PetPal</span><br> -->
-      App name
-      <img src="{{ asset('img/foodapp.png') }}" class="brand-image" style="opacity: .8"><br>
+      <span style="font-size:16px;">Inventory System</span>
+      <img src="{{ asset('img/spcc-logo.png') }}" class="brand-image" style="opacity: 1;"><br>
     </a>
 
     <!-- Sidebar -->
@@ -57,7 +57,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('dist/img/user-logo.png') }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('img/user-icon.png') }}" class="" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -70,63 +70,80 @@
 
           <li class="nav-item">
             <a href="{{route('admin.dashboard')}}" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="fi fi-rr-chart-area mr-2"></i>
               <p>Dashboard</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{route('orderparent.index')}}" class="nav-link">
-              <i class="nav-icon fas fa-utensils"></i>
-              <p>Order</p>
+            <a href="{{route('inventory.index')}}" class="nav-link">
+              <i class="fi fi-rr-edit mr-2"></i>
+              <p>Inventory</p>
             </a>
           </li>
 
-          <div class="mt-3">
-            <label>Maintenance</label>
-          </div> 
-
           <li class="nav-item">
-            <a href="{{route('recipe.index')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Manage Menus</p>
+            <a href="" class="nav-link">
+              <i class="fi fi-rr-layer-plus mr-2"></i>
+              <p>Manage</p>
             </a>
           </li>
           
           <li class="nav-item">
-            <a href="{{route('ingredient.index')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Ingredients</p>
+            <a href="" class="nav-link">
+              <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
+              <p>Records</p>
             </a>
           </li>
 
-          <div class="mt-3">
-            <label>Settings</label>
-          </div>  
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="fi fi-rr-wrench-simple mr-2"></i>
+              <p>Maintenance</p>
+            </a>
+          </li>
 
-          <!-- Menu -->
+          <li class="nav-item">
+            <a href="" class="nav-link">
+              <i class="fi fi-rr-users-alt mr-2"></i>
+              <p>User Management</p>
+            </a>
+          </li>
+
+          <div class="user-panel mt-2 mb-2 d-flex"></div>
+
+          <!-- Settings -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fa fa-list"></i>
-              <p>Menu Items<i class="right fas "></i></p>
-              <i class="right fas fa-angle-left"></i>
+              <i class="fi fi-rr-circle mr-1"></i>
+              <p>Settings<i class="right fas "></i></p>
+              <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('menuparent.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Category</p>
+                <a href="" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category 1</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('menuchild.index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Menu</p>
+                <a href="" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category 2</p>
                 </a>
               </li>
             </ul>
           </li>
 
+          <div class="user-panel mt-2 mb-2 d-flex"></div>
+
+          <li class="nav-item">
+            <a href="{{route('logout.perform')}}" class="nav-link">
+              <i class="fi fi-rr-power mr-2"></i>
+              <p>Log out</p>
+            </a>
+          </li>
+          
 
         </ul>
       </nav>
@@ -135,18 +152,53 @@
     <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper pt-3">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper pt-4">
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner text-white"><h3>3</h3>
+                    <p>Inventory</p>
+                </div>
+                <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #cbdcec;">
+                <div class="inner"><h3>3</h3>
+                    <p>Manage</p>
+                </div>
+                <div class="icon p-1"><i class="fi fi-rr-layer-plus" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner text-white"><h3>1</h3>
+                    <p>Records</p>
+                </div>
+                <div class="icon p-1"><i class="fi fi-rr-move-to-folder-2" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #cbdcec;">
+                <div class="inner"><h3>0</h3>
+                    <p>Maintenance</p>
+                </div>
+                <div class="icon p-1"><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
 
+      </div><!-- /row -->
+    </div><!-- /container -->
+        
 
-
-  </div>
-  <!-- /.content-wrapper -->
-
-
-  
-</div>
-<!-- ./wrapper -->
+</div><!-- /.content-wrapper -->
+</div><!-- ./wrapper -->
 
 
 <!-- jQuery -->

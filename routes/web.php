@@ -3,16 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeController;
-
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\MenuParentController;
-use App\Http\Controllers\MenuChildController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\RecipeController;
-use App\Http\Controllers\IngredientController;
-
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
+
+use App\Http\Controllers\InventoryController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -54,32 +49,10 @@ Route::group(['middleware' => ['auth']], function() {
 
 Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHistory']], function(){
         Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-        Route::get('order', [OrderController::class, 'parent'])->name('orderparent.index');
-        Route::get('/order/o_id/{id}', [OrderController::class, 'menu'])->name('ordermenu.index');
-
-        Route::get('recipe', [RecipeController::class, 'index'])->name('recipe.index');
-        Route::get('recipe/{id}', [RecipeController::class, 'recipe_id'])->name('recipe_id');
-        Route::get('recipe/{id}/register', [RecipeController::class, 'register'])->name('recipe.add');
-        Route::get('recipe/{id}/delete', [RecipeController::class, 'delete'])->name('recipe.delete');
-
-        Route::get('availability/yes/{id}', [MenuChildController::class, 'set_menu_available'])->name('set_recipe_available');
-        Route::get('availability/no/{id}', [MenuChildController::class, 'set_menu_unavailable'])->name('set_recipe_unavailable');
-
-        Route::get('ingredient', [IngredientController::class, 'index'])->name('ingredient.index');
-        Route::get('ingredient/create', [IngredientController::class, 'create'])->name('ingredient.create');
-        Route::post('ingredient/store', [IngredientController::class, 'store'])->name('ingredient.store');
-
-        Route::get('menu/parent/list', [MenuParentController::class, 'index'])->name('menuparent.index');
-        Route::get('menu/parent/create', [MenuParentController::class, 'create'])->name('menuparent.create');
-        Route::post('menu/parent/store', [MenuParentController::class, 'store'])->name('menuparent.store');
-
-        Route::get('menu/child/list', [MenuChildController::class, 'index'])->name('menuchild.index');
-        Route::get('menu/child/create', [MenuChildController::class, 'create'])->name('menuchild.create');
-        Route::post('menu/child/store', [MenuChildController::class, 'store'])->name('menuchild.store');
-        Route::get('menu/child/edit/{id}', [MenuChildController::class, 'edit'])->name('menuchild.edit');
-        Route::put('menu/child/update/{id}', [MenuChildController::class, 'update'])->name('menuchild.update');
+        Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
+        Route::get('inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
 });
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth', 'PreventBackHistory']], function(){
-    Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
+        Route::get('dashboard', [UserController::class, 'index'])->name('user.dashboard');
 });
