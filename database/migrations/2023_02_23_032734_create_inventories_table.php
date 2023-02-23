@@ -22,6 +22,7 @@ class CreateInventoriesTable extends Migration
             $table->longText('assign_id');
             $table->longText('designation_id');
             $table->date('warranty')->nullable();
+            $table->longText('image')->nullable();
 
             $table->longText('item_name');
             $table->longText('category_id');

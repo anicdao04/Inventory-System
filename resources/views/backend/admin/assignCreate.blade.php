@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard | IIMMS</title>
+  <title>Create Assign | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -20,6 +20,9 @@
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
+    }
+    .form-control{
+        border-radius: 0px !important;
     }
   </style>
 </head>
@@ -69,7 +72,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="{{route('admin.dashboard')}}" class="nav-link active">
+            <a href="{{route('admin.dashboard')}}" class="nav-link">
               <i class="fi fi-rr-chart-area mr-2"></i>
               <p>Dashboard</p>
             </a>
@@ -113,15 +116,15 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link bg-primary">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{route('assign.index')}}" class="nav-link">
+                <a href="{{route('assign.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign</p>
                 </a>
@@ -154,45 +157,42 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper pt-4">
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>3</h3>
-                    <p>Inventory</p>
-                </div>
-                <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>3</h3>
-                    <p>Manage</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-layer-plus" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>1</h3>
-                    <p>Records</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-move-to-folder-2" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>0</h3>
-                    <p>Maintenance</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+    <div class="container-fluid mt-3 px-5">
+        <div class="mb-3">
+            <h3>Create Assign</h3>
+            <p class="text-muted">Assign | Create</p>
         </div>
 
+      
+      <form action="{{route('assign.store')}}" method="post">
+      @csrf
+        <div class="row">
+            <div class="col-12 col-md-12 mt-4 mb-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Item details</h3>
+                        <div class="card-tools"></div>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                    
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="class">Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary mr-1">Submit</button>
+                        <button class="btn btn-default">Cancel</button>
+                    </div>
+            </div>
+
+      </form>
       </div><!-- /row -->
     </div><!-- /container -->
         

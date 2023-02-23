@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\AssignController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::get('inventory', [InventoryController::class, 'index'])->name('inventory.index');
         Route::get('inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
+        Route::post('inventory/store', [InventoryController::class, 'store'])->name('inventory.store');
+        Route::get('inventory/preview/{id}', [InventoryController::class, 'preview'])->name('inventory.preview');
+
+        Route::get('assign', [AssignController::class, 'index'])->name('assign.index');
+        Route::get('assign/create', [AssignController::class, 'create'])->name('assign.create');
+        Route::post('assign/store', [AssignController::class, 'store'])->name('assign.store');
+        
 });
 
 Route::group(['prefix'=>'user', 'middleware'=>['isUser','auth', 'PreventBackHistory']], function(){

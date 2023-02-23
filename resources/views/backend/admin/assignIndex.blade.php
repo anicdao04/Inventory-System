@@ -4,18 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard | IIMMS</title>
+  <title>List Items | IIMMS</title>
 
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-<!-- UI Icons -->
-<link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
+  <!-- UI Icons -->
+  <link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
     
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
   <style>
     .content-wrapper .content{
@@ -69,7 +72,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="{{route('admin.dashboard')}}" class="nav-link active">
+            <a href="{{route('admin.dashboard')}}" class="nav-link">
               <i class="fi fi-rr-chart-area mr-2"></i>
               <p>Dashboard</p>
             </a>
@@ -113,15 +116,15 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link bg-primary">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('assign.index')}}" class="nav-link">
+              <li class="nav-item menu-open">
+                <a href="{{route('assign.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign</p>
                 </a>
@@ -154,44 +157,61 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper pt-4">
-    <div class="container mt-3">
+    <div class="container-fluid mt-3 px-5">
+        <div class="mb-3">
+            <h3>List of Assign</h3>
+            <p class="text-muted">Assign | List</p>
+        </div>
+
       <div class="row">
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>3</h3>
-                    <p>Inventory</p>
+        <!-- Info boxes -->
+            <div class="col-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total No. of Items</span>
+                            <span class="info-box-number mt-0">
+                            <span>{{$assign_count}}</span>
+                            </span>
+                        </div> 
+                </div> 
+            </div> 
+
+            <div class="col-12 col-md-12 mt-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">List of Items</h3>
+                            <div class="card-tools">                    
+                                {!! $assigns->links() !!}
+                            </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($assigns as $data)
+                                <tr>
+                                    <td>{{$data->name}}</td>
+                                <td>
+                                  <a class="btn btn-sm btn-default mr-1" href="#">Modify</a>
+                                  <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                                </td>
+                                </tr> 
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    <a href="{{route('assign.create')}}" class="btn btn-primary">Create</a>
             </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>3</h3>
-                    <p>Manage</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-layer-plus" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>1</h3>
-                    <p>Records</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-move-to-folder-2" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>0</h3>
-                    <p>Maintenance</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-        </div>
+
 
       </div><!-- /row -->
     </div><!-- /container -->
@@ -207,6 +227,19 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+@if(Session::has('assign_created'))
+    <script>
+        toastr.success("{!! Session::get('assign_created') !!}");
+    </script>
+@elseif(Session::has('assign_updated'))
+    <script>
+        toastr.info("{!! Session::get('assign_updated') !!}");
+    </script>
+@endif
 
 @yield('custom-script')
 </body>

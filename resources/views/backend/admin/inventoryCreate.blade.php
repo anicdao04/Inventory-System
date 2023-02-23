@@ -124,9 +124,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category 1</p>
+                  <p>Assign</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -163,8 +163,10 @@
             <p class="text-muted">Inventory | Create</p>
         </div>
 
-      <div class="row">
-
+      
+      <form action="{{route('inventory.store')}}" method="post" enctype="multipart/form-data">
+      @csrf
+        <div class="row">
             <div class="col-12 col-md-12 mt-4 mb-5">
                 <div class="card">
                     <div class="card-header">
@@ -173,12 +175,13 @@
                     </div>
                     
                     <div class="card-body p-4">
+                    
                         <div class="row">
                             <!-- <div class="col-md-12 mt-3 mb-3"><h5>Section 1</h5></div> -->
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Item Code <span class="text-danger">*</span></label>
-                                    <input type="text" name="item_code" class="form-control">
+                                    <input type="text" name="item_code" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -196,7 +199,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Quantity <span class="text-danger">*</span></label>
-                                    <input type="number" name="quantity" class="form-control">  
+                                    <input type="number" name="quantity" class="form-control" required>  
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -204,8 +207,9 @@
                                     <label for="class">Assign To <span class="text-danger">*</span></label>
                                     <select name="assign_id" class="form-control" required>
                                         <option value="" disabled selected>Please select</option>
-                                        <option value="1">Area 1</option>
-                                        <option value="2">Area 2</option>
+                                        @foreach($assigns as $assign)
+                                          <option value="{{$assign->id}}">{{$assign->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -239,7 +243,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Item Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="item_name" class="form-control">
+                                    <input type="text" name="item_name" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -267,7 +271,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">OR Number <span class="text-danger">*</span></label>
-                                    <input type="text" name="or_no" class="form-control">
+                                    <input type="text" name="or_no" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-9">
@@ -285,7 +289,7 @@
                     </div>
             </div>
 
-
+      </form>
       </div><!-- /row -->
     </div><!-- /container -->
         
