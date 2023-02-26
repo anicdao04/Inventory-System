@@ -126,13 +126,19 @@
               <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign</p>
+                  <p>Assign Area</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('designation.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category 2</p>
+                  <p>Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
             </ul>
@@ -159,7 +165,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Create Assign</h3>
+            <h3>Create Assign Area</h3>
             <p class="text-muted">Assign | Create</p>
         </div>
 

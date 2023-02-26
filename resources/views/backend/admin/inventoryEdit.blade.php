@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Preview Item | IIMMS</title>
+  <title>Modify Inventory | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,9 +23,6 @@
     }
     .form-control{
         border-radius: 0px !important;
-        background-color: #fff !important;
-        border: 1px solid #f2f2f2;
-        font-weight: 600;
     }
   </style>
 </head>
@@ -82,7 +79,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('inventory.index')}}" class="nav-link active">
+            <a href="{{route('inventory.index')}}" class="nav-link">
               <i class="fi fi-rr-edit mr-2"></i>
               <p>Inventory</p>
             </a>
@@ -119,15 +116,15 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link bg-primary">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-                <li class="nav-item">
-                <a href="{{route('assign.index')}}" class="nav-link">
+              <li class="nav-item">
+                <a href="{{route('assign.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign Area</p>
                 </a>
@@ -168,13 +165,14 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Preview Item</h3>
-            <p class="text-muted">Inventory | Preview</p>
+            <h3>Modify Inventory</h3>
+            <p class="text-muted">Inventory | Modify</p>
         </div>
 
       
-      <form action="{{route('inventory.store')}}" method="post" enctype="multipart/form-data">
+      <form action="{{url('admin/inventory/update/'.$inventory->id)}}" method="get" enctype="multipart/form-data">
       @csrf
+      <!-- @method('PUT') -->
         <div class="row">
             <div class="col-12 col-md-12 mt-4 mb-5">
                 <div class="card">
@@ -184,115 +182,137 @@
                     </div>
                     
                     <div class="card-body p-4">
-                        <div class="row">
-                            <div class="col-8 col-md-8"><!-- start col-8 -->
+                        <div class="row"><!-- start row -->
+                            <div class="col-8 col-md-8 px-5 py-3"><!-- start col-8 -->
                                 <div class="row"> <!-- start row -->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Item Code</span>
-                                            <input type="text" value="{{$inventory->item_code}}" class="form-control" disabled>
+                                            <label for="class">Item Code <span class="text-danger">*</span></label>
+                                            <input type="text" name="item_code" value="{{$inventory->item_code}}" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Serial Number</span>
-                                            <input type="text" value="{{$inventory->item_code}}" class="form-control" disabled>
+                                            <label for="class">Serial Number <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="serial_no" value="{{$inventory->serial_no}}" class="form-control">  
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Color</span>
-                                            <input type="text" value="{{$inventory->color}}" class="form-control" disabled>   
+                                            <label for="class">Color <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="color" value="{{$inventory->color}}" class="form-control">  
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Quantity</span>
-                                            <input type="text" value="{{$inventory->quantity}}" class="form-control" disabled>
+                                            <label for="class">Quantity <span class="text-danger">*</span></label>
+                                            <input type="number" name="quantity" value="{{$inventory->quantity}}" class="form-control" required>  
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Assigned To</span>
-                                            @foreach($assigns as $assign)
-                                              @if($assign->id == $inventory->assign_id)
-                                                <input type="text" value="{{$assign->name}}" class="form-control" disabled>
-                                              @endif
-                                            @endforeach
+                                            <label for="class">Assign To <span class="text-danger">*</span></label>
+                                            <select name="assign_id" class="form-control" required>
+                                                @foreach($assigns as $assign)
+                                                    @if($assign->id == $inventory->assign_id)
+                                                        <option value="{{$assign->id}}" selected>{{$assign->name}}</option>
+                                                    @elseif($assign->id != $inventory->assign_id)
+                                                        <option value="{{$assign->id}}">{{$assign->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                                </option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Designation</span>
-                                            @foreach($designations as $designation)
-                                              @if($designation->id == $inventory->designation_id)
-                                                <input type="text" value="{{$designation->name}}" class="form-control" disabled>
-                                              @endif
-                                            @endforeach
+                                            <label for="class">Designation <span class="text-danger">*</span></label>
+                                            <select name="designation_id" class="form-control" required>
+                                                @foreach($designations as $designation)
+                                                    @if($designation->id == $inventory->designation_id)
+                                                        <option value="{{$designation->id}}" selected>{{$designation->name}}</option>
+                                                    @elseif($designation->id != $inventory->designation_id)
+                                                        <option value="{{$designation->id}}">{{$designation->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                                
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Warranty</span>
-                                            <input type="text" value="{{ Carbon\Carbon::parse($inventory->warranty)->format('F d, Y') }}" class="form-control" disabled>
+                                            <label for="class">Warranty <span class="text-danger">*</span></label>
+                                            <input type="date" name="warranty" value="{{$inventory->warranty}}" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="class">Item Name <span class="text-danger">*</span></label>
+                                            <input type="text" name="item_name" value="{{$inventory->item_name}}" class="form-control" required>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="class">Category <span class="text-danger">*</span></label>
+                                            <select name="category_id" class="form-control" required>
+                                                @foreach($categories as $category)
+                                                    @if($category->id == $inventory->category_id)
+                                                        <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                                                    @elseif($category->id != $inventory->category_id)
+                                                        <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Category</span>
-                                            @foreach($categories as $category)
-                                              @if($category->id == $inventory->category_id)
-                                                <input type="text" value="{{$category->name}}" class="form-control" disabled>
-                                              @endif
-                                            @endforeach
+                                            <label for="class">Bundled To <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="bundled_to" value="{{$inventory->bundled_to}}" class="form-control">  
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Bundled To</span>
-                                            <input type="text" value="{{$inventory->bundled_to}}" class="form-control" disabled>
+                                            <label for="class">Purchased Date <span class="text-danger">*</span></label>
+                                            <input type="date" name="date_purchased" value="{{$inventory->date_purchased}}" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">Purchased Date</span>
-                                            <input type="text" value="{{ Carbon\Carbon::parse($inventory->date_purchased)->format('F d, Y') }}" class="form-control" disabled>
+                                            <label for="class">OR Number <span class="text-danger">*</span></label>
+                                            <input type="text" name="or_no" value="{{$inventory->or_no}}" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <span for="class" class="text-muted">OR Number</span>
-                                            <input type="text" value="{{$inventory->or_no}}" class="form-control" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <span for="class" class="text-muted">Description</span>
-                                            <input type="text" value="{{$inventory->description}}" class="form-control" disabled>
+                                            <label for="class">Description <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="description" value="{{$inventory->description}}" class="form-control">  
                                         </div>
                                     </div>
 
-                                </div> <!-- end of row -->
-                                
+                                </div> <!-- end row -->
+                            </div> <!-- end col-8 -->
 
-                            </div><!-- end col-8 -->
-                            <div class="col-4 col-md-4"><!-- start col-4 -->
+                            <div class="col-4 col-md-4 px-5 py-3"><!-- start col-4 -->
                                 <div class="form-group">
-                                    <!-- <span for="class">Actual Photo</span> -->
-                                    <img src="{{ asset('uploads/images/inventory/'.$inventory->image) }}" class="img-fluid img-thumbnail">
-                                    <div class="form-group">
-                                        <h4 class="text-center mt-3 mb-0">{{$inventory->item_name}}</h4>
-                                        <p class="text-center">(Item Name)</p>
-                                    </div>
-                                    
+                                    <label for="class">Actual Photo <span class="text-danger">*</span></label>
+                                        <img src="{{asset('uploads/images/inventory/'. $inventory->image)}}" class="img-fluid">
+                                            <div class="form-group">
+                                                <h4 class="text-center mt-3 mb-0">{{$inventory->item_name}}</h4>
+                                                <p class="text-center">(Item Name)</p>
+                                            </div>
+
+                                        <p for="class" class="mt-5"><small><span class="text-danger">Change Image?</span> <span>(click Choose File button below)</span></small></p>
+                                        <input type="file" class="form-control" name="image">
                                 </div>
                             </div><!-- end col-4 -->
-                        </div>
+                        </div><!-- end row -->
 
-                    </div>
-                    
+
+                </div>
                     <div class="card-footer">
-                        <a href="{{route('inventory.index')}}" class="btn btn-secondary">Back</a>
+                        <button class="btn btn-primary mr-1">Update</button>
+                        <a class="btn btn-default" href="{{route('inventory.index')}}">Cancel</a>
                     </div>
             </div>
 

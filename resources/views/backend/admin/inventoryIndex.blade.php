@@ -126,13 +126,19 @@
               <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign</p>
+                  <p>Assign Area</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('designation.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category 2</p>
+                  <p>Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
             </ul>
@@ -176,6 +182,29 @@
                         </div> 
                 </div> 
             </div> 
+            <div class="col-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-settings-sliders"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Filter Item by Category</span>
+                            <span class="info-box-number mt-0">
+                              <div class="row">
+                                  <div class="col-12 col-md-8">
+                                    <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
+                                      <option value="" disabled selected>Please select</option>
+                                        @foreach($categories as $category)
+                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="col-12 col-md-4">
+                                    <button class="btn btn-sm btn-default btn-block" style="margin-top: 3px;">Submit</button>
+                                  </div>
+                              </div>
+                            </span>
+                        </div> 
+                </div> 
+            </div> 
 
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
@@ -192,6 +221,7 @@
                                 <tr>
                                     <th>Item Code</th>
                                     <th>Name</th>
+                                    <th>Serial Number</th>
                                     <th>Category</th>
                                     <th>Actions</th>
                                 </tr>
@@ -201,19 +231,24 @@
                                 <tr>
                                     <td>{{$data->item_code}}</td>
                                     <td>{{$data->item_name}}</td> 
-                                    <td>{{$data->category_id}}</td> 
-                                <td>
-                                    <div class="btn-group" role="group">
-                                      <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      <i class="nav-icon fas fa-list mr-1"></i> Select
-                                      </button>
-                                      <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
-                                        <a class="dropdown-item"  href="{{url('admin/inventory/preview/' . $data->id)}}"><i class="fi fi-rr-search mr-1"></i></i> Preview</a>
-                                        <a class="dropdown-item"  href=""><i class="fi fi-rr-pencil mr-1"></i> Modify</a>
-                                        <a class="dropdown-item"  href=""><i class="fi fi-rr-trash mr-1"></i> Delete</a>
-                                      </div>
-                                    </div>
-                                </td>
+                                    <td>{{$data->serial_no}}</td> 
+                                        @foreach($categories as $category)
+                                            @if($category->id == $data->category_id)
+                                              <td>{{$category->name}}</td>
+                                            @endif
+                                        @endforeach
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                          <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="nav-icon fas fa-list mr-1"></i> Select
+                                          </button>
+                                          <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
+                                            <a class="dropdown-item"  href="{{url('admin/inventory/preview/' . $data->id)}}"><i class="fi fi-rr-search mr-1"></i></i> Preview</a>
+                                            <a class="dropdown-item"  href="{{url('admin/inventory/modify/'. $data->id)}}"><i class="fi fi-rr-pencil mr-1"></i> Modify</a>
+                                            <a class="dropdown-item"  href=""><i class="fi fi-rr-trash mr-1"></i> Delete</a>
+                                          </div>
+                                        </div>
+                                    </td>
                                 </tr> 
                               @endforeach
                             </tbody>

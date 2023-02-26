@@ -4,25 +4,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Assign Areas | IIMMS</title>
+  <title>Modify Assign Area | IIMMS</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-  <!-- UI Icons -->
-  <link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
+<!-- UI Icons -->
+<link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
     
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-  <!-- Toastr -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
+    }
+    .form-control{
+        border-radius: 0px !important;
     }
   </style>
 </head>
@@ -123,7 +123,7 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign Area</p>
@@ -165,60 +165,41 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>List of Assign Areas</h3>
-            <p class="text-muted">Assign Area | List</p>
+            <h3>Modify Assign Area</h3>
+            <p class="text-muted">Assign Area | Modify</p>
         </div>
 
-      <div class="row">
-        <!-- Info boxes -->
-            <div class="col-12 col-md-3">
-                <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Total No. of Items</span>
-                            <span class="info-box-number mt-0">
-                            <span>{{$assign_count}}</span>
-                            </span>
-                        </div> 
-                </div> 
-            </div> 
-
-            <div class="col-12 col-md-12 mt-4">
+      
+      <form action="{{url('admin/assign/update/'.$assign->id)}}" method="post">
+      @csrf
+      @method('PUT')
+        <div class="row">
+            <div class="col-12 col-md-12 mt-4 mb-5">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List of Items</h3>
-                            <div class="card-tools">                    
-                                {!! $assigns->links() !!}
+                        <h3 class="card-title">Item details</h3>
+                        <div class="card-tools"></div>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                    
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="class">Name <span class="text-danger">*</span></label>
+                                    <input type="text" name="name" value="{{$assign->name}}" class="form-control" required>
+                                </div>
                             </div>
-                    </div>
-
-                    <div class="card-body p-0">
-                    <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($assigns as $data)
-                                <tr>
-                                    <td>{{$data->name}}</td>
-                                <td>
-                                  <a class="btn btn-sm btn-default mr-1" href="{{url('admin/assign/modify/'. $data->id)}}">Modify</a>
-                                  <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                                </td>
-                                </tr> 
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                        </div>
 
                 </div>
-                    <a href="{{route('assign.create')}}" class="btn btn-primary">Create</a>
+                    <div class="card-footer">
+                        <button class="btn btn-primary mr-1">Update</button>
+                        <a class="btn btn-default" href="{{route('assign.index')}}">Cancel</a>
+                    </div>
             </div>
 
-
+      </form>
       </div><!-- /row -->
     </div><!-- /container -->
         
@@ -233,19 +214,6 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-<!-- Toastr -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-@if(Session::has('assign_created'))
-    <script>
-        toastr.success("{!! Session::get('assign_created') !!}");
-    </script>
-@elseif(Session::has('assign_updated'))
-    <script>
-        toastr.info("{!! Session::get('assign_updated') !!}");
-    </script>
-@endif
 
 @yield('custom-script')
 </body>

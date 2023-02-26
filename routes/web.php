@@ -9,6 +9,8 @@ use App\Http\Controllers\LogoutController;
 
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AssignController;
+use App\Http\Controllers\DesignationController;
+use App\Http\Controllers\CategoryController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -54,10 +56,26 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('inventory/create', [InventoryController::class, 'create'])->name('inventory.create');
         Route::post('inventory/store', [InventoryController::class, 'store'])->name('inventory.store');
         Route::get('inventory/preview/{id}', [InventoryController::class, 'preview'])->name('inventory.preview');
+        Route::get('inventory/modify/{id}', [InventoryController::class, 'modify'])->name('inventory.modify');
+        Route::get('inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
 
         Route::get('assign', [AssignController::class, 'index'])->name('assign.index');
         Route::get('assign/create', [AssignController::class, 'create'])->name('assign.create');
         Route::post('assign/store', [AssignController::class, 'store'])->name('assign.store');
+        Route::get('assign/modify/{id}', [AssignController::class, 'modify'])->name('assign.modify');
+        Route::put('assign/update/{id}', [AssignController::class, 'update'])->name('assign.update');
+
+        Route::get('designation', [DesignationController::class, 'index'])->name('designation.index');
+        Route::get('designation/create', [DesignationController::class, 'create'])->name('designation.create');
+        Route::post('designation/store', [DesignationController::class, 'store'])->name('designation.store');
+        Route::get('designation/modify/{id}', [DesignationController::class, 'modify'])->name('designation.modify');
+        Route::put('designation/update/{id}', [DesignationController::class, 'update'])->name('designation.update');
+
+        Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('category/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('category/store', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('category/modify/{id}', [CategoryController::class, 'modify'])->name('category.modify');
+        Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
         
 });
 

@@ -22,6 +22,22 @@ class AssignController extends Controller
         $data = new Assign();
         $data->name = $request->input('name');
         $data->save();
-        return redirect()->route('assign.index')->with('assign_created', 'Assign has been created successfully!');
+        return redirect()->route('assign.index')->with('assign_created', 'Assign area has been created successfully!');
     }
+    public function modify($id)
+    {
+        $this->data['assign'] = Assign::find($id);
+        return view('backend.admin.assignEdit', $this->data);
+    }
+    public function update(Request $request, $id)
+    {
+        
+        $data = Assign::find($id);
+        $data->name = $request->input('name');
+        $data->update();
+            
+        return redirect()->route('assign.index')->with('assign_updated', 'Assign area has been updated successfully!');
+    }
+
+
 }

@@ -126,13 +126,19 @@
               <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign</p>
+                  <p>Assign Area</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('designation.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category 2</p>
+                  <p>Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
             </ul>
@@ -177,7 +183,6 @@
                     <div class="card-body p-4">
                     
                         <div class="row">
-                            <!-- <div class="col-md-12 mt-3 mb-3"><h5>Section 1</h5></div> -->
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Item Code <span class="text-danger">*</span></label>
@@ -218,8 +223,9 @@
                                     <label for="class">Designation <span class="text-danger">*</span></label>
                                     <select name="designation_id" class="form-control" required>
                                         <option value="" disabled selected>Please select</option>
-                                        <option value="1">Area 1</option>
-                                        <option value="2">Area 2</option>
+                                        @foreach($destinations as $destination)
+                                          <option value="{{$destination->id}}">{{$destination->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -239,7 +245,6 @@
                         
 
                         <div class="row">
-                            <!-- <div class="col-md-12 mt-3 mb-3"><h5>Section 2</h5></div> -->
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Item Name <span class="text-danger">*</span></label>
@@ -251,8 +256,9 @@
                                     <label for="class">Category <span class="text-danger">*</span></label>
                                     <select name="category_id" class="form-control" required>
                                         <option value="" disabled selected>Please select</option>
-                                        <option value="1">Category 1</option>
-                                        <option value="2">Category 2</option>
+                                        @foreach($categories as $category)
+                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

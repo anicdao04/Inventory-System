@@ -123,13 +123,19 @@
               <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign</p>
+                  <p>Assign Area</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{route('designation.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category 2</p>
+                  <p>Designation</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
             </ul>
@@ -158,29 +164,29 @@
       <div class="row">
         <div class="col-lg-3 col-6">
             <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>3</h3>
+                <div class="inner text-white"><h3>{{$inventory_count}}</h3>
                     <p>Inventory</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
             <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>3</h3>
+                <div class="inner"><h3>0</h3>
                     <p>Manage</p>
                 </div>
                 <div class="icon p-1"><i class="fi fi-rr-layer-plus" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
             <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>1</h3>
+                <div class="inner text-white"><h3>0</h3>
                     <p>Records</p>
                 </div>
                 <div class="icon p-1"><i class="fi fi-rr-move-to-folder-2" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
@@ -189,7 +195,7 @@
                     <p>Maintenance</p>
                 </div>
                 <div class="icon p-1"><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">More info <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
 
