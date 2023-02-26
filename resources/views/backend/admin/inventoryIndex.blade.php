@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List Items | IIMMS</title>
+  <title>List Inventory | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -86,7 +86,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -123,10 +123,16 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign Area</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -136,9 +142,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{route('item.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                  <p>Item</p>
                 </a>
               </li>
             </ul>
@@ -165,7 +171,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>List of Items</h3>
+            <h3>List of Inventory</h3>
             <p class="text-muted">Inventory | List</p>
         </div>
 
@@ -186,7 +192,7 @@
                 <div class="info-box">
                     <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-settings-sliders"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Filter Item by Category</span>
+                            <span class="info-box-text">Filter by Category</span>
                             <span class="info-box-number mt-0">
                               <div class="row">
                                   <div class="col-12 col-md-8">
@@ -230,7 +236,11 @@
                               @foreach($inventories as $data)
                                 <tr>
                                     <td>{{$data->item_code}}</td>
-                                    <td>{{$data->item_name}}</td> 
+                                        @foreach($items as $item)
+                                            @if($item->id == $data->item_id)
+                                              <td>{{$item->name}}</td>
+                                            @endif
+                                        @endforeach
                                     <td>{{$data->serial_no}}</td> 
                                         @foreach($categories as $category)
                                             @if($category->id == $data->category_id)
@@ -284,7 +294,7 @@
     </script>
 @elseif(Session::has('item_updated'))
     <script>
-        toastr.info("{!! Session::get('ingredient_updated') !!}");
+        toastr.info("{!! Session::get('item_updated') !!}");
     </script>
 @endif
 

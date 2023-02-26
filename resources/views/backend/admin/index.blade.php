@@ -83,7 +83,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -120,10 +120,16 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign Area</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -133,9 +139,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{route('item.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                  <p>Item</p>
                 </a>
               </li>
             </ul>

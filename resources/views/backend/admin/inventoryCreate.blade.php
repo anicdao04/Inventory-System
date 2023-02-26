@@ -86,7 +86,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -123,10 +123,16 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
+              <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign Area</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -136,9 +142,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{route('item.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                  <p>Item</p>
                 </a>
               </li>
             </ul>
@@ -165,7 +171,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Create Item</h3>
+            <h3>Create Inventory</h3>
             <p class="text-muted">Inventory | Create</p>
         </div>
 
@@ -191,8 +197,19 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="class">Serial Number <span class="text-muted"><small>(optional)</small></span></label>
-                                    <input type="text" name="serial_no" class="form-control">  
+                                    <label for="class">Item Name <span class="text-danger">*</span></label>
+                                    <select name="item_id" class="form-control" required>
+                                        <option value="" disabled selected>Please select</option>
+                                        @foreach($items as $item)
+                                          <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Actual Photo <span class="text-danger">*</span></label>
+                                    <input type="file" name="image" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -201,10 +218,33 @@
                                     <input type="text" name="color" class="form-control">  
                                 </div>
                             </div>
+                        </div>
+
+
+                        <div class="row">
+                            
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="class">Quantity <span class="text-danger">*</span></label>
-                                    <input type="number" name="quantity" class="form-control" required>  
+                                    <label for="class">Serial Number <span class="text-muted"><small>(optional)</small></span></label>
+                                    <input type="text" name="serial_no" class="form-control">  
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">OR Number <span class="text-danger">*</span></label>
+                                    <input type="text" name="or_no" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Purchased Date <span class="text-danger">*</span></label>
+                                    <input type="date" name="date_purchased" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Warranty Date<span class="text-danger">*</span></label>
+                                    <input type="date" name="warranty" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -231,28 +271,6 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="class">Warranty <span class="text-danger">*</span></label>
-                                    <input type="date" name="warranty" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="class">Actual Photo <span class="text-danger">*</span></label>
-                                    <input type="file" name="image" class="form-control" required>
-                                </div>
-                            </div>
-                        </div> <!-- end row -->
-                        
-
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="class">Item Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="item_name" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <label for="class">Category <span class="text-danger">*</span></label>
                                     <select name="category_id" class="form-control" required>
                                         <option value="" disabled selected>Please select</option>
@@ -268,19 +286,17 @@
                                     <input type="text" name="bundled_to" class="form-control">  
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="class">Purchased Date <span class="text-danger">*</span></label>
-                                    <input type="date" name="date_purchased" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="class">OR Number <span class="text-danger">*</span></label>
-                                    <input type="text" name="or_no" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
+                            
+                        </div> <!-- end row -->
+                        
+
+                        <div class="row">
+                            
+                            
+                            
+                            
+                            
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="class">Description <span class="text-muted"><small>(optional)</small></span></label>
                                     <input type="text" name="description" class="form-control">  

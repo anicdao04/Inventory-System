@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modify Category | IIMMS</title>
+  <title>Dashboard | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -20,9 +20,6 @@
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
-    }
-    .form-control{
-        border-radius: 0px !important;
     }
   </style>
 </head>
@@ -86,7 +83,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link active">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -116,8 +113,8 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
@@ -130,7 +127,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link active">
+                <a href="{{route('category.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Category</p>
                 </a>
@@ -169,44 +166,32 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper pt-4">
-    <div class="container-fluid mt-3 px-5">
-        <div class="mb-3">
-            <h3>Modify Category</h3>
-            <p class="text-muted">Category | Modify</p>
-        </div>
-
-      
-      <form action="{{url('admin/category/update/'.$category->id)}}" method="post">
-      @csrf
-      @method('PUT')
-        <div class="row">
-            <div class="col-12 col-md-12 mt-4 mb-5">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Item details</h3>
-                        <div class="card-tools"></div>
-                    </div>
-                    
-                    <div class="card-body p-4">
-                    
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="class">Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" value="{{$category->name}}" class="form-control" required>
-                                </div>
-                            </div>
-                        </div>
-
+    <div class="container-fluid px-5 mt-4 text-center">
+    <h1>Manage Item</h1>
+    <p class="mb-5 text-muted"><i class="fi fi-rr-thumbtack mr-2" style="font-size:14px;"></i> Unit Transfer</p>
+        
+    <div class="row justify-content-center">
+    <div class="col-5">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Select item category</h3>
                 </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary mr-1">Update</button>
-                        <a class="btn btn-default" href="{{route('category.index')}}">Cancel</a>
-                    </div>
+                <div class="card-body p-4">
+                    <form action="{{route('transfer.query')}}" method="get">
+                        <select name="id" class="form-control">
+                            <option value="" selected disabled>Please Select</option>
+                            @foreach($items as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+                        <button class="btn btn-primary mt-3">Submit</button>
+                    </form>
+                </div>
+                
             </div>
+    </div>
+  </div>
 
-      </form>
-      </div><!-- /row -->
     </div><!-- /container -->
         
 

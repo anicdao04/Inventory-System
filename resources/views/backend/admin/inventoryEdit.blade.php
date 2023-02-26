@@ -79,14 +79,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('inventory.index')}}" class="nav-link">
+            <a href="{{route('inventory.index')}}" class="nav-link active">
               <i class="fi fi-rr-edit mr-2"></i>
               <p>Inventory</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -116,17 +116,23 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('assign.index')}}" class="nav-link active">
+              <li class="nav-item menu-open">
+                <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Assign Area</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -136,9 +142,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{route('item.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                  <p>Item</p>
                 </a>
               </li>
             </ul>
@@ -201,12 +207,6 @@
                                         <div class="form-group">
                                             <label for="class">Color <span class="text-muted"><small>(optional)</small></span></label>
                                             <input type="text" name="color" value="{{$inventory->color}}" class="form-control">  
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="class">Quantity <span class="text-danger">*</span></label>
-                                            <input type="number" name="quantity" value="{{$inventory->quantity}}" class="form-control" required>  
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -298,8 +298,17 @@
                                     <label for="class">Actual Photo <span class="text-danger">*</span></label>
                                         <img src="{{asset('uploads/images/inventory/'. $inventory->image)}}" class="img-fluid">
                                             <div class="form-group">
-                                                <h4 class="text-center mt-3 mb-0">{{$inventory->item_name}}</h4>
-                                                <p class="text-center">(Item Name)</p>
+                                                <label>Item Name</label>
+                                                <select name="item_id" class="form-control" required>
+                                                  @foreach($items as $item)
+                                                      @if($item->id == $inventory->item_id)
+                                                          <option value="{{$item->id}}" selected>{{$item->name}}</option>
+                                                      @elseif($item->id != $inventory->item_id)
+                                                          <option value="{{$item->id}}">{{$item->name}}</option>
+                                                      @endif
+                                                  @endforeach
+                                                </select>
+                                                
                                             </div>
 
                                         <p for="class" class="mt-5"><small><span class="text-danger">Change Image?</span> <span>(click Choose File button below)</span></small></p>

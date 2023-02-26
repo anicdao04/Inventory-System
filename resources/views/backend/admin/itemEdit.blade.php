@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Modify Category | IIMMS</title>
+  <title>Modify Item | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -130,7 +130,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link active">
+                <a href="{{route('category.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Category</p>
                 </a>
@@ -142,7 +142,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('item.index')}}" class="nav-link">
+                <a href="{{route('item.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Item</p>
                 </a>
@@ -171,12 +171,12 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Modify Category</h3>
-            <p class="text-muted">Category | Modify</p>
+            <h3>Modify Item</h3>
+            <p class="text-muted">Item | Modify</p>
         </div>
 
       
-      <form action="{{url('admin/category/update/'.$category->id)}}" method="post">
+      <form action="{{url('admin/item/update/'.$item->id)}}" method="post">
       @csrf
       @method('PUT')
         <div class="row">
@@ -193,7 +193,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="class">Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" value="{{$category->name}}" class="form-control" required>
+                                    <input type="text" name="name" value="{{$item->name}}" class="form-control" required>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                 </div>
                     <div class="card-footer">
                         <button class="btn btn-primary mr-1">Update</button>
-                        <a class="btn btn-default" href="{{route('category.index')}}">Cancel</a>
+                        <a class="btn btn-default" href="{{route('item.index')}}">Cancel</a>
                     </div>
             </div>
 

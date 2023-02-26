@@ -11,6 +11,8 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AssignController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ManageController;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -76,6 +78,16 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::post('category/store', [CategoryController::class, 'store'])->name('category.store');
         Route::get('category/modify/{id}', [CategoryController::class, 'modify'])->name('category.modify');
         Route::put('category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+
+        Route::get('item', [ItemController::class, 'index'])->name('item.index');
+        Route::get('item/create', [ItemController::class, 'create'])->name('item.create');
+        Route::post('item/store', [ItemController::class, 'store'])->name('item.store');
+        Route::get('item/modify/{id}', [ItemController::class, 'modify'])->name('item.modify');
+        Route::put('item/update/{id}', [ItemController::class, 'update'])->name('item.update');
+
+        Route::get('manage', [ManageController::class, 'index'])->name('manage.index');
+        Route::get('manage/transfer', [ManageController::class, 'transfer'])->name('transfer.index');
+        Route::get('manage/transfer/category/', [ManageController::class, 'transfer_query'])->name('transfer.query');
         
 });
 

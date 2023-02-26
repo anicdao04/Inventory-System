@@ -18,16 +18,13 @@ class CreateInventoriesTable extends Migration
             $table->longText('item_code');
             $table->longText('serial_no')->nullable();
             $table->longText('color')->nullable();
-            $table->longText('quantity');
             $table->longText('assign_id');
             $table->longText('designation_id');
             $table->date('warranty')->nullable();
             $table->longText('image')->nullable();
-
-            $table->longText('item_name');
+            $table->longText('item_id');
             $table->longText('category_id');
             $table->longText('bundled_to');
-
             $table->date('date_purchased');
             $table->longText('or_no');
             $table->longText('description')->nullable();

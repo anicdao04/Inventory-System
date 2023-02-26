@@ -10,9 +10,21 @@ class Inventory extends Model
 {
     use HasFactory;
 
-    public function getNameAttribute($value)
+    public function getItemNameAttribute($value)
     {
         return ucwords($value);
+    }
+    public function getBundledToAttribute($value)
+    {
+        return ucwords($value);
+    }
+    public function getDescriptionAttribute($value)
+    {
+        return ucfirst($value);
+    }
+    public function getColorAttribute($value)
+    {
+        return ucfirst($value);
     }
     
 }

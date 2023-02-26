@@ -86,7 +86,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -130,17 +130,24 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{route('category.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle-dashed mr-1"></i>
+                  <p>Category</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{route('designation.index')}}" class="nav-link active">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
                   <p>Designation</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
+                <a href="{{route('item.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                  <p>Item</p>
                 </a>
               </li>
+            </ul>
             </ul>
           </li>
 
