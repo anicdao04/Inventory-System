@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List Inventory | IIMMS</title>
+  <title>Unit Details | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,6 +23,11 @@
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
+    }
+    .form-control{
+        border-radius: 0px !important;
+        background-color: #fff !important;
+        border: 1px solid #f2f2f2;
     }
   </style>
 </head>
@@ -79,14 +84,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('inventory.index')}}" class="nav-link active">
+            <a href="{{route('inventory.index')}}" class="nav-link">
               <i class="fi fi-rr-edit mr-2"></i>
               <p>Inventory</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link active">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -158,7 +163,6 @@
               <p>Log out</p>
             </a>
           </li>
-          
 
         </ul>
       </nav>
@@ -171,106 +175,137 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>List of Inventory</h3>
-            <p class="text-muted">Inventory | List</p>
+                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> Unit Transfer</h3>
+
+            <!-- <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of items available for Transfer</p> -->
         </div>
 
       <div class="row">
         <!-- Info boxes -->
             <div class="col-12 col-md-3">
-                <div class="info-box">
+                <!-- <div class="info-box">
                     <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Total No. of Items</span>
                             <span class="info-box-number mt-0">
-                            <span>{{$inventory_count}}</span>
+                            <span></span>
                             </span>
                         </div> 
-                </div> 
-            </div> 
-            <div class="col-12 col-md-3">
-                <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-settings-sliders"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Filter by Category</span>
-                            <span class="info-box-number mt-0">
-                              <div class="row">
-                                  <div class="col-12 col-md-8">
-                                    <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
-                                      <option value="" disabled selected>Please select</option>
-                                        @foreach($categories as $category)
-                                          <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
-                                  </div>
-                                  <div class="col-12 col-md-4">
-                                    <button class="btn btn-sm btn-default btn-block" style="margin-top: 3px;">Submit</button>
-                                  </div>
-                              </div>
-                            </span>
-                        </div> 
-                </div> 
+                </div>  -->
             </div> 
 
+           
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List of Items</h3>
-                            <div class="card-tools">                    
-                                {!! $inventories->links() !!}
-                            </div>
+                        <h3 class="card-title">Unit Details</h3>
                     </div>
 
-                    <div class="card-body p-0">
-                    <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Item Code</th>
-                                    <th>Name</th>
-                                    <th>Serial Number</th>
-                                    <th>Category</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              @foreach($inventories as $data)
-                                <tr>
-                                    <td>{{$data->item_code}}</td>
-                                        @foreach($items as $item)
-                                            @if($item->id == $data->item_id)
-                                              <td>{{$item->name}}</td>
-                                            @endif
-                                        @endforeach
-                                    
-                                      @if($data->serial_no == null)
-                                      <td>N/A</td>
+                    <div class="card-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-8 col-md-8 px-3">
+                          
+                          <h5 class="text-info">Current Location</h5>
+                          <hr>
+
+                          <form action="{{route('transfer.update')}}" method="get">
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Assigned Area</label>
+                                    @foreach($assigns as $assign)
+                                      @if($assign->id == $item->assign_id)
+                                        <input type="text" value="{{$assign->name}}" class="form-control" disabled>
                                       @endif
-                                    
-                                        @foreach($categories as $category)
-                                            @if($category->id == $data->category_id)
-                                              <td>{{$category->name}}</td>
-                                            @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Designation</label>
+                                    @foreach($designations as $designation)
+                                      @if($designation->id == $item->designation_id)
+                                        <input type="text" value="{{$designation->name}}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Bundled To</label>
+                                      @if($item->bundled_to == null)
+                                        <input type="text" value="N/A" class="form-control" disabled>
+                                      @else
+                                        <input type="text" value="{{$item->bundled_to}}" class="form-control" disabled>
+                                      @endif
+                                        
+                                </div>
+                              </div>
+                            </div> <!-- end row -->
+
+                          <h5 class="mt-5 text-info">Transfer To</h5>
+                          <hr>
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Assigned Area</label>
+                                    <select name="assign_id" class="form-control" required>
+                                      <option value="" selected disabled>Please Select</option>
+                                      @foreach($assigns as $assign)
+                                        <option value="{{$assign->id}}">{{$assign->name}}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Designation</label>
+                                    <select name="designation_id" class="form-control" required>
+                                      <option value="" selected disabled>Please Select</option>
+                                      @foreach($designations as $designation)
+                                        <option value="{{$designation->id}}">{{$designation->name}}</option>
+                                      @endforeach
+                                    </select>
+                                </div>
+                              </div>
+
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Bundled To</label>
+                                      <input type="text" name="bundled_to" class="form-control" required>
+                                </div>
+                              </div>
+                              <input type="hidden" name="id" value="{{$item->id}}">
+
+                          </div> <!-- end row -->
+                          <button class="btn btn-primary mt-3">Submit</button>
+                          <a href="{{url('admin/manage/transfer/category?id='. $item->item_id)}}" class="btn btn-secondary mt-3">Close</a>
+                          </form>
+
+                          </div><!-- end col-8 -->
+
+                          <div class="col-4 col-md-4 px-3"><!-- start col-4 -->
+                              <div class="form-group">
+                                    <img src="{{ asset('uploads/images/inventory/'.$item->image) }}" class="img-fluid img-thumbnail">
+                                    <div class="form-group">
+                                        @foreach($items as $data)
+                                          @if($data->id == $item->item_id)
+                                            <h4 class="text-center mt-3 mb-0">{{$data->name}}</h4>
+                                          @endif
                                         @endforeach
-                                    <td>
-                                        <div class="btn-group" role="group">
-                                          <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="nav-icon fas fa-list mr-1"></i> Select
-                                          </button>
-                                          <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
-                                            <a class="dropdown-item"  href="{{url('admin/inventory/preview/' . $data->id)}}"><i class="fi fi-rr-search mr-1"></i></i> Preview</a>
-                                            <a class="dropdown-item"  href="{{url('admin/inventory/modify/'. $data->id)}}"><i class="fi fi-rr-pencil mr-1"></i> Modify</a>
-                                            <a class="dropdown-item"  href=""><i class="fi fi-rr-trash mr-1"></i> Delete</a>
-                                          </div>
-                                        </div>
-                                    </td>
-                                </tr> 
-                              @endforeach
-                            </tbody>
-                        </table>
+                                        <p class="text-center">SN: {{$item->serial_no}}</p>
+                                    </div>
+                              </div>
+                          </div> <!-- end col-4 -->
+
+                        </div>
+                      </div>
                     </div>
 
                 </div>
-                    <a href="{{route('inventory.create')}}" class="btn btn-primary">Create</a>
+                    <!-- <a href="" class="btn btn-primary">Create</a> -->
             </div>
 
 
@@ -292,13 +327,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('item_created'))
+@if(Session::has('transfer_updated'))
     <script>
-        toastr.success("{!! Session::get('item_created') !!}");
+        toastr.success("{!! Session::get('transfer_updated') !!}");
     </script>
-@elseif(Session::has('item_updated'))
+@elseif(Session::has('designation_updated'))
     <script>
-        toastr.info("{!! Session::get('item_updated') !!}");
+        toastr.info("{!! Session::get('designation_updated') !!}");
     </script>
 @endif
 

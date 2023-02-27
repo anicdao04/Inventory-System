@@ -243,8 +243,8 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="class">Warranty Date<span class="text-danger">*</span></label>
-                                    <input type="date" name="warranty" class="form-control" required>
+                                    <label for="class">Warranty Date <span class="text-muted"><small>(optional)</small></span></label>
+                                    <input type="date" name="warranty" class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-3">

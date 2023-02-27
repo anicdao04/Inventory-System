@@ -9,6 +9,8 @@ use Carbon\Carbon;
 class Inventory extends Model
 {
     use HasFactory;
+    protected $table = "inventories";
+    protected $fillables = ['item_code','serial_no','color', 'assign_id', 'designation_id', 'warranty', 'image', 'item_id', 'category_id', 'bundled_to', 'date_purchased', 'is_active', 'is_critical'];
 
     public function getItemNameAttribute($value)
     {

@@ -88,6 +88,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage', [ManageController::class, 'index'])->name('manage.index');
         Route::get('manage/transfer', [ManageController::class, 'transfer'])->name('transfer.index');
         Route::get('manage/transfer/category/', [ManageController::class, 'transfer_query'])->name('transfer.query');
+        Route::get('manage/transfer/item/{id}', [ManageController::class, 'transfer_item'])->name('transfer.item');
+        Route::get('manage/transfer/update', [ManageController::class, 'transfer_update'])->name('transfer.update');
         
 });
 

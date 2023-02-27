@@ -201,7 +201,6 @@
                         
                             </div>
                     </div>
-
                     <div class="card-body p-0">
                     <table class="table">
                             <thead>
@@ -217,7 +216,10 @@
                                 @foreach($lists as $list)
                                 <tr>
                                     <td>{{$list->item_code}}</td>
-                                    <td>{{$list->serial_no}}</td>
+                                        @if($list->serial_no == null)
+                                            <td>N/A</td>
+                                        @endif
+
                                         @foreach($assigns as $assign)
                                             @if($assign->id == $list->assign_id)
                                                 <td>{{$assign->name}}</td>
@@ -230,16 +232,16 @@
                                             @endif
                                         @endforeach
                                     <td>
-                                      <a class="btn btn-sm btn-default mr-1" href="">Manage</a>
+                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/transfer/item/'. $list->id)}}">Manage</a>
                                     </td>
                                 </tr> 
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-
+                        
                 </div>
-                    <!-- <a href="" class="btn btn-primary">Create</a> -->
+                    <a href="{{route('transfer.index')}}" class="btn btn-secondary">Close</a>
             </div>
 
 

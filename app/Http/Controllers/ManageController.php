@@ -7,7 +7,7 @@ use App\Models\Inventory;
 use App\Models\Item;
 use App\Models\Assign;
 use App\Models\Designation;
-
+use App\Models\Category;
 
 class ManageController extends Controller
 {
@@ -31,4 +31,30 @@ class ManageController extends Controller
         $this->data['lists'] = Inventory::where('item_id', '=', $category_id)->get();
         return view('backend.admin.manageTransferQuery', $this->data);
     }
+
+    public function transfer_item($id)
+    {
+        $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['categories'] = Category::get();
+        $this->data['item'] = Inventory::find($id);
+        return view('backend.admin.manageTransferSelect', $this->data);
+    }
+    public function transfer_update(Request $request)
+    {
+        $id = $_GET['id'];
+        $assign_id = $_GET['assign_id'];
+        $designation_id = $_GET['designation_id'];
+        $bundled_to = $_GET['bundled_to'];
+
+        $data = Inventory::find($id);
+        $data->assign_id = $assign_id;
+        $data->designation_id = $designation_id;
+        $data->bundled_to = $bundled_to;
+        $data->update();
+
+        return redirect()->back()->with('transfer_updated', 'Item has been transfered successfully!');
+    }
+
 }

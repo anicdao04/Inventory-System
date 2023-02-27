@@ -202,13 +202,21 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <span for="class" class="text-muted">Bundled To</span>
-                                            <input type="text" value="{{$inventory->bundled_to}}" class="form-control" disabled>
+                                            @if($inventory->bundled_to == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{$inventory->bundled_to}}" class="form-control" disabled>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <span for="class" class="text-muted">Color</span>
-                                            <input type="text" value="{{$inventory->color}}" class="form-control" disabled>   
+                                            @if($inventory->color == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{$inventory->color}}" class="form-control" disabled>
+                                            @endif
                                         </div>
                                     </div>
                                     
@@ -233,7 +241,12 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <span for="class" class="text-muted">Warranty</span>
-                                            <input type="text" value="{{ Carbon\Carbon::parse($inventory->warranty)->format('F d, Y') }}" class="form-control" disabled>
+                                            @if($inventory->warranty == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{ Carbon\Carbon::parse($inventory->warranty)->format('F d, Y') }}" class="form-control" disabled>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -270,7 +283,12 @@
                                     <div class="col-md-8">
                                         <div class="form-group">
                                             <span for="class" class="text-muted">Description</span>
-                                            <input type="text" value="{{$inventory->description}}" class="form-control" disabled>
+                                            @if($inventory->description == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{$inventory->color}}" class="form-control" disabled>
+                                            @endif
+                                            
                                         </div>
                                     </div>
 
