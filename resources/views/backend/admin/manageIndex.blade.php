@@ -175,8 +175,8 @@
                 <div class="inner"><h3>0</h3>
                     <p>Maint. Scheduling</p>
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-clock-three" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <div class="icon p-1" ><i class="fi fi-rr-calendar-lines-pen" style="font-size: 50px;"></i></div>
+                <a href="{{route('scheduling.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-md-3 col-6">
@@ -185,7 +185,7 @@
                     <p>Maint. Status</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-info" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="{{route('status.list')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-md-3 col-6">

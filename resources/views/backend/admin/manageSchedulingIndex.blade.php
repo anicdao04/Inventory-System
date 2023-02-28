@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Manage Unit Transfer | IIMMS</title>
+  <title>Manage Maintenance Scheduling | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -167,7 +167,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper pt-4">
     <div class="container-fluid px-5 mt-4 text-center">
-    <h1><i class="fi fi-rr-ftp mr-2" style="font-size:26px;"></i> Unit Transfer</h1>
+
+    <h1><i class="fi fi-rr-calendar-lines-pen mr-2" style="font-size:26px;"></i> Maintenance Scheduling</h1>
     <h5 class="mb-5 text-muted">(Manage Item)</h5>
         
     <div class="row justify-content-center">
@@ -177,7 +178,7 @@
                     <h3 class="card-title">Select item category</h3>
                 </div>
                 <div class="card-body p-4">
-                    <form action="{{route('transfer.query')}}" method="get">
+                    <form action="{{route('scheduling.query')}}" method="get">
                         <select name="id" class="form-control">
                             <option value="" selected disabled>Please Select</option>
                             @foreach($items as $item)

@@ -57,4 +57,30 @@ class ManageController extends Controller
         return redirect()->back()->with('transfer_updated', 'Item has been transfered successfully!');
     }
 
+
+    public function scheduling()
+    {
+        $this->data['items'] = Item::get();
+        return view('backend.admin.manageSchedulingIndex', $this->data);
+    }
+    public function scheduling_query()
+    {
+        $category_id = $_GET['id'];
+        $this->data['category_id'] = $category_id;
+        $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['lists'] = Inventory::where('item_id', '=', $category_id)->get();
+        return view('backend.admin.manageSchedulingQuery', $this->data);
+    }
+    public function scheduling_item($id)
+    {
+        $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['categories'] = Category::get();
+        $this->data['item'] = Inventory::find($id);
+        return view('backend.admin.manageSchedulingSelect', $this->data);
+    }
+
 }

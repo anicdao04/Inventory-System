@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List Inventory | IIMMS</title>
+  <title>List of Maintenance Request | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -79,14 +79,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('inventory.index')}}" class="nav-link active">
+            <a href="{{route('inventory.index')}}" class="nav-link">
               <i class="fi fi-rr-edit mr-2"></i>
               <p>Inventory</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link active">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -158,7 +158,6 @@
               <p>Log out</p>
             </a>
           </li>
-          
 
         </ul>
       </nav>
@@ -171,45 +170,22 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>List of Inventory</h3>
-            <p class="text-muted">Inventory | List</p>
+                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> Maintenance Status</h3>
+            <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Maintenance Request</p>
         </div>
 
       <div class="row">
         <!-- Info boxes -->
             <div class="col-12 col-md-3">
-                <div class="info-box">
+                <!-- <div class="info-box">
                     <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Total No. of Items</span>
                             <span class="info-box-number mt-0">
-                            <span>{{$inventory_count}}</span>
+                            <span></span>
                             </span>
                         </div> 
-                </div> 
-            </div> 
-            <div class="col-12 col-md-3">
-                <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-settings-sliders"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Filter by Category</span>
-                            <span class="info-box-number mt-0">
-                              <div class="row">
-                                  <div class="col-12 col-md-8">
-                                    <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
-                                      <option value="" disabled selected>Please select</option>
-                                        @foreach($categories as $category)
-                                          <option value="{{$category->id}}">{{$category->name}}</option>
-                                        @endforeach
-                                    </select>
-                                  </div>
-                                  <div class="col-12 col-md-4">
-                                    <button class="btn btn-sm btn-default btn-block" style="margin-top: 3px;">Submit</button>
-                                  </div>
-                              </div>
-                            </span>
-                        </div> 
-                </div> 
+                </div>  -->
             </div> 
 
             <div class="col-12 col-md-12 mt-4">
@@ -217,62 +193,69 @@
                     <div class="card-header">
                         <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                                {!! $inventories->links() !!}
+                        
                             </div>
                     </div>
-
                     <div class="card-body p-0">
                     <table class="table">
                             <thead>
                                 <tr>
                                     <th>Item Code</th>
-                                    <th>Name</th>
-                                    <th>Serial Number</th>
-                                    <th>Category</th>
-                                    <th>Actions</th>
+                                    <th>Item Name</th>
+                                    <th>Maintenance Type</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($inventories as $data)
+                              @foreach($lists as $list)
                                 <tr>
-                                    <td>{{$data->item_code}}</td>
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        <td>{{$inventory->item_code}}</td>
+                                      @endif
+                                    @endforeach
+
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
                                         @foreach($items as $item)
-                                            @if($item->id == $data->item_id)
-                                              <td>{{$item->name}}</td>
-                                            @endif
+                                          @if($item->id == $inventory->item_id)
+                                            <td>{{$item->name}}</td>
+                                          @endif
                                         @endforeach
-                                    
-                                        @if($data->serial_no == null)
-                                          <td>N/A</td>
+                                      @endif
+                                    @endforeach
+
+                                    <!-- @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        @if($inventory->serial_no == null)
+                                            <td>N/A</td>
                                         @else
-                                          <td>{{$data->serial_no}}</td>
+                                            <td>{{$inventory->serial_no}}</td>
                                         @endif
-                                    
-                                        @foreach($categories as $category)
-                                            @if($category->id == $data->category_id)
-                                              <td>{{$category->name}}</td>
-                                            @endif
-                                        @endforeach
+                                      @endif
+                                    @endforeach -->
+
+                                    <td>{{$list->type}}</td>
+
+
+                                    @if($list->status == 0)
+                                        <td><span class="badge badge-pill badge-warning p-2">Pending</span></td>
+                                    @else
+                                        <td><span class="badge badge-pill badge-success p-2">Done</span></td>
+                                    @endif
+                                       
                                     <td>
-                                        <div class="btn-group" role="group">
-                                          <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="nav-icon fas fa-list mr-1"></i> Select
-                                          </button>
-                                          <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
-                                            <a class="dropdown-item"  href="{{url('admin/inventory/preview/' . $data->id)}}"><i class="fi fi-rr-search mr-1"></i></i> Preview</a>
-                                            <a class="dropdown-item"  href="{{url('admin/inventory/modify/'. $data->id)}}"><i class="fi fi-rr-pencil mr-1"></i> Modify</a>
-                                            <a class="dropdown-item"  href=""><i class="fi fi-rr-trash mr-1"></i> Delete</a>
-                                          </div>
-                                        </div>
+                                      <a class="btn btn-sm btn-default mr-1" href="">Manage</a>
                                     </td>
                                 </tr> 
                               @endforeach
                             </tbody>
                         </table>
                     </div>
-
+                        
                 </div>
-                    <a href="{{route('inventory.create')}}" class="btn btn-primary">Create</a>
+                    <a href="" class="btn btn-secondary">Close</a>
             </div>
 
 
@@ -294,13 +277,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('item_created'))
+@if(Session::has('designation_created'))
     <script>
-        toastr.success("{!! Session::get('item_created') !!}");
+        toastr.success("{!! Session::get('designation_created') !!}");
     </script>
-@elseif(Session::has('item_updated'))
+@elseif(Session::has('designation_updated'))
     <script>
-        toastr.info("{!! Session::get('item_updated') !!}");
+        toastr.info("{!! Session::get('designation_updated') !!}");
     </script>
 @endif
 

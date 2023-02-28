@@ -218,6 +218,8 @@
                                     <td>{{$list->item_code}}</td>
                                         @if($list->serial_no == null)
                                             <td>N/A</td>
+                                        @else
+                                            <td>{{$list->serial_no}}</td>
                                         @endif
 
                                         @foreach($assigns as $assign)

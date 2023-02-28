@@ -13,7 +13,8 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ManageController;
-
+use App\Http\Controllers\MaintenanceScheduleController;
+use App\Models\MaintenanceSchedule;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -90,6 +91,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/transfer/category/', [ManageController::class, 'transfer_query'])->name('transfer.query');
         Route::get('manage/transfer/item/{id}', [ManageController::class, 'transfer_item'])->name('transfer.item');
         Route::get('manage/transfer/update', [ManageController::class, 'transfer_update'])->name('transfer.update');
+
+        Route::get('manage/scheduling', [ManageController::class, 'scheduling'])->name('scheduling.index');
+        Route::get('manage/scheduling/category/', [ManageController::class, 'scheduling_query'])->name('scheduling.query');
+        Route::get('manage/scheduling/item/{id}', [ManageController::class, 'scheduling_item'])->name('scheduling.item');
+
+        Route::get('manage/maintenance/set', [MaintenanceScheduleController::class, 'set'])->name('maintenance.set');
+        Route::get('manage/status/', [MaintenanceScheduleController::class, 'list'])->name('status.list');
         
 });
 
