@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Manage Items | IIMMS</title>
+  <title>Unit Details | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,6 +23,11 @@
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
+    }
+    .form-control{
+        border-radius: 0px !important;
+        background-color: #fff !important;
+        border: 1px solid #f2f2f2;
     }
   </style>
 </head>
@@ -170,13 +175,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Maintenance Scheduling</span></h3>
-                @foreach($items as $item)
-                    @if($item->id == $category_id)
-                    <h4 class="text-default">{{$item->name}}</h4>
-                    @endif
-                @endforeach
-            <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of items available for Maintenance Scheduling</p>
+                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Maintenance Status</span></h3>
         </div>
 
       <div class="row">
@@ -193,57 +192,119 @@
                 </div>  -->
             </div> 
 
+           
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List of Items</h3>
-                            <div class="card-tools">                    
-                        
-                            </div>
+                        <h3 class="card-title">Unit Details</h3>
                     </div>
-                    <div class="card-body p-0">
-                    <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Item Code</th>
-                                    <th>Serial No.</th>
-                                    <th>Assigned Area</th>
-                                    <th>Designation</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($lists as $list)
-                                <tr>
-                                    <td>{{$list->item_code}}</td>
-                                        @if($list->serial_no == null)
-                                            <td>N/A</td>
-                                        @else
-                                            <td>{{$list->serial_no}}</td>
+
+                    <div class="card-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-8 col-md-8 px-3">
+                          
+                          <!-- <h5 class="text-info">Current Location</h5>
+                          <hr> -->
+
+                          <form action="{{route('status.update')}}" method="get">
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Item Code</label>
+                                    @foreach($lists as $list)
+                                      @if($list->id == $item->item_id)
+                                        <input type="text" value="{{$list->item_code}}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Serial Number</label>
+                                    @foreach($lists as $list)
+                                      @if($list->id == $item->item_id)
+                                        <input type="text" value="{{$list->serial_no}}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Warranty</label>
+                                    @foreach($items as $data)
+                                        @if($data->id == $item->item_id)
+                                            <input type="text" value="{{$data->name}}" class="form-control" disabled>
                                         @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Request Type</label>
+                                    <input type="text" value="{{$item->type}}" class="form-control" disabled>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Scheduled Date</label>
+                                    <input type="text" value="{{ Carbon\Carbon::parse($item->date_scheduled)->format('F d, Y') }}" class="form-control">
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Current Status</label>
+                                    @if($item->status == 0)
+                                        <input type="text" value="Pending" class="form-control text-warning">
+                                    @elseif($item->status == 1)
+                                        <input type="text" value="Completed" class="form-control text-success">
+                                    @endif
+                                </div>
+                              </div>
 
-                                        @foreach($assigns as $assign)
-                                            @if($assign->id == $list->assign_id)
-                                                <td>{{$assign->name}}</td>
-                                            @endif
-                                        @endforeach
+                            </div> <!-- end row -->
 
-                                        @foreach($designations as $designation)
-                                            @if($designation->id == $list->designation_id)
-                                                <td>{{$designation->name}}</td>
-                                            @endif
-                                        @endforeach
-                                    <td>
-                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/scheduling/item/'. $list->id)}}">Manage</a>
-                                    </td>
-                                </tr> 
-                                @endforeach
-                            </tbody>
-                        </table>
+                          <h5 class="mt-5 text-info">Set Maintenance Status</h5>
+                          <hr>
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                <input type="hidden" name="item_id" value="{{$item->id}}">
+                                  <label>Maintenance Status<span class="text-danger">*</span></label>
+                                    <select name="status" class="form-control" required>
+                                        @if($item->status == 0)
+                                            <option value="" selected disabled>Please Select</option>
+                                            <option value="1">Completed</option>
+                                        @elseif($item->status == 1)
+                                            <option value="" selected disabled>Please Select</option>
+                                            <option value="0">Pending</option>
+                                        @endif
+                                    </select>
+                                </div>
+                              </div>
+                          </div> <!-- end row -->
+                          <button class="btn btn-primary mt-3">Update Status</button>
+                          <a href="{{route('status.list')}}" class="btn btn-secondary mt-3">Close</a>
+                          </form>
+
+                          </div><!-- end col-8 -->
+
+                          <div class="col-4 col-md-4 px-3"><!-- start col-4 -->
+                              <div class="form-group">
+                                    @foreach($lists as $list)
+                                        @if($list->id == $item->item_id)
+                                            <img src="{{ asset('uploads/images/inventory/'.$list->image) }}" class="img-fluid img-thumbnail">
+                                        @endif
+                                    @endforeach 
+                              </div>
+                          </div> <!-- end col-4 -->
+
+                        </div>
+                      </div>
                     </div>
-                        
+
                 </div>
-                    <a href="{{route('transfer.index')}}" class="btn btn-secondary">Close</a>
+                    <!-- <a href="" class="btn btn-primary">Create</a> -->
             </div>
 
 
@@ -265,13 +326,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('designation_created'))
+@if(Session::has('schedule_created'))
     <script>
-        toastr.success("{!! Session::get('designation_created') !!}");
+        toastr.success("{!! Session::get('schedule_created') !!}");
     </script>
-@elseif(Session::has('designation_updated'))
+@elseif(Session::has('status_updated'))
     <script>
-        toastr.info("{!! Session::get('designation_updated') !!}");
+        toastr.info("{!! Session::get('status_updated') !!}");
+    </script>
+@elseif(Session::has('schedule_invalid'))
+    <script>
+        toastr.error("{!! Session::get('schedule_invalid') !!}");
     </script>
 @endif
 

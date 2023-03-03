@@ -284,11 +284,10 @@
                               <div class="col-md-4">
                                 <div class="form-group">
                                   <label>Type of Work<span class="text-danger">*</span></label>
-                                    <select name="work_type" class="form-control">
+                                    <select name="work_type" class="form-control" required>
                                       <option value="" selected disabled>Please Select</option>
-                                      <option value="option 1">option 1</option>
-                                      <option value="option 2">option 2</option>
-                                      <option value="option 3">option 3</option>
+                                      <option value="General cleaning">General cleaning</option>
+                                      <option value="Minor cleaning">Minor cleaning</option>
                                     </select>
                                 </div>
                               </div>
@@ -353,6 +352,10 @@
 @elseif(Session::has('designation_updated'))
     <script>
         toastr.info("{!! Session::get('designation_updated') !!}");
+    </script>
+@elseif(Session::has('schedule_invalid'))
+    <script>
+        toastr.error("{!! Session::get('schedule_invalid') !!}");
     </script>
 @endif
 

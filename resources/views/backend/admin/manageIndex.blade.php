@@ -181,7 +181,7 @@
         </div>
         <div class="col-md-3 col-6">
             <div class="small-box bg-white">
-                <div class="inner"><h3>0</h3>
+                <div class="inner"><h3>{{$statusCount}}</h3>
                     <p>Maint. Status</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-info" style="font-size: 50px;"></i></div>

@@ -170,7 +170,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> Maintenance Status</h3>
+                <h3 class="mb-2">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Maintenance Status</span></h3>
             <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Maintenance Request</p>
         </div>
 
@@ -193,7 +193,7 @@
                     <div class="card-header">
                         <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                        
+                              {!! $lists->links() !!}
                             </div>
                     </div>
                     <div class="card-body p-0">
@@ -201,8 +201,10 @@
                             <thead>
                                 <tr>
                                     <th>Item Code</th>
+                                    <th>Serial Number</th>
                                     <th>Item Name</th>
                                     <th>Maintenance Type</th>
+                                    <th>Scheduled Date</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -213,6 +215,16 @@
                                     @foreach($inventories as $inventory)
                                       @if($inventory->id == $list->item_id)
                                         <td>{{$inventory->item_code}}</td>
+                                      @endif
+                                    @endforeach
+
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        @if($inventory->serial_no == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$inventory->serial_no}}</td>
+                                        @endif
                                       @endif
                                     @endforeach
 
@@ -237,16 +249,20 @@
                                     @endforeach -->
 
                                     <td>{{$list->type}}</td>
+                                    <td>{{ Carbon\Carbon::parse($list->date_scheduled)->format('F d, Y') }}</td>
 
-
-                                    @if($list->status == 0)
-                                        <td><span class="badge badge-pill badge-warning p-2">Pending</span></td>
+                                    @if(($list->status == 0) && ($list->is_overdue == 1))
+                                        <td>Pending <span class="badge badge-pill badge-success p-1 ml-1">Due today</span></td>
+                                    @elseif(($list->status == 0) && ($list->is_overdue == 2))
+                                        <td>Pending <span class="badge badge-pill badge-warning p-1 ml-1">{{round((strtotime($list->date_scheduled) - time()) / 86400) }} days before due</span></td>
+                                    @elseif(($list->status == 0) && ($list->is_overdue == 0))
+                                        <td>Pending <span class="badge badge-pill badge-danger p-1 ml-1">Overdue</span></td>
                                     @else
-                                        <td><span class="badge badge-pill badge-success p-2">Done</span></td>
+                                        <td><span class="text-success">Completed</span></td>
                                     @endif
                                        
                                     <td>
-                                      <a class="btn btn-sm btn-default mr-1" href="">Manage</a>
+                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/status/item/'. $list->id)}}">Manage</a>
                                     </td>
                                 </tr> 
                               @endforeach
@@ -255,7 +271,7 @@
                     </div>
                         
                 </div>
-                    <a href="" class="btn btn-secondary">Close</a>
+                    <a href="{{route('manage.index')}}" class="btn btn-secondary">Close</a>
             </div>
 
 
@@ -277,13 +293,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('designation_created'))
+@if(Session::has('schedule_created'))
     <script>
-        toastr.success("{!! Session::get('designation_created') !!}");
+        toastr.success("{!! Session::get('schedule_created') !!}");
     </script>
-@elseif(Session::has('designation_updated'))
+@elseif(Session::has('status_updated'))
     <script>
-        toastr.info("{!! Session::get('designation_updated') !!}");
+        toastr.info("{!! Session::get('status_updated') !!}");
     </script>
 @endif
 

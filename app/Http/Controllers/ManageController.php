@@ -8,12 +8,14 @@ use App\Models\Item;
 use App\Models\Assign;
 use App\Models\Designation;
 use App\Models\Category;
+use App\Models\MaintenanceSchedule;
 
 class ManageController extends Controller
 {
     public function index()
     {
-        return view('backend.admin.manageIndex');
+        $this->data['statusCount'] = MaintenanceSchedule::count();
+        return view('backend.admin.manageIndex', $this->data);
     }
     public function transfer()
     {

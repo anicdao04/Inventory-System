@@ -20,6 +20,7 @@ class CreateMaintenanceSchedulesTable extends Migration
             $table->longText('type');
             $table->longText('note')->nullable()->default('N/A');
             $table->boolean('status')->default(0); // (0)=pending, (1)=served
+            $table->boolean('is_overdue'); // (0)=overdue, (1)=due, (2)=not due
             $table->date('date_requested');
             $table->date('date_completed')->nullable();
             $table->timestamps();

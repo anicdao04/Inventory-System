@@ -170,10 +170,10 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> Unit Transfer</h3>
+                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Unit Transfer</span></h3>
                 @foreach($items as $item)
                     @if($item->id == $category_id)
-                    <h3 class="text-primary">{{$item->name}}</h3>
+                    <h4 class="text-default">{{$item->name}}</h4>
                     @endif
                 @endforeach
             <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of items available for Transfer</p>

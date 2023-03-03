@@ -98,6 +98,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
 
         Route::get('manage/maintenance/set', [MaintenanceScheduleController::class, 'set'])->name('maintenance.set');
         Route::get('manage/status/', [MaintenanceScheduleController::class, 'list'])->name('status.list');
+        Route::get('manage/status/item/{id}', [MaintenanceScheduleController::class, 'item'])->name('transfer.item');
+        Route::get('manage/status/update', [MaintenanceScheduleController::class, 'status_update'])->name('status.update');
         
 });
 
