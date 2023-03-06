@@ -99,12 +99,6 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="fi fi-rr-wrench-simple mr-2"></i>
-              <p>Maintenance</p>
-            </a>
-          </li>
 
           <li class="nav-item">
             <a href="" class="nav-link">

@@ -86,23 +86,16 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link active">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
           </li>
           
           <li class="nav-item">
-            <a href="{{route('record.index')}}" class="nav-link">
+            <a href="{{route('record.index')}}" class="nav-link active">
               <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
               <p>Records</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="" class="nav-link">
-              <i class="fi fi-rr-wrench-simple mr-2"></i>
-              <p>Maintenance</p>
             </a>
           </li>
 
@@ -195,7 +188,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-2">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Replaced Items List</span></h3>
+                <h3 class="mb-2">Records <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Replaced Items List</span></h3>
             <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Replaced Items</p>
         </div>
 
@@ -258,7 +251,7 @@
                     </div>
                         
                 </div>
-                    <a href="" class="btn btn-secondary">Close</a>
+                    <a href="{{route('record.index')}}" class="btn btn-secondary">Close</a>
             </div>
 
 

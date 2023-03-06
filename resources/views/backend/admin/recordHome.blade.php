@@ -98,13 +98,6 @@
 
           <li class="nav-item">
             <a href="" class="nav-link">
-              <i class="fi fi-rr-wrench-simple mr-2"></i>
-              <p>Maintenance</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="" class="nav-link">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -216,10 +209,19 @@
         <div class="col-md-3 col-6">
             <div class="small-box bg-white">
                 <div class="inner"><h3>0</h3>
+                    <p>Unit Transfer</p>
+                </div>
+                <div class="icon p-1" ><i class="fi fi-rr-ftp" style="font-size: 50px;"></i></div>
+                <a href="" class="small-box-footer text-dark">Under Maintenance <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+            </div>
+        </div>
+        <div class="col-md-3 col-6">
+            <div class="small-box bg-white">
+                <div class="inner"><h3>0</h3>
                     <p>Repaired Items</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
-                <a href="" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="" class="small-box-footer text-dark">Under Maintenance <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         
