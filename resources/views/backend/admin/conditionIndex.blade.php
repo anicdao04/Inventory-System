@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Assign Areas | IIMMS</title>
+  <title>List of Conditions | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -123,7 +123,7 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -131,7 +131,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('assign.index')}}" class="nav-link active">
+                    <a href="{{route('assign.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Assign Area</p>
                     </a>
@@ -156,7 +156,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Manage</p>
@@ -164,7 +164,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="" class="nav-link active">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Condition</p>
                     </a>
@@ -196,8 +196,8 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>List of Assign Areas</h3>
-            <p class="text-muted">Assign Area | List</p>
+            <h3>List of Conditions</h3>
+            <p class="text-muted">Condition | List</p>
         </div>
 
       <div class="row">
@@ -208,7 +208,7 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Total No. of Items</span>
                             <span class="info-box-number mt-0">
-                            <span>{{$assign_count}}</span>
+                            <span>{{$condition_count}}</span>
                             </span>
                         </div> 
                 </div> 
@@ -219,7 +219,7 @@
                     <div class="card-header">
                         <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                                {!! $assigns->links() !!}
+                            {!! $conditions->links() !!}
                             </div>
                     </div>
 
@@ -232,21 +232,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($assigns as $data)
+                              @foreach($conditions as $data)
                                 <tr>
                                     <td>{{$data->name}}</td>
-                                <td>
-                                  <a class="btn btn-sm btn-default mr-1" href="{{url('admin/assign/modify/'. $data->id)}}">Modify</a>
-                                  <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                                </td>
+                                    <td>
+                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/condition/modify/'. $data->id)}}">Modify</a>
+                                      <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                                    </td>
                                 </tr> 
-                            @endforeach
+                              @endforeach
                             </tbody>
                         </table>
                     </div>
 
                 </div>
-                    <a href="{{route('assign.create')}}" class="btn btn-primary">Create</a>
+                    <a href="{{route('condition.create')}}" class="btn btn-primary">Create</a>
             </div>
 
 
@@ -268,13 +268,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('assign_created'))
+@if(Session::has('condition_created'))
     <script>
-        toastr.success("{!! Session::get('assign_created') !!}");
+        toastr.success("{!! Session::get('condition_created') !!}");
     </script>
-@elseif(Session::has('assign_updated'))
+@elseif(Session::has('condition_updated'))
     <script>
-        toastr.info("{!! Session::get('assign_updated') !!}");
+        toastr.info("{!! Session::get('condition_updated') !!}");
     </script>
 @endif
 

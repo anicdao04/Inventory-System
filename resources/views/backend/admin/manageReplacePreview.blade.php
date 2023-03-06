@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Assign Areas | IIMMS</title>
+  <title>Unit Details | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,6 +23,11 @@
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
+    }
+    .form-control{
+        border-radius: 0px !important;
+        background-color: #fff !important;
+        border: 1px solid #f2f2f2;
     }
   </style>
 </head>
@@ -86,7 +91,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link">
+            <a href="{{route('manage.index')}}" class="nav-link active">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
@@ -116,14 +121,14 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -131,7 +136,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('assign.index')}}" class="nav-link active">
+                    <a href="{{route('assign.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Assign Area</p>
                     </a>
@@ -183,7 +188,6 @@
               <p>Log out</p>
             </a>
           </li>
-          
 
         </ul>
       </nav>
@@ -196,57 +200,137 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>List of Assign Areas</h3>
-            <p class="text-muted">Assign Area | List</p>
+                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Replaced Item Preview</span></h3>
         </div>
 
       <div class="row">
         <!-- Info boxes -->
             <div class="col-12 col-md-3">
-                <div class="info-box">
+                <!-- <div class="info-box">
                     <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Total No. of Items</span>
                             <span class="info-box-number mt-0">
-                            <span>{{$assign_count}}</span>
+                            <span></span>
                             </span>
                         </div> 
-                </div> 
+                </div>  -->
             </div> 
 
+           
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List of Items</h3>
-                            <div class="card-tools">                    
-                                {!! $assigns->links() !!}
-                            </div>
+                        <h3 class="card-title">Unit Details</h3>
                     </div>
 
-                    <div class="card-body p-0">
-                    <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($assigns as $data)
-                                <tr>
-                                    <td>{{$data->name}}</td>
-                                <td>
-                                  <a class="btn btn-sm btn-default mr-1" href="{{url('admin/assign/modify/'. $data->id)}}">Modify</a>
-                                  <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                                </td>
-                                </tr> 
-                            @endforeach
-                            </tbody>
-                        </table>
+                    <div class="card-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-8 col-md-8 px-3">
+                          
+                          <!-- <h5 class="text-info">Current Location</h5>
+                          <hr> -->
+
+                          <form action="" method="get">
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Item Code</label>
+                                    @foreach($inventories as $list)
+                                      @if($list->id == $item->item_id)
+                                        <input type="text" value="{{$list->item_code}}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Serial Number</label>
+                                    @foreach($inventories as $list)
+                                      @if($list->id == $item->item_id)
+                                        @if($list->serial_no == null)
+                                            <input type="text" value="N/A" class="form-control" disabled>
+                                        @else
+                                        <input type="text" value="{{$list->serial_no}}" class="form-control" disabled>
+                                        @endif
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Warranty</label>
+                                    @foreach($inventories as $list)
+                                      @if($list->id == $item->item_id)
+                                        <input type="text" value="{{ Carbon\Carbon::parse($list->warranty)->format('F d, Y') }}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Designation</label>
+                                    @foreach($inventories as $list)
+                                      @if($list->id == $item->item_id)
+                                        @foreach($designations as $designation)
+                                          @if($designation->id == $list->item_id)
+                                            <input type="text" value="{{$designation->name}}" class="form-control" disabled>
+                                          @endif
+                                        @endforeach
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Assigned Area</label>
+                                  @foreach($inventories as $list)
+                                      @if($list->id == $item->item_id)
+                                        @foreach($assigns as $assign)
+                                          @if($assign->id == $list->item_id)
+                                            <input type="text" value="{{$assign->name}}" class="form-control" disabled>
+                                          @endif
+                                        @endforeach
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Replaced Date</label>
+                                    @foreach($inventories as $list)
+                                      @if($list->id == $item->item_id)
+                                        <input type="text" value="{{ Carbon\Carbon::parse($list->date_created)->format('F d, Y') }}" class="form-control text-danger" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+
+                            </div> <!-- end row -->
+
+                          <hr>
+                          <a href="" class="btn btn-secondary mt-3">Close</a>
+                          </form>
+
+                          </div><!-- end col-8 -->
+
+                          <div class="col-4 col-md-4 px-3"><!-- start col-4 -->
+                              <div class="form-group">
+                                    @foreach($inventories as $inventory)
+                                        @if($inventory->id == $item->item_id)
+                                            <img src="{{ asset('uploads/images/inventory/'.$list->image) }}" class="img-fluid img-thumbnail">
+                                        @endif
+                                    @endforeach 
+                              </div>
+                          </div> <!-- end col-4 -->
+
+                        </div>
+                      </div>
                     </div>
 
                 </div>
-                    <a href="{{route('assign.create')}}" class="btn btn-primary">Create</a>
+                    <!-- <a href="" class="btn btn-primary">Create</a> -->
             </div>
 
 
@@ -268,13 +352,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('assign_created'))
+@if(Session::has('schedule_created'))
     <script>
-        toastr.success("{!! Session::get('assign_created') !!}");
+        toastr.success("{!! Session::get('schedule_created') !!}");
     </script>
-@elseif(Session::has('assign_updated'))
+@elseif(Session::has('status_updated'))
     <script>
-        toastr.info("{!! Session::get('assign_updated') !!}");
+        toastr.info("{!! Session::get('status_updated') !!}");
+    </script>
+@elseif(Session::has('schedule_invalid'))
+    <script>
+        toastr.error("{!! Session::get('schedule_invalid') !!}");
     </script>
 @endif
 

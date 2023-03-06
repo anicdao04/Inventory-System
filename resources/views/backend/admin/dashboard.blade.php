@@ -69,7 +69,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="{{route('admin.dashboard')}}" class="nav-link">
+            <a href="{{route('admin.dashboard')}}" class="nav-link active">
               <i class="fi fi-rr-chart-area mr-2"></i>
               <p>Dashboard</p>
             </a>
@@ -83,14 +83,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link active">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
           </li>
           
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('record.index')}}" class="nav-link">
               <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
               <p>Records</p>
             </a>
@@ -115,35 +115,60 @@
           <!-- Settings -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="fi fi-rr-circle mr-1"></i>
+              <i class="fi fi-rr-settings mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign Area</p>
+                  <i class="fi fi-rr-circle mr-1"></i>
+                  <p>Inventory</p>
+                  <i class="right fi fi-rr-angle-small-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('assign.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Assign Area</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('category.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Category</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('designation.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Designation</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('item.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Item</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                <a href="{{route('assign.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle mr-1"></i>
+                  <p>Manage</p>
+                  <i class="right fi fi-rr-angle-small-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('condition.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Condition</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
-              <li class="nav-item">
-                <a href="{{route('designation.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Designation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('item.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Item</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 
@@ -166,43 +191,41 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper pt-4">
-    <div class="container mt-5">
-    <h1 class="text-center">Manage Item</h1>
-    <p class="text-center mb-5 text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i> Select the following option to manage maintenance request.</p>
+    <div class="container mt-3">
       <div class="row">
-        <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner"><h3>0</h3>
-                    <p>Maint. Scheduling</p>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner text-white"><h3>{{$inventory_count}}</h3>
+                    <p>Inventory</p>
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-calendar-lines-pen" style="font-size: 50px;"></i></div>
-                <a href="{{route('scheduling.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
-        <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner"><h3>{{$statusCount}}</h3>
-                    <p>Maint. Status</p>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #cbdcec;">
+                <div class="inner"><h3>0</h3>
+                    <p>Manage</p>
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-info" style="font-size: 50px;"></i></div>
-                <a href="{{route('status.list')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <div class="icon p-1"><i class="fi fi-rr-layer-plus" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
-        <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner"><h3>0</h3>
-                    <p>Unit Transfer</p>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner text-white"><h3>0</h3>
+                    <p>Records</p>
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-ftp" style="font-size: 50px;"></i></div>
-                <a href="{{route('transfer.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <div class="icon p-1"><i class="fi fi-rr-move-to-folder-2" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
-        <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #cbdcec;">
                 <div class="inner"><h3>0</h3>
-                    <p>For Replacement</p>
+                    <p>Maintenance</p>
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-replace" style="font-size: 50px;"></i></div>
+                <div class="icon p-1"><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
                 <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>

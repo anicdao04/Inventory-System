@@ -12,6 +12,9 @@ use App\Http\Controllers\AssignController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ConditionController;
+use App\Http\Controllers\RecordController;
+
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\MaintenanceScheduleController;
 use App\Models\MaintenanceSchedule;
@@ -86,6 +89,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('item/modify/{id}', [ItemController::class, 'modify'])->name('item.modify');
         Route::put('item/update/{id}', [ItemController::class, 'update'])->name('item.update');
 
+        Route::get('condition', [ConditionController::class, 'index'])->name('condition.index');
+        Route::get('condition/create', [ConditionController::class, 'create'])->name('condition.create');
+        Route::post('condition/store', [ConditionController::class, 'store'])->name('condition.store');
+        Route::get('condition/modify/{id}', [ConditionController::class, 'modify'])->name('condition.modify');
+        Route::put('condition/update/{id}', [ConditionController::class, 'update'])->name('condition.update');
+
         Route::get('manage', [ManageController::class, 'index'])->name('manage.index');
         Route::get('manage/transfer', [ManageController::class, 'transfer'])->name('transfer.index');
         Route::get('manage/transfer/category/', [ManageController::class, 'transfer_query'])->name('transfer.query');
@@ -100,6 +109,15 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/status/', [MaintenanceScheduleController::class, 'list'])->name('status.list');
         Route::get('manage/status/item/{id}', [MaintenanceScheduleController::class, 'item'])->name('transfer.item');
         Route::get('manage/status/update', [MaintenanceScheduleController::class, 'status_update'])->name('status.update');
+
+        Route::get('manage/replacement', [ManageController::class, 'replacement'])->name('replacement.index');
+        Route::get('manage/replacement/category/', [ManageController::class, 'replacement_query'])->name('replacement.query');
+        Route::get('manage/replacement/item/{id}', [ManageController::class, 'replacement_item'])->name('replacement.item');
+        Route::get('manage/replacement/update', [ManageController::class, 'replacement_update'])->name('replacement.update');
+        Route::get('manage/replacement/list', [ManageController::class, 'replacement_list'])->name('replacement.list');
+        Route::get('manage/replacement/preview/{id}', [ManageController::class, 'replacement_preview'])->name('replacement.preview');
+
+        Route::get('record', [RecordController::class, 'index'])->name('record.index');
         
 });
 

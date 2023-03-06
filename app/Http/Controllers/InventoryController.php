@@ -16,6 +16,8 @@ class InventoryController extends Controller
         $this->data['categories'] = Category::get();
         $this->data['items'] = Item::get();
         $this->data['inventory_count'] = Inventory::count();
+        $this->data['inventory_active'] = Inventory::where('is_active', '=', '1')->count();
+        $this->data['inventory_inactive'] = Inventory::where('is_active', '=', '0')->count();
         $this->data['inventories'] = Inventory::where('is_active', '=', '1')->orderBy('item_id', 'asc')->paginate(5);
         return view('backend.admin.inventoryIndex', $this->data);
     }

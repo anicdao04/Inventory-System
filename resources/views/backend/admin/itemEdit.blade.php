@@ -93,7 +93,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('record.index')}}" class="nav-link">
               <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
               <p>Records</p>
             </a>
@@ -125,28 +125,53 @@
             <ul class="nav nav-treeview">
               <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign Area</p>
+                  <i class="fi fi-rr-circle mr-1"></i>
+                  <p>Inventory</p>
+                  <i class="right fi fi-rr-angle-small-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('assign.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Assign Area</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('category.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Category</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('designation.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Designation</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('item.index')}}" class="nav-link active">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Item</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                <a href="{{route('assign.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle mr-1"></i>
+                  <p>Manage</p>
+                  <i class="right fi fi-rr-angle-small-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('condition.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Condition</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
-              <li class="nav-item">
-                <a href="{{route('designation.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Designation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('item.index')}}" class="nav-link active">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Item</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 

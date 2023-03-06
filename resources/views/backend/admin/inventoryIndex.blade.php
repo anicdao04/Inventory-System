@@ -93,7 +93,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('record.index')}}" class="nav-link">
               <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
               <p>Records</p>
             </a>
@@ -123,30 +123,55 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Assign Area</p>
+                  <i class="fi fi-rr-circle mr-1"></i>
+                  <p>Inventory</p>
+                  <i class="right fi fi-rr-angle-small-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('assign.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Assign Area</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('category.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Category</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('designation.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Designation</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('item.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Item</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
-                <a href="{{route('category.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Category</p>
+                <a href="{{route('assign.index')}}" class="nav-link">
+                  <i class="fi fi-rr-circle mr-1"></i>
+                  <p>Manage</p>
+                  <i class="right fi fi-rr-angle-small-left"></i>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Condition</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
-              <li class="nav-item">
-                <a href="{{route('designation.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Designation</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('item.index')}}" class="nav-link">
-                  <i class="fi fi-rr-circle-dashed mr-1"></i>
-                  <p>Item</p>
-                </a>
-              </li>
+
             </ul>
           </li>
 
@@ -177,9 +202,9 @@
 
       <div class="row">
         <!-- Info boxes -->
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
                 <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
+                    <span class="info-box-icon elevation-1 bg-success"><i class="fi fi-rr-edit"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Total No. of Items</span>
                             <span class="info-box-number mt-0">
@@ -188,23 +213,53 @@
                         </div> 
                 </div> 
             </div> 
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
                 <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-settings-sliders"></i></span>
+                    <span class="info-box-icon elevation-1 bg-info"><i class="fi fi-rr-eye"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Filter by Category</span>
+                            <span class="info-box-text">Active</span>
+                            <span class="info-box-number mt-0">
+                            <span>{{$inventory_active}}</span>
+                            </span>
+                        </div> 
+                </div> 
+            </div> 
+            <div class="col-12 col-md-2">
+                <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-danger"><i class="fi fi-rr-replace"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Replaced</span>
+                            <span class="info-box-number mt-0">
+                            <span>{{$inventory_inactive}}</span>
+                            </span>
+                        </div> 
+                </div> 
+            </div> 
+            <div class="col-12 col-md-6">
+                <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-warning"><i class="fi fi-rr-search-alt"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Filter</span>
                             <span class="info-box-number mt-0">
                               <div class="row">
-                                  <div class="col-12 col-md-8">
+                                  <div class="col-12 col-md-5">
                                     <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
-                                      <option value="" disabled selected>Please select</option>
+                                      <option value="" disabled selected>Designation</option>
                                         @foreach($categories as $category)
                                           <option value="{{$category->id}}">{{$category->name}}</option>
                                         @endforeach
                                     </select>
                                   </div>
-                                  <div class="col-12 col-md-4">
-                                    <button class="btn btn-sm btn-default btn-block" style="margin-top: 3px;">Submit</button>
+                                  <div class="col-12 col-md-5">
+                                    <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
+                                      <option value="" disabled selected>Assigned Area</option>
+                                        @foreach($categories as $category)
+                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @endforeach
+                                    </select>
+                                  </div>
+                                  <div class="col-12 col-md-2">
+                                    <button class="btn btn-sm btn-default btn-block" style="margin-top: 3px;">Filter</button>
                                   </div>
                               </div>
                             </span>

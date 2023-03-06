@@ -12,6 +12,6 @@ class AdminController extends Controller
     {
         $this->data['inventory_count'] = Inventory::count();
         $this->data['categories'] = Category::get();
-        return view('backend.admin.index', $this->data);
+        return view('backend.admin.dashboard', $this->data);
     }
 }
