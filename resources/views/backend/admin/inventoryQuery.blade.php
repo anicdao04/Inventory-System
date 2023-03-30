@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Maintenance Request | IIMMS</title>
+  <title>Inventory Search Result | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -79,7 +79,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('inventory.index')}}" class="nav-link">
+            <a href="{{route('inventory.index')}}" class="nav-link active">
               <i class="fi fi-rr-edit mr-2"></i>
               <p>Inventory</p>
             </a>
@@ -93,7 +93,7 @@
           </li>
           
           <li class="nav-item">
-            <a href="{{route('record.index')}}" class="nav-link active">
+            <a href="{{route('record.index')}}" class="nav-link">
               <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
               <p>Records</p>
             </a>
@@ -182,6 +182,7 @@
               <p>Log out</p>
             </a>
           </li>
+          
 
         </ul>
       </nav>
@@ -194,109 +195,110 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-2">Records <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Maintenance Status</span></h3>
-            <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Maintenance Request</p>
+            <h3>Search Result</h3>
+            <p class="text-muted">Result for query value: 
+                @foreach($designations as $designation)
+                    @if($designation->id == $_GET['designation_id'])
+                        <span class="text-info">{{$designation->name}}</span>, 
+                    @endif
+                @endforeach    
+                @foreach($assigns as $assign)
+                    @if($assign->id == $_GET['assign_id'])
+                        <span class="text-info">{{$assign->name}}</span>
+                    @endif
+                @endforeach  
+            </p>
         </div>
 
       <div class="row">
         <!-- Info boxes -->
-            <div class="col-12 col-md-3">
-                <!-- <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
+        <div class="col-12 col-md-2">
+                <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-success"><i class="fi fi-rr-search-alt"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Total No. of Items</span>
+                            <span class="info-box-text">Total No. Query</span>
                             <span class="info-box-number mt-0">
-                            <span></span>
+                            <span>{{$result_count}}</span>
                             </span>
                         </div> 
-                </div>  -->
+                </div> 
             </div> 
+
 
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                              {!! $lists->links() !!}
+
                             </div>
                     </div>
+
                     <div class="card-body p-0">
                     <table class="table">
                             <thead>
                                 <tr>
                                     <th>Item Code</th>
+                                    <th>Name</th>
                                     <th>Serial Number</th>
-                                    <th>Item Name</th>
-                                    <th>Maintenance Type</th>
-                                    <th>Scheduled Date</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Category</th>
+                                    <th>Designation</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach($lists as $list)
+                                @foreach($results as $result)
                                 <tr>
-                                    @foreach($inventories as $inventory)
-                                      @if($inventory->id == $list->item_id)
-                                        <td>{{$inventory->item_code}}</td>
-                                      @endif
+                                    <td>{{$result->item_code}}</td>
+                                    @foreach($items as $item)
+                                        @if($item->id == $result->item_id)
+                                            <td>{{$item->name}}</td>
+                                        @endif
                                     @endforeach
-
-                                    @foreach($inventories as $inventory)
-                                      @if($inventory->id == $list->item_id)
-                                        @if($inventory->serial_no == null)
+                                        @if($result->serial_no == null)
                                           <td>N/A</td>
                                         @else
-                                          <td>{{$inventory->serial_no}}</td>
+                                          <td>{{$result->serial_no}}</td>
                                         @endif
-                                      @endif
-                                    @endforeach
-
-                                    @foreach($inventories as $inventory)
-                                      @if($inventory->id == $list->item_id)
-                                        @foreach($items as $item)
-                                          @if($item->id == $inventory->item_id)
-                                            <td>{{$item->name}}</td>
-                                          @endif
-                                        @endforeach
-                                      @endif
-                                    @endforeach
-
-                                    <!-- @foreach($inventories as $inventory)
-                                      @if($inventory->id == $list->item_id)
-                                        @if($inventory->serial_no == null)
-                                            <td>N/A</td>
-                                        @else
-                                            <td>{{$inventory->serial_no}}</td>
-                                        @endif
-                                      @endif
-                                    @endforeach -->
                                     
-                                    <td>{{$list->type}}</td>
+                                        @foreach($categories as $category)
+                                            @if($category->id == $result->category_id)
+                                              <td>{{$category->name}}</td>
+                                            @endif
+                                        @endforeach
 
-                                    <td>{{ Carbon\Carbon::parse($list->date_scheduled)->format('F d, Y') }}</td>
+                                        @foreach($designations as $designation)
+                                            @if($designation->id == $result->item_id)
+                                              <td>{{$designation->name}}</td>
+                                            @endif
+                                        @endforeach
 
-                                    @if(($list->status == 0) && ($list->is_overdue == 1))
-                                        <td>Pending <span class="badge badge-pill badge-success p-1 ml-1">Due today</span></td>
-                                    @elseif(($list->status == 0) && ($list->is_overdue == 2))
-                                        <td>Pending <span class="badge badge-pill badge-warning p-1 ml-1">{{round((strtotime($list->date_scheduled) - time()) / 86400) }} days before due</span></td>
-                                    @elseif(($list->status == 0) && ($list->is_overdue == 0))
-                                        <td>Pending <span class="badge badge-pill badge-danger p-1 ml-1">Overdue</span></td>
-                                    @else
-                                        <td><span class="text-success">Completed</span></td>
-                                    @endif
-                                       
+                                        @foreach($assigns as $assign)
+                                            @if($assign->id == $result->item_id)
+                                              <td>{{$assign->name}}</td>
+                                            @endif
+                                        @endforeach
+
                                     <td>
-                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/status/item/'. $list->id)}}">Manage</a>
+                                        <div class="btn-group" role="group">
+                                          <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="nav-icon fas fa-list mr-1"></i> Select
+                                          </button>
+                                          <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
+                                            <a class="dropdown-item"  href="{{url('admin/inventory/preview/' . $result->id)}}"><i class="fi fi-rr-search mr-1"></i></i> Preview</a>
+                                            <a class="dropdown-item"  href="{{url('admin/inventory/modify/'. $result->id)}}"><i class="fi fi-rr-pencil mr-1"></i> Modify</a>
+                                            <a class="dropdown-item"  href=""><i class="fi fi-rr-trash mr-1"></i> Delete</a>
+                                          </div>
+                                        </div>
                                     </td>
                                 </tr> 
-                              @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
-                        
+
                 </div>
-                    <a href="{{route('record.index')}}" class="btn btn-secondary">Close</a>
+                    <a href="" class="btn btn-secondary">Back</a>
             </div>
 
 
@@ -318,13 +320,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('schedule_created'))
+@if(Session::has('item_created'))
     <script>
-        toastr.success("{!! Session::get('schedule_created') !!}");
+        toastr.success("{!! Session::get('item_created') !!}");
     </script>
-@elseif(Session::has('status_updated'))
+@elseif(Session::has('item_updated'))
     <script>
-        toastr.info("{!! Session::get('status_updated') !!}");
+        toastr.info("{!! Session::get('item_updated') !!}");
     </script>
 @endif
 

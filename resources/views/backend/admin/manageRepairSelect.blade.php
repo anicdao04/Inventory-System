@@ -199,7 +199,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Unit Replacement</span></h3>
+                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Request for Repair</span></h3>
         </div>
 
       <div class="row">
@@ -231,7 +231,7 @@
                           <!-- <h5 class="text-info">Current Location</h5>
                           <hr> -->
 
-                          <form action="{{route('replacement.update')}}" method="get">
+                          <form action="{{route('repair.set')}}" method="get">
                           <div class="row"> <!-- start row -->
                               <div class="col-md-4">
                                 <div class="form-group">
@@ -295,29 +295,35 @@
                               </div>
                             </div> <!-- end row -->
 
-                          <h5 class="mt-5 text-info">Set Unit Replacement</h5>
+                          <h5 class="mt-5 text-info">Set Repair Schedule</h5>
                           <hr>
                           <div class="row"> <!-- start row -->
-                          <div class="col-md-4">
-                                <input type="hidden" name="item_id" value="{{$item->id}}">
+                              <div class="col-md-4">
                                 <div class="form-group">
-                                  <label>Condition<span class="text-danger">*</span></label>
-                                    <select name="condition" class="form-control" required>
+                                  <label>Target date of Repair <span class="text-danger">*</span></label>
+                                    <input type="hidden" name="item_id" value="{{$item->id}}">
+                                    <input type="date" name="date_scheduled" class="form-control" required>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Task<span class="text-danger">*</span></label>
+                                    <select name="work_type" class="form-control" required>
                                       <option value="" selected disabled>Please Select</option>
-                                        @foreach($conditions as $condition)
-                                            <option value="{{$condition->id}}">{{$condition->name}}</option>
+                                        @foreach($tasks as $task)
+                                            <option value="{{$task->id}}">{{$task->name}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                               </div>
-                              <div class="col-md-8">
+                              <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Reason <span class="text-muted"><small>(optional)</small></span></label>
+                                  <label>Note <span class="text-muted"><small>(optional)</small></span></label>
                                     <input type="text" name="note" class="form-control">
                                 </div>
                               </div>
                           </div> <!-- end row -->
-                          <button class="btn btn-primary mt-3">Set Status</button>
+                          <button class="btn btn-primary mt-3">Set Schedule</button>
                           <a href="{{url('admin/manage/transfer/category?id='. $item->item_id)}}" class="btn btn-secondary mt-3">Close</a>
                           </form>
 
@@ -332,6 +338,7 @@
                                             <h4 class="text-center mt-3 mb-0">{{$data->name}}</h4>
                                           @endif
                                         @endforeach
+                                        
                                         @if($item->serial_no == null)
                                             <p class="text-center">SN: N/A</p>
                                         @else

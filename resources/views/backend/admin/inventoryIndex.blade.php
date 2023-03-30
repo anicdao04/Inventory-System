@@ -157,10 +157,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>
@@ -234,27 +240,29 @@
                         <div class="info-box-content">
                             <span class="info-box-text">Filter</span>
                             <span class="info-box-number mt-0">
+                              <form action="{{route('inventory.query')}}" method="get">
                               <div class="row">
                                   <div class="col-12 col-md-5">
-                                    <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
+                                    <select name="designation_id" class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;" required>
                                       <option value="" disabled selected>Designation</option>
-                                        @foreach($categories as $category)
-                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @foreach($designations as $designation)
+                                          <option value="{{$designation->id}}">{{$designation->name}}</option>
                                         @endforeach
                                     </select>
                                   </div>
                                   <div class="col-12 col-md-5">
-                                    <select class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;">
+                                    <select name="assign_id" class="custom-select custom-select-sm" style="font-size: 15px; margin-top:3px;" required>
                                       <option value="" disabled selected>Assigned Area</option>
-                                        @foreach($categories as $category)
-                                          <option value="{{$category->id}}">{{$category->name}}</option>
+                                        @foreach($assigns as $assign)
+                                          <option value="{{$assign->id}}">{{$assign->name}}</option>
                                         @endforeach
                                     </select>
                                   </div>
                                   <div class="col-12 col-md-2">
-                                    <button class="btn btn-sm btn-default btn-block" style="margin-top: 3px;">Filter</button>
+                                    <button class="btn btn-sm btn-secondary btn-block" style="margin-top: 3px;">Filter</button>
                                   </div>
                               </div>
+                              </form>
                             </span>
                         </div> 
                 </div> 
@@ -277,6 +285,8 @@
                                     <th>Name</th>
                                     <th>Serial Number</th>
                                     <th>Category</th>
+                                    <th>Designation</th>
+                                    <th>Assigned Area</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -300,6 +310,18 @@
                                             @if($category->id == $data->category_id)
                                               <td>{{$category->name}}</td>
                                             @endif
+                                        @endforeach
+
+                                        @foreach($designations as $designation)
+                                          @if($designation->id == $data->designation_id)
+                                            <td>{{$designation->name}}</td>
+                                          @endif
+                                        @endforeach
+
+                                        @foreach($assigns as $assign)
+                                          @if($assign->id == $data->assign_id)
+                                            <td>{{$assign->name}}</td>
+                                          @endif
                                         @endforeach
                                     <td>
                                         <div class="btn-group" role="group">

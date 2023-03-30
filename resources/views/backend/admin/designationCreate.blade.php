@@ -157,9 +157,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
+                    <a href="{{route('condition.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Condition</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('task.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Task</p>
                     </a>
                   </li>
                 </ul>

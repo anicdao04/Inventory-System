@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\MaintenanceSchedule;
 use App\Models\MaintenanceReplacement;
 use App\Models\Condition;
+use App\Models\Task;
 
 class ManageController extends Controller
 {
@@ -66,16 +67,21 @@ class ManageController extends Controller
     public function scheduling()
     {
         $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
         return view('backend.admin.manageSchedulingIndex', $this->data);
     }
     public function scheduling_query()
     {
         $category_id = $_GET['id'];
+        $designation_id = $_GET['designation_id'];
+        $assign_id = $_GET['assign_id'];
+
         $this->data['category_id'] = $category_id;
         $this->data['items'] = Item::get();
         $this->data['assigns'] = Assign::get();
         $this->data['designations'] = Designation::get();
-        $this->data['lists'] = Inventory::where('item_id', '=', $category_id)->get();
+        $this->data['lists'] = Inventory::where('item_id', '=', $category_id)->where('designation_id', '=', $designation_id)->where('assign_id', '=', $assign_id)->get();
         return view('backend.admin.manageSchedulingQuery', $this->data);
     }
     public function scheduling_item($id)
@@ -87,6 +93,38 @@ class ManageController extends Controller
         $this->data['item'] = Inventory::find($id);
         return view('backend.admin.manageSchedulingSelect', $this->data);
     }
+
+    public function repair()
+    {
+        $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        return view('backend.admin.manageRepairIndex', $this->data);
+    }
+    public function repair_query()
+    {
+        $category_id = $_GET['id'];
+        $designation_id = $_GET['designation_id'];
+        $assign_id = $_GET['assign_id'];
+
+        $this->data['category_id'] = $category_id;
+        $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['lists'] = Inventory::where('item_id', '=', $category_id)->where('designation_id', '=', $designation_id)->where('assign_id', '=', $assign_id)->get();
+        return view('backend.admin.manageRepairQuery', $this->data);
+    }
+    public function repair_item($id)
+    {
+        $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['categories'] = Category::get();
+        $this->data['tasks'] = Task::get();
+        $this->data['item'] = Inventory::find($id);
+        return view('backend.admin.manageRepairSelect', $this->data);
+    }
+
 
 
     public function replacement()

@@ -14,9 +14,12 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\RecordController;
+use App\Http\Controllers\TaskController;
 
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\MaintenanceScheduleController;
+use App\Http\Controllers\MaintenanceRepairController;
+
 use App\Models\MaintenanceSchedule;
 use Illuminate\Support\Facades\Auth;
 
@@ -64,6 +67,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('inventory/preview/{id}', [InventoryController::class, 'preview'])->name('inventory.preview');
         Route::get('inventory/modify/{id}', [InventoryController::class, 'modify'])->name('inventory.modify');
         Route::get('inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
+        Route::get('inventory/query', [InventoryController::class, 'query'])->name('inventory.query');
 
         Route::get('assign', [AssignController::class, 'index'])->name('assign.index');
         Route::get('assign/create', [AssignController::class, 'create'])->name('assign.create');
@@ -95,6 +99,12 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('condition/modify/{id}', [ConditionController::class, 'modify'])->name('condition.modify');
         Route::put('condition/update/{id}', [ConditionController::class, 'update'])->name('condition.update');
 
+        Route::get('task', [TaskController::class, 'index'])->name('task.index');
+        Route::get('task/create', [TaskController::class, 'create'])->name('task.create');
+        Route::post('task/store', [TaskController::class, 'store'])->name('task.store');
+        Route::get('task/modify/{id}', [TaskController::class, 'modify'])->name('task.modify');
+        Route::put('task/update/{id}', [TaskController::class, 'update'])->name('task.update');
+
         Route::get('manage', [ManageController::class, 'index'])->name('manage.index');
         Route::get('manage/transfer', [ManageController::class, 'transfer'])->name('transfer.index');
         Route::get('manage/transfer/category/', [ManageController::class, 'transfer_query'])->name('transfer.query');
@@ -104,6 +114,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/scheduling', [ManageController::class, 'scheduling'])->name('scheduling.index');
         Route::get('manage/scheduling/category/', [ManageController::class, 'scheduling_query'])->name('scheduling.query');
         Route::get('manage/scheduling/item/{id}', [ManageController::class, 'scheduling_item'])->name('scheduling.item');
+
+        Route::get('manage/repair', [ManageController::class, 'repair'])->name('repair.index');
+        Route::get('manage/repair/category/', [ManageController::class, 'repair_query'])->name('repair.query');
+        Route::get('manage/repair/item/{id}', [ManageController::class, 'repair_item'])->name('repair.item');
 
         Route::get('manage/maintenance/set', [MaintenanceScheduleController::class, 'set'])->name('maintenance.set');
         Route::get('manage/status/', [MaintenanceScheduleController::class, 'list'])->name('status.list');
@@ -116,6 +130,10 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/replacement/update', [ManageController::class, 'replacement_update'])->name('replacement.update');
         Route::get('manage/replacement/list', [ManageController::class, 'replacement_list'])->name('replacement.list');
         Route::get('manage/replacement/preview/{id}', [ManageController::class, 'replacement_preview'])->name('replacement.preview');
+
+        Route::get('manage/repair/set', [MaintenanceRepairController::class, 'set'])->name('repair.set');
+        Route::get('manage/repairs', [MaintenanceRepairController::class, 'list'])->name('repair.list');
+        Route::get('manage/repairs/item/{id}', [MaintenanceRepairController::class, 'item'])->name('repairs.item');
 
         Route::get('record', [RecordController::class, 'index'])->name('record.index');
         

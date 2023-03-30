@@ -116,7 +116,7 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -149,7 +149,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Manage</p>
@@ -157,10 +157,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link active">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>

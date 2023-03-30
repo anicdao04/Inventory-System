@@ -154,10 +154,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>
@@ -197,6 +203,25 @@
                 </div>
                 <div class="card-body p-4">
                     <form action="{{route('scheduling.query')}}" method="get">
+                        <div class="row mb-3">
+                          <div class="col-6 col-md-6">
+                            <select name="designation_id" class="form-control" required>
+                              <option value="" selected disabled>Designation</option>
+                              @foreach($designations as $designation)
+                                  <option value="{{$designation->id}}">{{$designation->name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                          <div class="col-6 col-md-6">
+                            <select name="assign_id" class="form-control" required>
+                              <option value="" selected disabled>Assigned Area</option>
+                              @foreach($assigns as $assign)
+                                  <option value="{{$assign->id}}">{{$assign->name}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                        
                         <select name="id" class="form-control" required>
                             <option value="" selected disabled>Please Select</option>
                             @foreach($items as $item)

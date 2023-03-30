@@ -8,12 +8,15 @@ use App\Models\Assign;
 use App\Models\Category;
 use App\Models\Designation;
 use App\Models\Item;
+use DB;
 
 class InventoryController extends Controller
 {
     public function index()
     {
         $this->data['categories'] = Category::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['assigns'] = Assign::get();
         $this->data['items'] = Item::get();
         $this->data['inventory_count'] = Inventory::count();
         $this->data['inventory_active'] = Inventory::where('is_active', '=', '1')->count();
@@ -111,6 +114,20 @@ class InventoryController extends Controller
             $data->update();
         }
         return redirect()->route('inventory.index')->with('item_updated', 'Item has been updated successfully!');
+    }
+
+    public function query()
+    {
+        $assign_id = $_GET['assign_id'];
+        $designation_id = $_GET['designation_id'];
+
+        $this->data['categories'] = Category::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['results'] = Inventory::where('assign_id', '=', $assign_id)->where('designation_id', '=', $designation_id)->paginate(5);
+        $this->data['result_count'] = Inventory::where('assign_id', '=', $assign_id)->where('designation_id', '=', $designation_id)->count();
+        $this->data['items'] = Item::get();
+        return view('backend.admin.inventoryQuery', $this->data);
     }
 
 }

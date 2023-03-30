@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Category | IIMMS</title>
+  <title>Modify Task | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -116,7 +116,7 @@
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -130,7 +130,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('category.index')}}" class="nav-link active">
+                    <a href="{{route('category.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Category</p>
                     </a>
@@ -149,7 +149,7 @@
                   </li>
                 </ul>
               </li>
-              <li class="nav-item">
+              <li class="nav-item menu-open">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Manage</p>
@@ -157,16 +157,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                      <a href="{{route('condition.index')}}" class="nav-link">
-                        <i class="fi fi-rr-circle-dashed mr-1"></i>
-                        <p>Condition</p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{{route('task.index')}}" class="nav-link">
-                        <i class="fi fi-rr-circle-dashed mr-1"></i>
-                        <p>Task</p>
-                      </a>
+                    <a href="{{route('condition.index')}}" class="nav-link">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Condition</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('task.index')}}" class="nav-link active">
+                      <i class="fi fi-rr-circle-dashed mr-1"></i>
+                      <p>Task</p>
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -195,13 +195,14 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Create Category</h3>
-            <p class="text-muted">Category | Create</p>
+            <h3>Modify Task</h3>
+            <p class="text-muted">Task | Modify</p>
         </div>
 
       
-      <form action="{{route('category.store')}}" method="post">
+      <form action="{{url('admin/task/update/'.$task->id)}}" method="post">
       @csrf
+      @method('PUT')
         <div class="row">
             <div class="col-12 col-md-12 mt-4 mb-5">
                 <div class="card">
@@ -216,15 +217,15 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="class">Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control" required>
+                                    <input type="text" name="name" value="{{$task->name}}" class="form-control" required>
                                 </div>
                             </div>
                         </div>
 
                 </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary mr-1">Submit</button>
-                        <button class="btn btn-default">Cancel</button>
+                        <button class="btn btn-primary mr-1">Update</button>
+                        <a class="btn btn-default" href="{{route('task.index')}}">Cancel</a>
                     </div>
             </div>
 

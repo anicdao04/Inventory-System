@@ -157,10 +157,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>
@@ -255,10 +261,10 @@
 
                                         @if($list->is_active == 0)
                                           <td class="text-danger">Replaced</td>
-                                          <td><a class="btn btn-sm btn-default mr-1" href="#">Preview</a></td>
+                                          <td><a class="btn btn-sm btn-info mr-1" href="#">Preview</a></td>
                                         @elseif($list->is_active == 1)
                                           <td class="text-success">Active</td>
-                                          <td><a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/replacement/item/'. $list->id)}}">Manage</a></td>
+                                          <td><a class="btn btn-sm btn-warning mr-1" href="{{url('admin/manage/replacement/item/'. $list->id)}}">Manage</a></td>
                                         @endif
                                 </tr> 
                                 @endforeach

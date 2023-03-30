@@ -162,10 +162,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>
@@ -302,8 +308,8 @@
 
                             </div> <!-- end row -->
 
-                          <hr>
-                          <a href="" class="btn btn-secondary mt-3">Close</a>
+                          <!-- <hr> -->
+                          <a href="{{route('replacement.list')}}" class="btn btn-secondary mt-3">Close</a>
                           </form>
 
                           </div><!-- end col-8 -->
