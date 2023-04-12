@@ -195,9 +195,9 @@
     <p class="text-center mb-5 text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i> Select the following option to manage maintenance request.</p>
       <div class="row">
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner py-4">
-                    <p>Maint. Scheduling</p>
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner py-4 text-white text-center">
+                    <h5 class="mt-5">Maint. Scheduling</h5>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-calendar-lines-pen" style="font-size: 50px;"></i></div>
                 <a href="{{route('scheduling.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
@@ -205,9 +205,9 @@
         </div>
         
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner py-4">
-                    <p>Manage Replacement</p>
+            <div class="small-box" style="background-color: #cbdcec;">
+                <div class="inner py-4 text-center">
+                    <h5 class="mt-5">Manage Replacement</h5>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-replace" style="font-size: 50px;"></i></div>
                 <a href="{{route('replacement.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
@@ -215,18 +215,18 @@
         </div>
         
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner py-4">
-                    <p>Unit Transfer</p>
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner py-4 text-white text-center">
+                    <h5 class="mt-5">Unit Transfer</h5>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-ftp" style="font-size: 50px;"></i></div>
                 <a href="{{route('transfer.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner py-4">
-                    <p>Request for Repair</p>
+            <div class="small-box" style="background-color: #cbdcec;">
+                <div class="inner py-4 text-center">
+                    <h5 class="mt-5">Request for Repair</h5>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
                 <a href="{{route('repair.index')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>

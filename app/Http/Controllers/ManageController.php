@@ -174,6 +174,7 @@ class ManageController extends Controller
     }
     public function replacement_list()
     {
+        $this->data['assigns'] = Assign::get();
         $this->data['replacementlistsCount'] = MaintenanceReplacement::count();
         $this->data['replacementlists'] = MaintenanceReplacement::get();
         $this->data['inventories'] = Inventory::get();

@@ -233,6 +233,7 @@
                                     <th>Serial No.</th>
                                     <th>Assigned Area</th>
                                     <th>Designation</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -257,6 +258,11 @@
                                                 <td>{{$designation->name}}</td>
                                             @endif
                                         @endforeach
+                                        @if($list->is_active == 0)
+                                          <td class="text-danger">Requested for repair</td>
+                                        @elseif($list->is_active == 1)
+                                          <td class="text-success">Active</td>
+                                        @endif
                                     <td>
                                       <a class="btn btn-sm btn-warning mr-1" href="{{url('admin/manage/repair/item/'. $list->id)}}">Manage</a>
                                     </td>
@@ -289,13 +295,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('designation_created'))
+@if(Session::has('repair_created'))
     <script>
-        toastr.success("{!! Session::get('designation_created') !!}");
+        toastr.success("{!! Session::get('repair_created') !!}");
     </script>
-@elseif(Session::has('designation_updated'))
+@elseif(Session::has('repair_updated'))
     <script>
-        toastr.info("{!! Session::get('designation_updated') !!}");
+        toastr.info("{!! Session::get('repair_updated') !!}");
     </script>
 @endif
 

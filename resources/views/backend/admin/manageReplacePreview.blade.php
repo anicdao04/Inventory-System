@@ -310,6 +310,7 @@
 
                           <!-- <hr> -->
                           <a href="{{route('replacement.list')}}" class="btn btn-secondary mt-3">Close</a>
+                          <a href="" class="btn btn-warning print-window ml-1 mt-3">Print</a>
                           </form>
 
                           </div><!-- end col-8 -->
@@ -366,6 +367,13 @@
 @endif
 
 @yield('custom-script')
+
+<script>
+  $('.print-window').click(function() {
+    window.print();
+  });
+</script>
+
 </body>
 </html>
 

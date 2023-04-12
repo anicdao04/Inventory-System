@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
   <style>
     .content-wrapper .content{
@@ -192,7 +195,7 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid px-5 mt-4 text-center">
 
-    <h1><i class="fi fi-rr-wrench-simple mr-2" style="font-size:26px;"></i> Request for Repair</h1>
+    <h1><i class="fi fi-rr-wrench-simple mr-2" style="font-size:26px;"></i> Request for Repairs</h1>
     <h5 class="mb-5 text-muted">(Manage Item)</h5>
         
     <div class="row justify-content-center">
@@ -249,6 +252,19 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+@if(Session::has('repair_created'))
+    <script>
+        toastr.success("{!! Session::get('repair_created') !!}");
+    </script>
+@elseif(Session::has('repair_updated'))
+    <script>
+        toastr.info("{!! Session::get('repair_updated') !!}");
+    </script>
+@endif
 
 @yield('custom-script')
 </body>

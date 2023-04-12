@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Maintenance Request | IIMMS</title>
+  <title>Unit Details | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,6 +23,11 @@
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
+    }
+    .form-control{
+        border-radius: 0px !important;
+        background-color: #fff !important;
+        border: 1px solid #f2f2f2;
     }
   </style>
 </head>
@@ -194,79 +199,150 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-2">Records <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Replaced Items List</span></h3>
-            <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Replaced Items</p>
+            <h3 class="mb-2">Records <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Request for Repair</span></h3>
+            <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Request for Repair</p>
         </div>
 
       <div class="row">
         <!-- Info boxes -->
             <div class="col-12 col-md-3">
-
+                <!-- <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total No. of Items</span>
+                            <span class="info-box-number mt-0">
+                            <span></span>
+                            </span>
+                        </div> 
+                </div>  -->
             </div> 
 
+           
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">List of Items</h3>
-                            <div class="card-tools">                    
-
-                            </div>
+                        <h3 class="card-title">Unit Details</h3>
                     </div>
-                    <div class="card-body p-0">
-                    <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Item Code</th>
-                                    <th>Serial Number</th>
-                                    <th>Item Name</th>
-                                    <th>Assigned Area</th>
-                                    <th>Condition</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($replacementlists as $list)
-                                <tr>
+
+                    <div class="card-body">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-8 col-md-8 px-3">
+                          
+                          <!-- <h5 class="text-info">Current Location</h5>
+                          <hr> -->
+
+                          <form action="{{route('repair.update')}}" method="get">
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Item Code</label>
                                     @foreach($inventories as $inventory)
-                                      @if($inventory->id == $list->item_id)
-                                            <td>{{$inventory->item_code}}</td>
-                                            @if($inventory->serial_no == null)
-                                                <td>N/A</td>
-                                            @else
-                                                <td>{{$inventory->serial_no}}</td>
-                                            @endif
-                                        @foreach($items as $item)
-                                          @if($item->id == $inventory->item_id)
-                                            <td>{{$item->name}}</td>
+                                      @if($inventory->id == $item->item_id)
+                                        <input type="text" value="{{$inventory->item_code}}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Item Name</label>
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $item->item_id)
+                                        @foreach($items as $data)
+                                          @if($data->id == $inventory->item_id)
+                                            <input type="text" value="{{$data->name}}" class="form-control" disabled>
                                           @endif
                                         @endforeach
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Repair Type</label>
+                                    @foreach($tasks as $task)
+                                      @if($task->id == $item->type)
+                                        <input type="text" value="{{$task->name}}" class="form-control" disabled>
+                                      @endif
+                                    @endforeach
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Scheduled Date</label>
+                                      @if($item->date_scheduled == null)
+                                        <input type="text" value="N/A" class="form-control" disabled>
+                                      @else
+                                        <input type="text" value="{{ Carbon\Carbon::parse($item->date_scheduled)->format('F d, Y') }}" class="form-control" disabled>
+                                      @endif
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                  <label>Status</label>
+                                      @if($item->status == 0)
+                                        <input type="text" value="Pending" class="form-control text-warning" disabled>
+                                      @else
+                                        <input type="text" value="Completed" class="form-control" disabled>
+                                      @endif
+                                </div>
+                              </div>
+                              
+                            </div> <!-- end row -->
 
-                                        @foreach($assigns as $assign)
-                                          @if($assign->id == $inventory->assign_id)
-                                            <td>{{$assign->name}}</td>
-                                          @endif
-                                        @endforeach
+                          <h5 class="mt-5 text-info">Set Repair Status</h5>
+                          <hr>
+                          <div class="row"> <!-- start row -->
+                              <div class="col-md-4">
+                                <div class="form-group">
+                                <input type="hidden" name="item_id" value="{{$item->id}}">
+                                  <label>Maintenance Status<span class="text-danger">*</span></label>
+                                    <select name="status" class="form-control" required>
+                                        @if($item->status == 0)
+                                            <option value="" selected disabled>Please Select</option>
+                                            <option value="1">Completed</option>
+                                        @elseif($item->status == 1)
+                                            <option value="" selected disabled>Please Select</option>
+                                            <option value="0">Pending</option>
+                                        @endif
+                                    </select>
+                                </div>
+                              </div>
+                          </div> <!-- end row -->
+                          
+                          <button class="btn btn-primary mt-3">Update status</button>
+                          <a href="{{url('admin/manage/repairs')}}" class="btn btn-secondary mt-3">Close</a>
+                          </form>
 
+                          </div><!-- end col-8 -->
+
+                          <div class="col-4 col-md-4 px-3"><!-- start col-4 -->
+                              <div class="form-group">
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $item->item_id)
+                                        <img src="{{ asset('uploads/images/inventory/'.$inventory->image) }}" class="img-fluid img-thumbnail">
                                       @endif
                                     @endforeach
 
-                                    @foreach($conditions as $condition)
-                                      @if($condition->id == $list->condition_id)
-                                            <td>{{$condition->name}}</td>
-                                      @endif
-                                    @endforeach
-                                    <td>
-                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/replacement/preview/'. $list->id)}}">Preview</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                                    
+                                    <div class="form-group">
+                                        @foreach($items as $data)
+                                          @if($data->id == $item->item_id)
+                                            <h4 class="text-center mt-3 mb-0">{{$data->name}}</h4>
+                                          @endif
+                                        @endforeach
+                                        <p class="text-center">SN: {{$item->serial_no}}</p>
+                                    </div>
+                              </div>
+                          </div> <!-- end col-4 -->
+
+                        </div>
+                      </div>
                     </div>
-                        
+
                 </div>
-                    <a href="{{route('record.index')}}" class="btn btn-secondary">Close</a>
-                    <a href="" class="btn btn-warning print-window">Print</a>
+                    <!-- <a href="" class="btn btn-primary">Create</a> -->
             </div>
 
 
@@ -292,21 +368,17 @@
     <script>
         toastr.success("{!! Session::get('schedule_created') !!}");
     </script>
-@elseif(Session::has('status_updated'))
+@elseif(Session::has('designation_updated'))
     <script>
-        toastr.info("{!! Session::get('status_updated') !!}");
+        toastr.info("{!! Session::get('designation_updated') !!}");
+    </script>
+@elseif(Session::has('schedule_invalid'))
+    <script>
+        toastr.error("{!! Session::get('schedule_invalid') !!}");
     </script>
 @endif
 
 @yield('custom-script')
-
-<script>
-  $('.print-window').click(function() {
-    window.print();
-  });
-</script>
-
-
 </body>
 </html>
 

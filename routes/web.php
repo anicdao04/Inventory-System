@@ -134,6 +134,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/repair/set', [MaintenanceRepairController::class, 'set'])->name('repair.set');
         Route::get('manage/repairs', [MaintenanceRepairController::class, 'list'])->name('repair.list');
         Route::get('manage/repairs/item/{id}', [MaintenanceRepairController::class, 'item'])->name('repairs.item');
+        Route::get('manage/repair/update', [MaintenanceRepairController::class, 'repair_update'])->name('repair.update');
 
         Route::get('record', [RecordController::class, 'index'])->name('record.index');
         

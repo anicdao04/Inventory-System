@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Maintenance Request | IIMMS</title>
+  <title>List of Maintenance Request for Repair | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -294,6 +294,7 @@
                         
                 </div>
                     <a href="{{route('record.index')}}" class="btn btn-secondary">Close</a>
+                    <a href="" class="btn btn-warning print-window">Print</a>
             </div>
 
 
@@ -315,17 +316,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('schedule_created'))
+@if(Session::has('repair_created'))
     <script>
-        toastr.success("{!! Session::get('schedule_created') !!}");
+        toastr.success("{!! Session::get('repair_created') !!}");
     </script>
-@elseif(Session::has('status_updated'))
+@elseif(Session::has('repair_updated'))
     <script>
-        toastr.info("{!! Session::get('status_updated') !!}");
+        toastr.info("{!! Session::get('repair_updated') !!}");
     </script>
 @endif
 
 @yield('custom-script')
+
+<script>
+  $('.print-window').click(function() {
+    window.print();
+  });
+</script>
+
 </body>
 </html>
 

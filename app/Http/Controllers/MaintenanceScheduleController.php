@@ -66,6 +66,7 @@ class MaintenanceScheduleController extends Controller
         $this->data['lists'] = MaintenanceSchedule::paginate(10);
         $this->data['inventories'] = Inventory::get();
         $this->data['items'] = Item::get();
+        $this->data['assigns'] = Assign::get();
         return view('backend.admin.manageStatusList', $this->data);
     }
 

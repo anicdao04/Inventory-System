@@ -324,7 +324,7 @@
                               </div>
                           </div> <!-- end row -->
                           <button class="btn btn-primary mt-3">Set Schedule</button>
-                          <a href="{{url('admin/manage/transfer/category?id='. $item->item_id)}}" class="btn btn-secondary mt-3">Close</a>
+                          
                           </form>
 
                           </div><!-- end col-8 -->

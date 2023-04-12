@@ -25,6 +25,9 @@
       padding: .5rem 1rem !important;
     }
   </style>
+
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -229,6 +232,7 @@
                                     <th>Item Name</th>
                                     <th>Maintenance Type</th>
                                     <th>Scheduled Date</th>
+                                    <th>Assigned Area</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -276,6 +280,17 @@
 
                                     <td>{{ Carbon\Carbon::parse($list->date_scheduled)->format('F d, Y') }}</td>
 
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        @foreach($assigns as $assign)
+                                          @if($assign->id == $inventory->assign_id)
+                                            <td>{{$assign->name}}</td>
+                                          @endif
+                                        @endforeach
+                                      @endif
+                                    @endforeach
+
+
                                     @if(($list->status == 0) && ($list->is_overdue == 1))
                                         <td>Pending <span class="badge badge-pill badge-success p-1 ml-1">Due today</span></td>
                                     @elseif(($list->status == 0) && ($list->is_overdue == 2))
@@ -297,6 +312,7 @@
                         
                 </div>
                     <a href="{{route('record.index')}}" class="btn btn-secondary">Close</a>
+                    <a href="" class="btn btn-warning print-window">Print</a>
             </div>
 
 
@@ -329,6 +345,13 @@
 @endif
 
 @yield('custom-script')
+
+<script>
+  $('.print-window').click(function() {
+    window.print();
+  });
+</script>
+
 </body>
 </html>
 

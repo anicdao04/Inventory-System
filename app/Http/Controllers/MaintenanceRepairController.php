@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\MaintenanceRepair;
+
 use App\Models\Inventory;
 use App\Models\Item;
+use App\Models\Assign;
+use App\Models\Designation;
+use App\Models\Category;
+use App\Models\MaintenanceSchedule;
+use App\Models\MaintenanceReplacement;
+use App\Models\MaintenanceRepair;
+use App\Models\Condition;
 use App\Models\Task;
 
 class MaintenanceRepairController extends Controller
@@ -23,7 +30,7 @@ class MaintenanceRepairController extends Controller
         $data->note = $note;
         $data->date_scheduled = $date_scheduled;
         $data->save();
-        // return redirect()->route('status.list')->with('schedule_created', 'Maintenance schedule has been created successfully!');
+        return redirect()->route('repair.list')->with('repair_created', 'Request for repair has been created successfully!');
 
     }
 
@@ -36,8 +43,28 @@ class MaintenanceRepairController extends Controller
         return view('backend.admin.manageRecordRepairIndex', $this->data);
     }
 
-    public function item()
+    public function item($id)
     {
-        return 'Coming soon..';
+        $this->data['items'] = Item::get();
+        $this->data['tasks'] = Task::get();
+        $this->data['inventories'] = Inventory::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['categories'] = Category::get();
+        $this->data['conditions'] = Condition::get();
+        $this->data['item'] = MaintenanceRepair::find($id);
+        return view('backend.admin.manageRecordRepairSelect', $this->data);
     }
+
+    public function repair_update(Request $request)
+    {
+        $item_id = $_GET['item_id'];
+        $status = $_GET['status'];
+        $data = MaintenanceRepair::find($item_id);
+        $data->status = $status;
+        $data->update();
+        return redirect()->route('repair.list')->with('repair_updated', 'Request for repair has been updated!');
+
+    }
+
 }
