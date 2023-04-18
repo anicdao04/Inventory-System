@@ -199,7 +199,7 @@
             <p class="text-muted">Inventory | Create</p>
         </div>
 
-      
+
       <form action="{{route('inventory.store')}}" method="post" enctype="multipart/form-data">
       @csrf
         <div class="row">
@@ -216,7 +216,11 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Item Code <span class="text-danger">*</span></label>
-                                    <input type="text" name="item_code" class="form-control" required>
+                                    <?php 
+                                      $year = date("Y"); 
+                                    ?>
+                                    <input type="hidden" name="item_code" value="{{ $year }}-00{{$item_count + 1}}" class="form-control">
+                                    <input type="text" value="{{ $year }}-00{{$item_count + 1}}" class="form-control" style="background-color: #fff;" disabled>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -228,12 +232,15 @@
                                           <option value="{{$item->id}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
+                               
                                 </div>
                             </div>
+                            
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Actual Photo <span class="text-danger">*</span></label>
-                                    <input type="file" name="image" class="form-control" required>
+                                    <input type="file" name="image" value="{{old('image')}}" class="form-control" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -250,13 +257,19 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Serial Number <span class="text-muted"><small>(optional)</small></span></label>
-                                    <input type="text" name="serial_no" class="form-control">  
+                                    <input type="text" name="serial_no" value="{{old('serial_no')}}" class="form-control">  
+                                    @if($errors->has('serial_no'))
+                                        <span class="text-danger">{{ $errors->first('serial_no') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">OR Number <span class="text-danger">*</span></label>
-                                    <input type="text" name="or_no" class="form-control" required>
+                                    <input type="text" name="or_no" value="{{old('or_no')}}" class="form-control" required>
+                                    @if($errors->has('or_no'))
+                                        <span class="text-danger">{{ $errors->first('or_no') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -307,7 +320,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Bundled To <span class="text-muted"><small>(optional)</small></span></label>
-                                    <input type="text" name="bundled_to" class="form-control">  
+                                    <input type="text" name="bundled_to" value="{{old('bundled_to')}}" class="form-control">  
                                 </div>
                             </div>
                             
@@ -317,13 +330,35 @@
                         <div class="row">
                             
                             
-                            
-                            
-                            
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="class">Description <span class="text-muted"><small>(optional)</small></span></label>
-                                    <input type="text" name="description" class="form-control">  
+                                    <input type="text" name="description" value="{{old('description')}}" class="form-control">  
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="col-12">
+                            <p class="mb-0" style="font-size:18px;">(Supplier Information)</p>
+                            </div>
+                            <div class="col-12"><hr></div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Name <span class="text-muted"><small>(optional)</small></span></label>
+                                    <input type="text" name="supplier_name" value="{{old('supplier_name')}}" class="form-control">  
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Address <span class="text-muted"><small>(optional)</small></span></label>
+                                    <input type="text" name="supplier_address" value="{{old('supplier_address')}}" class="form-control">  
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Contact <span class="text-muted"><small>(optional)</small></span></label>
+                                    <input type="number" name="supplier_contact" value="{{old('supplier_contact')}}" class="form-control">  
                                 </div>
                             </div>
                         </div>

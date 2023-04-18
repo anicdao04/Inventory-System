@@ -19,12 +19,31 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
     }
+
+    /* @media print{@page {size: landscape}} */
+    @media print {@page {size: landscape}
+    .myDivToPrint {
+        background-color: white;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 15px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
   </style>
+
+
+</head>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -225,7 +244,18 @@
             </div> 
 
 
-            <div class="col-12 col-md-12 mt-4">
+            <div class="col-12 col-md-12 mt-4 myDivToPrint">
+              <div class="row mb-4">
+                  <div class="col-1 col-md-1 text-center">
+                    <img src="{{ asset('img/spcc-logo.png') }}" style="opacity: 1; width:80%;">
+                  </div>
+                  <div class="col-11 col-md-11">
+                    <h3 class="mb-0">SYSTEMS PLUS COMPUTER COLLEGE FOUNDATION SAN FERNANDO INC.</h3>
+                    <p class="mb-0">B. Mendoza Street, City of San Fernando, Pampanga</p>
+                    <h5>Inventory Report</h5>
+                  </div>
+              </div>
+                
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">List of Items</h3>
@@ -235,14 +265,20 @@
                     </div>
 
                     <div class="card-body p-0">
-                    <table class="table">
+                    <table class="table ">
                             <thead>
                                 <tr>
                                     <th>Item Code</th>
                                     <th>Name</th>
-                                    <th>Serial Number</th>
+                                    <th>S.N.</th>
+                                    <th>Color</th>
                                     <th>Category</th>
                                     <th>Designation</th>
+                                    <th>Assigned To</th>
+                                    <th>Bundled To</th>
+                                    <th>Description</th>
+                                    <th>Supplier</th>
+                                    <th>Warranty</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -259,6 +295,12 @@
                                           <td>N/A</td>
                                         @else
                                           <td>{{$result->serial_no}}</td>
+                                        @endif
+
+                                        @if($result->color == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->color}}</td>
                                         @endif
                                     
                                         @foreach($categories as $category)
@@ -278,6 +320,30 @@
                                               <td>{{$assign->name}}</td>
                                             @endif
                                         @endforeach
+
+                                        @if($result->bundled_to == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->bundled_to}}</td>
+                                        @endif
+
+                                        @if($result->description == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->description}}</td>
+                                        @endif
+
+                                        @if($result->supplier_name == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->supplier_name}}</td>
+                                        @endif
+
+                                        @if($result->warranty == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->warranty}}</td>
+                                        @endif
 
                                     <td>
                                         <div class="btn-group" role="group">
@@ -299,6 +365,7 @@
 
                 </div>
                     <a href="" class="btn btn-secondary">Back</a>
+                    <a href="" class="btn btn-warning print-window">Print</a>
             </div>
 
 
@@ -329,6 +396,12 @@
         toastr.info("{!! Session::get('item_updated') !!}");
     </script>
 @endif
+
+<script>
+  $('.print-window').click(function() {
+    window.print();
+  });
+</script>
 
 @yield('custom-script')
 </body>

@@ -304,13 +304,52 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-8">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <span for="class" class="text-muted">Description</span>
                                             @if($inventory->description == null)
                                               <input type="text" value="N/A" class="form-control" disabled>
                                             @else
                                               <input type="text" value="{{$inventory->color}}" class="form-control" disabled>
+                                            @endif
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-3">
+                                      <h5 class="text-info">Supplier Info</h5>
+                                      <hr>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span for="class" class="text-muted">Name</span>
+                                            @if($inventory->supplier_name == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{$inventory->supplier_name}}" class="form-control" disabled>
+                                            @endif
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span for="class" class="text-muted">Address</span>
+                                            @if($inventory->supplier_address == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{$inventory->supplier_address}}" class="form-control" disabled>
+                                            @endif
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <span for="class" class="text-muted">Contact No.</span>
+                                            @if($inventory->supplier_contact == null)
+                                              <input type="text" value="N/A" class="form-control" disabled>
+                                            @else
+                                              <input type="text" value="{{$inventory->supplier_contact}}" class="form-control" disabled>
                                             @endif
                                             
                                         </div>

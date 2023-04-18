@@ -28,6 +28,9 @@ class CreateInventoriesTable extends Migration
             $table->date('date_purchased');
             $table->longText('or_no');
             $table->longText('description')->nullable()->default('N/A');
+            $table->longText('supplier_name')->nullable()->default('N/A');
+            $table->longText('supplier_address')->nullable()->default('N/A');
+            $table->longText('supplier_contact')->nullable()->default('N/A');
 
             $table->boolean('is_active')->default(1); // (0)=false, (1)=true
             $table->boolean('is_critical')->default(0); // (0)=false, (1)=true

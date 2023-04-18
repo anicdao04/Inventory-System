@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\InventoryRequest;
 use App\Models\Inventory;
 use App\Models\Assign;
 use App\Models\Category;
@@ -30,10 +31,12 @@ class InventoryController extends Controller
         $this->data['items'] = Item::get();
         $this->data['categories'] = Category::get();
         $this->data['destinations'] = Designation::get();
+        $this->data['item_count'] = Inventory::count();
         return view('backend.admin.inventoryCreate', $this->data);
     }
-    public function store(Request $request)
+    public function store(InventoryRequest $request)
     {
+        
         $name = $request->file('image')->getClientOriginalName();
         $request->file('image')->move('uploads/images/inventory/', $name);
 
@@ -51,7 +54,9 @@ class InventoryController extends Controller
         $data->date_purchased = $request->input('date_purchased');
         $data->or_no = $request->input('or_no');
         $data->description = $request->input('description');
-
+        $data->supplier_name = $request->input('supplier_name');
+        $data->supplier_address = $request->input('supplier_address');
+        $data->supplier_contact = $request->input('supplier_contact');
         $data->save();
         return redirect()->route('inventory.index')->with('item_created', 'New item has been created successfully!');
     }
@@ -95,6 +100,9 @@ class InventoryController extends Controller
             $data->date_purchased = $request->input('date_purchased');
             $data->or_no = $request->input('or_no');
             $data->description = $request->input('description');
+            $data->supplier_name = $request->input('supplier_name');
+            $data->supplier_address = $request->input('supplier_address');
+            $data->supplier_contact = $request->input('supplier_contact');
             $data->update();
         }
         else{
@@ -111,6 +119,9 @@ class InventoryController extends Controller
             $data->date_purchased = $request->input('date_purchased');
             $data->or_no = $request->input('or_no');
             $data->description = $request->input('description');
+            $data->supplier_name = $request->input('supplier_name');
+            $data->supplier_address = $request->input('supplier_address');
+            $data->supplier_contact = $request->input('supplier_contact');
             $data->update();
         }
         return redirect()->route('inventory.index')->with('item_updated', 'Item has been updated successfully!');

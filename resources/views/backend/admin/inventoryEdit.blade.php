@@ -314,6 +314,24 @@
                                             <input type="text" name="description" value="{{$inventory->description}}" class="form-control">  
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="class">Supplier Name <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="supplier_name" value="{{$inventory->supplier_name}}" class="form-control">  
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="class">Supplier Address <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="supplier_address" value="{{$inventory->supplier_address}}" class="form-control">  
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="class">Supplier Contact <span class="text-muted"><small>(optional)</small></span></label>
+                                            <input type="text" name="supplier_contact" value="{{$inventory->supplier_contact}}" class="form-control">  
+                                        </div>
+                                    </div>
 
                                 </div> <!-- end row -->
                             </div> <!-- end col-8 -->
