@@ -12,10 +12,17 @@
 <!-- UI Icons -->
 <link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
     
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+<!-- icheck bootstrap -->
+<link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+<!-- Theme style -->
+<link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="{{ asset('css/style.css')}}">
 
   <style>
     .content-wrapper .content{
@@ -97,12 +104,14 @@
             </a>
           </li>
 
+          @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('account.index')}}" class="nav-link">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
           </li>
+          @endif
 
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
@@ -193,42 +202,82 @@
 <div class="content-wrapper pt-4">
     <div class="container mt-3">
       <div class="row">
+        
         <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>{{$inventory_count}}</h3>
-                    <p>Inventory</p>
+            <div class="small-box" style="background-color: #7da0fa;">
+            <!-- <div class="small-box bg-success"> -->
+                <div class="inner"><h3 class="text-white">{{$schedulelistsCount}}</h3>
+                    <p class="text-white">Maintenance Status</p>
                 </div>
-                <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <div class="icon p-1"><i class="fi fi-rr-info" style="font-size: 50px;"></i></div>
+                <a href="{{route('status.list')}}" class="small-box-footer text-white">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>0</h3>
-                    <p>Manage</p>
+            <div class="small-box" style="background-color: #4b49ac;">
+            <!-- <div class="small-box bg-warning"> -->
+                <div class="inner"><h3 class="text-white">{{$replacementlistsCount}}</h3>
+                    <p class="text-white">Replaced Items</p>
                 </div>
-                <div class="icon p-1"><i class="fi fi-rr-layer-plus" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <div class="icon p-1"><i class="fi fi-rr-replace" style="font-size: 50px;"></i></div>
+                <a href="{{route('replacement.list')}}" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #3c73a8;">
-                <div class="inner text-white"><h3>0</h3>
-                    <p>Records</p>
-                </div>
-                <div class="icon p-1"><i class="fi fi-rr-move-to-folder-2" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
-            </div>
-        </div>
-        <div class="col-lg-3 col-6">
-            <div class="small-box" style="background-color: #cbdcec;">
-                <div class="inner"><h3>0</h3>
-                    <p>Maintenance</p>
+            <div class="small-box" style="background-color: #7978e9;">
+            <!-- <div class="small-box bg-danger"> -->
+                <div class="inner"><h3 class="text-white">{{$repairlistsCount}}</h3>
+                    <p class="text-white">Request for Repair</p>
                 </div>
                 <div class="icon p-1"><i class="fi fi-rr-wrench-simple" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="{{route('repair.list')}}" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box" style="background-color: #f3797e;">
+            <!-- <div class="small-box bg-secondary"> -->
+                <div class="inner"><h3 class="text-white">0</h3>
+                    <p class="text-white">Unit Transfer</p>
+                </div>
+                <div class="icon p-1"><i class="fi fi-rr-ftp" style="font-size: 50px;"></i></div>
+                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+            </div>
+        </div>
+        
+
+        <div class="col-lg-3 col-6 mt-5">
+            <div class="small-box" style="background-color: #4bcbeb;">
+                <div class="inner"><h3 class="text-white">{{$inventory_count}}</h3>
+                    <p class="text-white">Inventory</p>
+                </div>
+                <div class="icon p-1" ><i class="fi fi-rr-edit" style="font-size: 50px;"></i></div>
+                <a href="{{route('inventory.list')}}" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6 mt-5">
+            <div class="small-box" style="background-color: #1bcfb4;">
+                <div class="inner"><h3 class="text-white">1</h3>
+                    <p class="text-white">Users</p>
+                </div>
+                <div class="icon p-1" ><i class="fi fi-rr-users-alt" style="font-size: 50px;"></i></div>
+                <a href="{{route('inventory.list')}}" class="small-box-footer text-white">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-6">
+          <div class="calendar calendar-first" id="calendar_first">
+				    <div class="calendar_header">
+				        <button class="switch-month switch-left"> <i class="fa fa-chevron-left"></i></button>
+				         <h2></h2>
+				        <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
+				    </div>
+				    <div class="calendar_weekdays"></div>
+				    <div class="calendar_content"></div>
+					</div>
+        </div>
+
+
 
       </div><!-- /row -->
     </div><!-- /container -->
@@ -244,6 +293,9 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+
+<!-- Bootstrap Calendar -->
+<script src="{{ asset('js/main.js') }}"></script>
 
 @yield('custom-script')
 </body>

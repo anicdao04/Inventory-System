@@ -4,25 +4,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Assign | IIMMS</title>
+  <title>User Management | IIMMS</title>
 
-<!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
-<!-- UI Icons -->
-<link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
+  <!-- UI Icons -->
+  <link href="{{ asset('uicons/css/uicons-regular-rounded.css')}}" rel="stylesheet">
     
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
-    }
-    .form-control{
-        border-radius: 0px !important;
     }
   </style>
 </head>
@@ -101,7 +101,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="" class="nav-link active">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -111,14 +111,14 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -126,7 +126,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('assign.index')}}" class="nav-link active">
+                    <a href="{{route('assign.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Assign Area</p>
                     </a>
@@ -159,16 +159,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('condition.index')}}" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('task.index')}}" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Task</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>
@@ -197,40 +197,70 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Create Assign Area</h3>
-            <p class="text-muted">Assign | Create</p>
+            <h3>User Management</h3>
+            <p class="text-muted">User Management | List</p>
         </div>
 
-      
-      <form action="{{route('assign.store')}}" method="post">
-      @csrf
-        <div class="row">
-            <div class="col-12 col-md-12 mt-4 mb-5">
+      <div class="row">
+        <!-- Info boxes -->
+            <div class="col-12 col-md-3">
+                <div class="info-box">
+                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Total No. of Items</span>
+                            <span class="info-box-number mt-0">
+                            <span></span>
+                            </span>
+                        </div> 
+                </div> 
+            </div> 
+
+            <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Item details</h3>
-                        <div class="card-tools"></div>
-                    </div>
-                    
-                    <div class="card-body p-4">
-                    
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="class">Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control" required>
-                                </div>
+                        <h3 class="card-title">List of Items</h3>
+                            <div class="card-tools">                    
+                      
                             </div>
-                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email Addres</th>
+                                    <th>Password</th>
+                                    <th>User Level</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($accounts as $data)
+                                <tr>
+                                    <td>{{$data->name}}</td>
+                                    <td>{{$data->email}}</td>
+                                    <td>{{$data->password}}</td>
+                                    @if($data->is_admin == 1)
+                                      <td>Administrator</td>
+                                    @elseif($data->is_admin == 0)
+                                      <td>Custodian</td>
+                                    @endif
+                                <td>
+                                  <a class="btn btn-sm btn-default mr-1" href="{{url('admin/account/modify/'. $data->id)}}">Modify</a>
+                                  <a class="btn btn-sm btn-danger" href="{{url('admin/account/delete/'. $data->id)}}">Delete</a>
+                                </td>
+                                </tr> 
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary mr-1">Submit</button>
-                        <button class="btn btn-default">Cancel</button>
-                    </div>
+                    <a href="{{route('account.create')}}" class="btn btn-primary">Create User</a>
             </div>
 
-      </form>
+
       </div><!-- /row -->
     </div><!-- /container -->
         
@@ -245,6 +275,23 @@
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
+<!-- Toastr -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+@if(Session::has('account_created'))
+    <script>
+        toastr.success("{!! Session::get('account_created') !!}");
+    </script>
+@elseif(Session::has('account_updated'))
+    <script>
+        toastr.info("{!! Session::get('account_updated') !!}");
+    </script>
+@elseif(Session::has('account_deleted'))
+    <script>
+        toastr.error("{!! Session::get('account_deleted') !!}");
+    </script>
+@endif
 
 @yield('custom-script')
 </body>

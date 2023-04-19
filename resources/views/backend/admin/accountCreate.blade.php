@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Assign | IIMMS</title>
+  <title>Create Account | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -101,7 +101,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="" class="nav-link active">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -111,14 +111,14 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -126,7 +126,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('assign.index')}}" class="nav-link active">
+                    <a href="{{route('assign.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Assign Area</p>
                     </a>
@@ -159,16 +159,16 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('condition.index')}}" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Condition</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('task.index')}}" class="nav-link">
-                      <i class="fi fi-rr-circle-dashed mr-1"></i>
-                      <p>Task</p>
-                    </a>
+                      <a href="{{route('condition.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Condition</p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="{{route('task.index')}}" class="nav-link">
+                        <i class="fi fi-rr-circle-dashed mr-1"></i>
+                        <p>Task</p>
+                      </a>
                   </li>
                 </ul>
               </li>
@@ -197,12 +197,12 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Create Assign Area</h3>
-            <p class="text-muted">Assign | Create</p>
+            <h3>Create User Account</h3>
+            <p class="text-muted">User Account | Create</p>
         </div>
 
       
-      <form action="{{route('assign.store')}}" method="post">
+      <form action="{{route('account.store')}}" method="post">
       @csrf
         <div class="row">
             <div class="col-12 col-md-12 mt-4 mb-5">
@@ -215,10 +215,38 @@
                     <div class="card-body p-4">
                     
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control" required>
+                                    <input type="text" name="name" value="{{old('name')}}"  class="form-control" required>
+                                    @if($errors->has('name'))
+                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Email <span class="text-danger">*</span></label>
+                                    <input type="email" name="email" value="{{old('email')}}"  class="form-control" required>
+                                    @if($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Password <span class="text-danger">*</span></label>
+                                    <input type="password" name="password" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">User Type <span class="text-danger">*</span></label>
+                                    <select class="form-control" name="is_admin">
+                                        <option value="" selected disabled>Please select</option>
+                                        <option value="1">Administrator</option>
+                                        <option value="0">Custodian</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

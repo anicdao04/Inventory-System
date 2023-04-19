@@ -99,12 +99,14 @@
             </a>
           </li>
 
+          @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
             <a href="" class="nav-link">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
           </li>
+          @endif
 
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 

@@ -25,6 +25,7 @@ class InventoryController extends Controller
         $this->data['inventories'] = Inventory::where('is_active', '=', '1')->orderBy('item_id', 'asc')->paginate(5);
         return view('backend.admin.inventoryIndex', $this->data);
     }
+
     public function create()
     {
         $this->data['assigns'] = Assign::get();
@@ -139,6 +140,17 @@ class InventoryController extends Controller
         $this->data['result_count'] = Inventory::where('assign_id', '=', $assign_id)->where('designation_id', '=', $designation_id)->count();
         $this->data['items'] = Item::get();
         return view('backend.admin.inventoryQuery', $this->data);
+    }
+
+    public function list()
+    {
+        $this->data['categories'] = Category::get();
+        $this->data['designations'] = Designation::get();
+        $this->data['assigns'] = Assign::get();
+        $this->data['results'] = Inventory::where('is_active', '=', '1')->get();
+        $this->data['result_count'] = Inventory::where('is_active', '=', '1')->count();
+        $this->data['items'] = Item::get();
+        return view('backend.admin.inventoryList', $this->data);
     }
 
 }

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>List of Categories | IIMMS</title>
+  <title>Inventory Search Result | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -19,12 +19,31 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
   <style>
     .content-wrapper .content{
       padding: .5rem 1rem !important;
     }
+
+    /* @media print{@page {size: landscape}} */
+    @media print {@page {size: landscape}
+    .myDivToPrint {
+        background-color: white;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 15px;
+        font-size: 14px;
+        line-height: 18px;
+    }
+}
   </style>
+
+
+</head>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -79,7 +98,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('inventory.index')}}" class="nav-link">
+            <a href="{{route('inventory.index')}}" class="nav-link active">
               <i class="fi fi-rr-edit mr-2"></i>
               <p>Inventory</p>
             </a>
@@ -111,14 +130,14 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -132,7 +151,7 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('category.index')}}" class="nav-link active">
+                    <a href="{{route('category.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Category</p>
                     </a>
@@ -196,58 +215,143 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
-        <div class="mb-3">
-            <h3>List of Categories</h3>
-            <p class="text-muted">Category | List</p>
-        </div>
-
       <div class="row">
         <!-- Info boxes -->
-            <div class="col-12 col-md-3">
+        <div class="col-12 col-md-2">
                 <div class="info-box">
-                    <span class="info-box-icon elevation-1 bg-default"><i class="fi fi-rr-edit"></i></span>
+                    <span class="info-box-icon elevation-1 bg-success"><i class="fi fi-rr-search-alt"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Total No. of Items</span>
+                            <span class="info-box-text">Total No. Query</span>
                             <span class="info-box-number mt-0">
-                            <span>{{$category_count}}</span>
+                            <span>{{$result_count}}</span>
                             </span>
                         </div> 
                 </div> 
             </div> 
 
-            <div class="col-12 col-md-12 mt-4">
+
+            <div class="col-12 col-md-12 mt-4 myDivToPrint">
+              <div class="row mb-4">
+                  <div class="col-1 col-md-1 text-center">
+                    <img src="{{ asset('img/spcc-logo.png') }}" style="opacity: 1; width:80%;">
+                  </div>
+                  <div class="col-11 col-md-11">
+                    <h3 class="mb-0">SYSTEMS PLUS COMPUTER COLLEGE FOUNDATION SAN FERNANDO INC.</h3>
+                    <p class="mb-0">B. Mendoza Street, City of San Fernando, Pampanga</p>
+                    <h5>Inventory Report  (All Items)</h5>
+                  </div>
+              </div>
+                
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">List of Items</h3>
                             <div class="card-tools">                    
-                                {!! $categories->links() !!}
+
                             </div>
                     </div>
 
                     <div class="card-body p-0">
-                    <table class="table">
+                    <table class="table ">
                             <thead>
                                 <tr>
+                                    <th>Item Code</th>
                                     <th>Name</th>
+                                    <th>S.N.</th>
+                                    <th>Color</th>
+                                    <th>Category</th>
+                                    <th>Designation</th>
+                                    <th>Assigned To</th>
+                                    <th>Bundled To</th>
+                                    <th>Description</th>
+                                    <th>Supplier</th>
+                                    <th>Warranty</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $data)
+                                @foreach($results as $result)
                                 <tr>
-                                    <td>{{$data->name}}</td>
-                                <td>
-                                  <a class="btn btn-sm btn-default mr-1" href="{{url('admin/category/modify/'. $data->id)}}">Modify</a>
-                                  <a class="btn btn-sm btn-danger" href="#">Delete</a>
-                                </td>
+                                    <td>{{$result->item_code}}</td>
+                                    @foreach($items as $item)
+                                        @if($item->id == $result->item_id)
+                                            <td>{{$item->name}}</td>
+                                        @endif
+                                    @endforeach
+                                        @if($result->serial_no == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->serial_no}}</td>
+                                        @endif
+
+                                        @if($result->color == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->color}}</td>
+                                        @endif
+                                    
+                                        @foreach($categories as $category)
+                                            @if($category->id == $result->category_id)
+                                              <td>{{$category->name}}</td>
+                                            @endif
+                                        @endforeach
+
+                                        @foreach($designations as $designation)
+                                            @if($designation->id == $result->item_id)
+                                              <td>{{$designation->name}}</td>
+                                            @endif
+                                        @endforeach
+
+                                        @foreach($assigns as $assign)
+                                            @if($assign->id == $result->item_id)
+                                              <td>{{$assign->name}}</td>
+                                            @endif
+                                        @endforeach
+
+                                        @if($result->bundled_to == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->bundled_to}}</td>
+                                        @endif
+
+                                        @if($result->description == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->description}}</td>
+                                        @endif
+
+                                        @if($result->supplier_name == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->supplier_name}}</td>
+                                        @endif
+
+                                        @if($result->warranty == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$result->warranty}}</td>
+                                        @endif
+
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                          <button id="btnGroupDrop1" type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                          <i class="nav-icon fas fa-list mr-1"></i> Select
+                                          </button>
+                                          <div class="dropdown-menu" style="font-size: .875rem !important; min-width: 0px !important" aria-labelledby="btnGroupDrop1">
+                                            <a class="dropdown-item"  href="{{url('admin/inventory/preview/' . $result->id)}}"><i class="fi fi-rr-search mr-1"></i></i> Preview</a>
+                                            <a class="dropdown-item"  href="{{url('admin/inventory/modify/'. $result->id)}}"><i class="fi fi-rr-pencil mr-1"></i> Modify</a>
+                                            <a class="dropdown-item"  href=""><i class="fi fi-rr-trash mr-1"></i> Delete</a>
+                                          </div>
+                                        </div>
+                                    </td>
                                 </tr> 
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
 
                 </div>
-                    <a href="{{route('category.create')}}" class="btn btn-primary">Create</a>
+                    <a href="{{route('admin.dashboard')}}" class="btn btn-secondary">Back</a>
+                    <a href="" class="btn btn-warning print-window">Print</a>
             </div>
 
 
@@ -269,15 +373,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-@if(Session::has('category_created'))
+@if(Session::has('item_created'))
     <script>
-        toastr.success("{!! Session::get('category_created') !!}");
+        toastr.success("{!! Session::get('item_created') !!}");
     </script>
-@elseif(Session::has('category_updated'))
+@elseif(Session::has('item_updated'))
     <script>
-        toastr.info("{!! Session::get('category_updated') !!}");
+        toastr.info("{!! Session::get('item_updated') !!}");
     </script>
 @endif
+
+<script>
+  $('.print-window').click(function() {
+    window.print();
+  });
+</script>
 
 @yield('custom-script')
 </body>

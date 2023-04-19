@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 
+use App\Http\Controllers\AccountController;
+
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AssignController;
 use App\Http\Controllers\DesignationController;
@@ -68,6 +70,7 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('inventory/modify/{id}', [InventoryController::class, 'modify'])->name('inventory.modify');
         Route::get('inventory/update/{id}', [InventoryController::class, 'update'])->name('inventory.update');
         Route::get('inventory/query', [InventoryController::class, 'query'])->name('inventory.query');
+        Route::get('inventory-list', [InventoryController::class, 'list'])->name('inventory.list');
 
         Route::get('assign', [AssignController::class, 'index'])->name('assign.index');
         Route::get('assign/create', [AssignController::class, 'create'])->name('assign.create');
@@ -137,6 +140,13 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/repair/update', [MaintenanceRepairController::class, 'repair_update'])->name('repair.update');
 
         Route::get('record', [RecordController::class, 'index'])->name('record.index');
+
+        Route::get('account', [AccountController::class, 'index'])->name('account.index');
+        Route::get('account/create', [AccountController::class, 'create'])->name('account.create');
+        Route::post('account/store', [AccountController::class, 'store'])->name('account.store');
+        Route::get('account/modify/{id}', [AccountController::class, 'modify'])->name('account.modify');
+        Route::put('account/update/{id}', [AccountController::class, 'update'])->name('account.update');
+        Route::get('account/delete/{id}', [AccountController::class, 'delete'])->name('account.delete');
         
 });
 

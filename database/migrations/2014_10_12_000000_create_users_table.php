@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->boolean('role')->default(0); // (0)=user, (1)=admin
             $table->boolean('status')->default(0); // (0)=not approved, (1)=approved
+            $table->boolean('is_admin')->default(0); // (0)=no, (1)=yes
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

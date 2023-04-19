@@ -24,14 +24,16 @@ class UserSeeder extends Seeder
         $user->email = 'admin@site.com';
         $user->role = '1';
         $user->status = '1';
+        $user->is_admin = '1';
         $user->password = Hash::make('pass12345');
         $user->save();
 
         $user = new User();
         $user->name = 'Custodian';
         $user->email = 'custodian@site.com';
-        $user->role = '0';
+        $user->role = '1';
         $user->status = '1';
+        $user->is_admin = '0';
         $user->password = Hash::make('pass12345');
         $user->save();
     }

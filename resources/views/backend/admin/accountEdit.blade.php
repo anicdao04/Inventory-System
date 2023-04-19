@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Assign | IIMMS</title>
+  <title>Edit Account | IIMMS</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -101,7 +101,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="" class="nav-link active">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -111,14 +111,14 @@
           <div class="user-panel mt-2 mb-2 d-flex"></div>
 
           <!-- Settings -->
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link bg-primary">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
               <i class="fi fi-rr-circle mr-1"></i>
               <p>Settings<i class="right fas "></i></p>
               <i class="right fi fi-rr-angle-small-left"></i>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item menu-open">
+              <li class="nav-item">
                 <a href="{{route('assign.index')}}" class="nav-link">
                   <i class="fi fi-rr-circle mr-1"></i>
                   <p>Inventory</p>
@@ -126,7 +126,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="{{route('assign.index')}}" class="nav-link active">
+                    <a href="{{route('assign.index')}}" class="nav-link">
                       <i class="fi fi-rr-circle-dashed mr-1"></i>
                       <p>Assign Area</p>
                     </a>
@@ -202,8 +202,9 @@
         </div>
 
       
-      <form action="{{route('assign.store')}}" method="post">
-      @csrf
+        <form action="{{url('admin/account/update/'.$account->id)}}" method="post">
+        @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-12 col-md-12 mt-4 mb-5">
                 <div class="card">
@@ -215,10 +216,41 @@
                     <div class="card-body p-4">
                     
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="class">Name <span class="text-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control" required>
+                                    <input type="text" name="name" value="{{$account->name}}" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Email <span class="text-danger">*</span></label>
+                                    <input type="email" name="email" value="{{$account->email}}"  class="form-control" required>
+                                    @if($errors->has('email'))
+                                        <span class="text-danger">{{ $errors->first('email') }}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">Password <span class="text-danger">*</span></label>
+                                    <input type="password" name="password" value="{{$account->password}}"  class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="class">User Level <span class="text-danger">*</span></label>
+                                  
+                                    <select name="is_admin" class="form-control" required>
+                                        @if($account->is_admin == 1)
+                                            <option value="1" selected>Administrator</option>
+                                            <option value="0">Custodian</option>
+                                        @elseif($account->is_admin == 0)
+                                            <option value="0" selected>Custodian</option>
+                                            <option value="1">Administrator</option>
+                                        @endif
+                                    </select>
+                                    
                                 </div>
                             </div>
                         </div>
