@@ -98,7 +98,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('account.index')}}" class="nav-link">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -197,16 +197,16 @@
     <p class="text-center mb-5 text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i> Select the following option to manage record.</p>
       <div class="row">
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner"><h3>{{$schedulelistsCount}}</h3>
-                    <p>Maintenance Status</p>
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner"><h3 class="text-white">{{$schedulelistsCount}}</h3>
+                    <p class="text-white">Maintenance Status</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-info" style="font-size: 50px;"></i></div>
-                <a href="{{route('status.list')}}" class="small-box-footer text-dark">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="{{route('status.list')}}" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
+            <div class="small-box" style="background-color: #cbdcec;">
                 <div class="inner"><h3>{{$replacementlistsCount}}</h3>
                     <p>Replaced Items</p>
                 </div>
@@ -215,16 +215,16 @@
             </div>
         </div>
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
-                <div class="inner"><h3>0</h3>
-                    <p>Unit Transfer</p>
+            <div class="small-box" style="background-color: #3c73a8;">
+                <div class="inner"><h3 class="text-white">{{$transferlistsCount}}</h3>
+                    <p class="text-white">Unit Transfer</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-ftp" style="font-size: 50px;"></i></div>
-                <a href="" class="small-box-footer text-dark">Under Maintenance <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="{{route('transfer.list')}}" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         <div class="col-md-3 col-6">
-            <div class="small-box bg-white">
+            <div class="small-box" style="background-color: #cbdcec;">
                 <div class="inner"><h3>{{$repairlistsCount}}</h3>
                     <p>Request for Repair</p>
                 </div>

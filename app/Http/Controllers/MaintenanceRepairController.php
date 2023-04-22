@@ -36,7 +36,7 @@ class MaintenanceRepairController extends Controller
 
     public function list()
     {
-        $this->data['lists'] = MaintenanceRepair::paginate(10);
+        $this->data['lists'] = MaintenanceRepair::paginate(50);
         $this->data['inventories'] = Inventory::get();
         $this->data['tasks'] = Task::get();
         $this->data['items'] = Item::get();

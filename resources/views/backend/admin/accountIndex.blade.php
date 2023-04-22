@@ -101,7 +101,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link active">
+            <a href="{{route('account.index')}}" class="nav-link active">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>

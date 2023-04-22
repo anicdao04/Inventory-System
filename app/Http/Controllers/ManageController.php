@@ -10,6 +10,7 @@ use App\Models\Designation;
 use App\Models\Category;
 use App\Models\MaintenanceSchedule;
 use App\Models\MaintenanceReplacement;
+use App\Models\MaintenanceTransfer;
 use App\Models\Condition;
 use App\Models\Task;
 
@@ -53,6 +54,7 @@ class ManageController extends Controller
         $assign_id = $_GET['assign_id'];
         $designation_id = $_GET['designation_id'];
         $bundled_to = $_GET['bundled_to'];
+        $date_today = date("Y/m/d");
 
         $data = Inventory::find($id);
         $data->assign_id = $assign_id;
@@ -60,6 +62,13 @@ class ManageController extends Controller
         $data->bundled_to = $bundled_to;
         $data->update();
 
+        $transfer = new MaintenanceTransfer();
+        $transfer->item_id = $id;
+        $transfer->transfered_area = $assign_id;
+        $transfer->transfered_designation = $designation_id;
+        $transfer->bundled_to = $bundled_to;
+        $transfer->transfered_date = $date_today;
+        $transfer->save();
         return redirect()->back()->with('transfer_updated', 'Item has been transfered successfully!');
     }
 

@@ -104,7 +104,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('account.index')}}" class="nav-link">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -236,7 +236,7 @@
                                     <th>Scheduled Date</th>
                                     <th>Assigned Area</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <!-- <th>Action</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -303,9 +303,9 @@
                                         <td><span class="text-success">Completed</span></td>
                                     @endif
                                        
-                                    <td>
+                                    <!-- <td>
                                       <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/status/item/'. $list->id)}}">Manage</a>
-                                    </td>
+                                    </td> -->
                                 </tr> 
                               @endforeach
                             </tbody>

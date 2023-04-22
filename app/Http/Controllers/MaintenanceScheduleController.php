@@ -63,7 +63,7 @@ class MaintenanceScheduleController extends Controller
         $notdue = MaintenanceSchedule::whereDate('date_scheduled', '>', $date_today)->update(['is_overdue' => '2']);
 
         // $this->data['inventories'] = Inventory::where('is_active', '=', '1')->orderBy('item_id', 'asc')->paginate(5);
-        $this->data['lists'] = MaintenanceSchedule::paginate(10);
+        $this->data['lists'] = MaintenanceSchedule::paginate(50);
         $this->data['inventories'] = Inventory::get();
         $this->data['items'] = Item::get();
         $this->data['assigns'] = Assign::get();

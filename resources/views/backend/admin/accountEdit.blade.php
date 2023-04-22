@@ -101,7 +101,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link active">
+            <a href="{{route('account.index')}}" class="nav-link active">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -197,8 +197,8 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-            <h3>Create Assign Area</h3>
-            <p class="text-muted">Assign | Create</p>
+            <h3>Modify User Account</h3>
+            <p class="text-muted">User Account | Modify</p>
         </div>
 
       
@@ -257,8 +257,8 @@
 
                 </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary mr-1">Submit</button>
-                        <button class="btn btn-default">Cancel</button>
+                        <button class="btn btn-primary mr-1">Update</button>
+                        <a class="btn btn-default" href="{{route('account.index')}}">Cancel</a>
                     </div>
             </div>
 

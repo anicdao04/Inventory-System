@@ -236,11 +236,11 @@
         <div class="col-lg-3 col-6">
             <div class="small-box" style="background-color: #f3797e;">
             <!-- <div class="small-box bg-secondary"> -->
-                <div class="inner"><h3 class="text-white">0</h3>
+                <div class="inner"><h3 class="text-white">{{$transferlistsCount}}</h3>
                     <p class="text-white">Unit Transfer</p>
                 </div>
                 <div class="icon p-1"><i class="fi fi-rr-ftp" style="font-size: 50px;"></i></div>
-                <a href="#" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="{{route('transfer.list')}}" class="small-box-footer">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
         
@@ -257,11 +257,11 @@
 
         <div class="col-lg-3 col-6 mt-5">
             <div class="small-box" style="background-color: #1bcfb4;">
-                <div class="inner"><h3 class="text-white">1</h3>
+                <div class="inner"><h3 class="text-white">{{$userCount}}</h3>
                     <p class="text-white">Users</p>
                 </div>
                 <div class="icon p-1" ><i class="fi fi-rr-users-alt" style="font-size: 50px;"></i></div>
-                <a href="{{route('inventory.list')}}" class="small-box-footer text-white">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
+                <a href="{{route('account.index')}}" class="small-box-footer text-white">Explore <i class="fi fi-rr-angle-double-small-right" style="font-size: 12px;"></i></a>
             </div>
         </div>
 

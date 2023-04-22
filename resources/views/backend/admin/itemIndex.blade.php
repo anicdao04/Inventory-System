@@ -101,7 +101,7 @@
 
           @if(auth()->user()->is_admin == 1)
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{route('account.index')}}" class="nav-link">
               <i class="fi fi-rr-users-alt mr-2"></i>
               <p>User Management</p>
             </a>
@@ -238,7 +238,6 @@
                                     <td>{{$data->name}}</td>
                                 <td>
                                   <a class="btn btn-sm btn-default mr-1" href="{{url('admin/item/modify/'. $data->id)}}">Modify</a>
-                                  <a class="btn btn-sm btn-danger" href="#">Delete</a>
                                 </td>
                                 </tr> 
                               @endforeach

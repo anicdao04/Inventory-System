@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Unit Details | IIMMS</title>
+  <title>List of Transfer Requests | IIMMS</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -24,12 +24,10 @@
     .content-wrapper .content{
       padding: .5rem 1rem !important;
     }
-    .form-control{
-        border-radius: 0px !important;
-        background-color: #fff !important;
-        border: 1px solid #f2f2f2;
-    }
   </style>
+
+
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -91,14 +89,14 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('manage.index')}}" class="nav-link active">
+            <a href="{{route('manage.index')}}" class="nav-link">
               <i class="fi fi-rr-layer-plus mr-2"></i>
               <p>Manage</p>
             </a>
           </li>
           
           <li class="nav-item">
-            <a href="{{route('record.index')}}" class="nav-link">
+            <a href="{{route('record.index')}}" class="nav-link active">
               <i class="fi fi-rr-move-to-folder-2 mr-2"></i>
               <p>Records</p>
             </a>
@@ -201,7 +199,8 @@
 <div class="content-wrapper pt-4">
     <div class="container-fluid mt-3 px-5">
         <div class="mb-3">
-                <h3 class="mb-5">Manage Item <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Replaced Item Preview</span></h3>
+                <h3 class="mb-2">Records <i class="fi fi-rr-arrow-circle-right ml-1 mr-1" style="font-size:18px"></i> <span class="text-info">Transfer Requests</span></h3>
+            <p class="text-muted"><i class="fi fi-rr-info mr-1" style="font-size: 14px;"></i>List of Transfer Requests</p>
         </div>
 
       <div class="row">
@@ -218,121 +217,103 @@
                 </div>  -->
             </div> 
 
-           
             <div class="col-12 col-md-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Unit Details</h3>
+                        <h3 class="card-title">List of Items</h3>
+                            <div class="card-tools">                    
+                              {!! $lists->links() !!}
+                            </div>
                     </div>
-
-                    <div class="card-body">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-8 col-md-8 px-3">
-                          
-                          <!-- <h5 class="text-info">Current Location</h5>
-                          <hr> -->
-
-                          <form action="" method="get">
-                          <div class="row"> <!-- start row -->
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label>Item Code</label>
-                                    @foreach($inventories as $list)
-                                      @if($list->id == $item->item_id)
-                                        <input type="text" value="{{$list->item_code}}" class="form-control" disabled>
-                                      @endif
-                                    @endforeach
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label>Serial Number</label>
-                                    @foreach($inventories as $list)
-                                      @if($list->id == $item->item_id)
-                                        @if($list->serial_no == null)
-                                            <input type="text" value="N/A" class="form-control" disabled>
-                                        @else
-                                        <input type="text" value="{{$list->serial_no}}" class="form-control" disabled>
-                                        @endif
-                                      @endif
-                                    @endforeach
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label>Warranty</label>
-                                    @foreach($inventories as $list)
-                                      @if($list->id == $item->item_id)
-                                        <input type="text" value="{{ Carbon\Carbon::parse($list->warranty)->format('F d, Y') }}" class="form-control" disabled>
-                                      @endif
-                                    @endforeach
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label>Designation</label>
-                                    @foreach($inventories as $list)
-                                      @if($list->id == $item->item_id)
-                                        @foreach($designations as $designation)
-                                          @if($designation->id == $list->item_id)
-                                            <input type="text" value="{{$designation->name}}" class="form-control" disabled>
-                                          @endif
-                                        @endforeach
-                                      @endif
-                                    @endforeach
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label>Assigned Area</label>
-                                  @foreach($inventories as $list)
-                                      @if($list->id == $item->item_id)
-                                        @foreach($assigns as $assign)
-                                          @if($assign->id == $list->item_id)
-                                            <input type="text" value="{{$assign->name}}" class="form-control" disabled>
-                                          @endif
-                                        @endforeach
-                                      @endif
-                                    @endforeach
-                                </div>
-                              </div>
-                              <div class="col-md-4">
-                                <div class="form-group">
-                                  <label>Replaced Date</label>
-                                    @foreach($inventories as $list)
-                                      @if($list->id == $item->item_id)
-                                        <input type="text" value="{{ Carbon\Carbon::parse($list->date_created)->format('F d, Y') }}" class="form-control text-danger" disabled>
-                                      @endif
-                                    @endforeach
-                                </div>
-                              </div>
-
-                            </div> <!-- end row -->
-
-                          <!-- <hr> -->
-                          <a href="{{route('replacement.list')}}" class="btn btn-secondary mt-3">Close</a>
-                          <a href="" class="btn btn-warning print-window ml-1 mt-3">Print</a>
-                          </form>
-
-                          </div><!-- end col-8 -->
-
-                          <div class="col-4 col-md-4 px-3"><!-- start col-4 -->
-                              <div class="form-group">
+                    <div class="card-body p-0">
+                    <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Item Code</th>
+                                    <th>Serial Number</th>
+                                    <th>Item Name</th>
+                                    <th>Transfered Area</th>
+                                    <th>Transfered Designation</th>
+                                    <th>Bundled To</th>
+                                    <th>Date Transfered</th>
+                                    <!-- <th>Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                              @foreach($lists as $list)
+                                <tr>
                                     @foreach($inventories as $inventory)
-                                        @if($inventory->id == $item->item_id)
-                                            <img src="{{ asset('uploads/images/inventory/'.$list->image) }}" class="img-fluid img-thumbnail">
+                                      @if($inventory->id == $list->item_id)
+                                        <td>{{$inventory->item_code}}</td>
+                                      @endif
+                                    @endforeach
+
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        @if($inventory->serial_no == null)
+                                          <td>N/A</td>
+                                        @else
+                                          <td>{{$inventory->serial_no}}</td>
                                         @endif
-                                    @endforeach 
-                              </div>
-                          </div> <!-- end col-4 -->
+                                      @endif
+                                    @endforeach
 
-                        </div>
-                      </div>
+                                    @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        @foreach($items as $item)
+                                          @if($item->id == $inventory->item_id)
+                                            <td>{{$item->name}}</td>
+                                          @endif
+                                        @endforeach
+                                      @endif
+                                    @endforeach
+                                    
+                                    <!-- <td>{{$list->transfered_area}}</td> -->
+                                    @foreach($assigns as $assign)
+                                      @if($assign->id == $list->transfered_area)
+                                        <td>{{$assign->name}}</td>
+                                      @endif
+                                    @endforeach
+
+                                    @foreach($designations as $designation)
+                                      @if($designation->id == $list->transfered_designation)
+                                        <td>{{$designation->name}}</td>
+                                      @endif
+                                    @endforeach
+
+                                    <!-- <td>{{$list->transfered_designation}}</td> -->
+
+                                    @if($list->bundled_to == null)
+                                        <td>N/A</td>
+                                    @else
+                                        <td>{{$list->bundled_to}}</td>
+                                    @endif
+
+                                    <!-- @foreach($inventories as $inventory)
+                                      @if($inventory->id == $list->item_id)
+                                        @foreach($assigns as $assign)
+                                          @if($assign->id == $inventory->assign_id)
+                                            <td>{{$assign->name}}</td>
+                                          @endif
+                                        @endforeach
+                                      @endif
+                                    @endforeach -->
+
+                                    <td>{{ Carbon\Carbon::parse($list->date_scheduled)->format('F d, Y') }}</td>
+
+                                       
+                                    <!-- <td>
+                                      <a class="btn btn-sm btn-default mr-1" href="{{url('admin/manage/status/item/'. $list->id)}}">Manage</a>
+                                    </td> -->
+                                </tr> 
+                              @endforeach
+                            </tbody>
+                        </table>
                     </div>
-
+                        
                 </div>
-                    <!-- <a href="" class="btn btn-primary">Create</a> -->
+                    <a href="{{route('record.index')}}" class="btn btn-secondary">Close</a>
+                    <a href="" class="btn btn-warning print-window">Print</a>
             </div>
 
 
@@ -361,10 +342,6 @@
 @elseif(Session::has('status_updated'))
     <script>
         toastr.info("{!! Session::get('status_updated') !!}");
-    </script>
-@elseif(Session::has('schedule_invalid'))
-    <script>
-        toastr.error("{!! Session::get('schedule_invalid') !!}");
     </script>
 @endif
 

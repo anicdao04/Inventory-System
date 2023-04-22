@@ -21,6 +21,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ManageController;
 use App\Http\Controllers\MaintenanceScheduleController;
 use App\Http\Controllers\MaintenanceRepairController;
+use App\Http\Controllers\MaintenanceTransferController;
 
 use App\Models\MaintenanceSchedule;
 use Illuminate\Support\Facades\Auth;
@@ -133,6 +134,8 @@ Route::group(['prefix'=>'admin', 'middleware'=>['isAdmin','auth','PreventBackHis
         Route::get('manage/replacement/update', [ManageController::class, 'replacement_update'])->name('replacement.update');
         Route::get('manage/replacement/list', [ManageController::class, 'replacement_list'])->name('replacement.list');
         Route::get('manage/replacement/preview/{id}', [ManageController::class, 'replacement_preview'])->name('replacement.preview');
+
+        Route::get('manage/transfer/list', [MaintenanceTransferController::class, 'list'])->name('transfer.list');
 
         Route::get('manage/repair/set', [MaintenanceRepairController::class, 'set'])->name('repair.set');
         Route::get('manage/repairs', [MaintenanceRepairController::class, 'list'])->name('repair.list');
